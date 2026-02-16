@@ -84,18 +84,18 @@ export class ErrorHandler {
      * Map HTTP status codes to user messages
      */
     static getMessageForStatusCode(statusCode: number): string {
-        const messages: Record<number, string> = {
-            400: 'Invalid request. Please check your input.',
-            401: 'You are not authorized. Please log in.',
-            403: 'You do not have permission to perform this action.',
-            404: 'The requested resource was not found.',
-            408: 'Request timeout. Please try again.',
-            429: 'Too many requests. Please slow down.',
-            500: 'Server error. Please try again later.',
-            502: 'Bad gateway. Please try again later.',
-            503: 'Service unavailable. Please try again later.',
-        };
+        const messages: Map<number, string> = new Map([
+            [400, 'Invalid request. Please check your input.'],
+            [401, 'You are not authorized. Please log in.'],
+            [403, 'You do not have permission to perform this action.'],
+            [404, 'The requested resource was not found.'],
+            [408, 'Request timeout. Please try again.'],
+            [429, 'Too many requests. Please slow down.'],
+            [500, 'Server error. Please try again later.'],
+            [502, 'Bad gateway. Please try again later.'],
+            [503, 'Service unavailable. Please try again later.'],
+        ]);
 
-        return messages[statusCode] || 'Something went wrong. Please try again.';
+        return messages.get(statusCode) || 'Something went wrong. Please try again.';
     }
 }
