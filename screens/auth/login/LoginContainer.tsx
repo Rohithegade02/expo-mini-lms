@@ -2,7 +2,7 @@ import { ROUTES } from '@/constants/router';
 import { loginSchema } from '@/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'expo-router';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { Alert } from 'react-native';
 import { useAuth } from '../../../hooks/use-auth';
@@ -40,9 +40,9 @@ export const LoginContainer: React.FC = () => {
         }
     };
 
-    const handleRegisterPress = () => {
+    const handleRegisterPress = useCallback(() => {
         router.push(ROUTES.auth.register);
-    };
+    }, [router]);
 
     return (
         <LoginPresentation

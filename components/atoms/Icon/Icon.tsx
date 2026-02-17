@@ -1,7 +1,12 @@
 import { Feather, FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
-import React, { useCallback } from 'react';
+import React, { ComponentProps, useCallback } from 'react';
 import { View } from 'react-native';
 import { IconProps } from './types';
+
+type MaterialIconName = ComponentProps<typeof MaterialIcons>['name'];
+type FontAwesomeIconName = ComponentProps<typeof FontAwesome>['name'];
+type FeatherIconName = ComponentProps<typeof Feather>['name'];
+type IoniconsIconName = ComponentProps<typeof Ionicons>['name'];
 
 
 export const Icon: React.FC<IconProps> = ({
@@ -14,14 +19,14 @@ export const Icon: React.FC<IconProps> = ({
     const renderIcon = useCallback(() => {
         switch (library) {
             case 'material':
-                return <MaterialIcons name={name as any} size={size} color={color} />;
+                return <MaterialIcons name={name as MaterialIconName} size={size} color={color} />;
             case 'fontawesome':
-                return <FontAwesome name={name as any} size={size} color={color} />;
+                return <FontAwesome name={name as FontAwesomeIconName} size={size} color={color} />;
             case 'feather':
-                return <Feather name={name as any} size={size} color={color} />;
+                return <Feather name={name as FeatherIconName} size={size} color={color} />;
             case 'ionicons':
             default:
-                return <Ionicons name={name as any} size={size} color={color} />;
+                return <Ionicons name={name as IoniconsIconName} size={size} color={color} />;
         }
     }, [name, size, color, library]);
 
