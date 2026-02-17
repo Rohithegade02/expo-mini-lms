@@ -10,14 +10,16 @@ export interface User {
 }
 
 export interface LoginCredentials {
-    email: string;
+    username: string;
     password: string;
+    email?: string;
 }
 
 export interface RegisterData {
     username: string;
     email: string;
     password: string;
+    role: 'ADMIN' | 'USER';
 }
 
 export interface AuthResponse {

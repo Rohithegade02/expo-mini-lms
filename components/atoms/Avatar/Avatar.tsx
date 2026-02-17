@@ -21,18 +21,30 @@ export const Avatar: React.FC<AvatarProps> = memo(({
         return fullName[0].toUpperCase();
     }, [name]);
 
+    const sizeValue = useMemo<number>(() => {
+        if (typeof size === 'number') return size;
+        if (!size) return 40;
+        const sizeMap = new Map<string, number>([
+            ['sm', 32],
+            ['md', 48],
+            ['lg', 64],
+            ['xl', 80],
+        ]);
+        return sizeMap.get(size) || 40;
+    }, [size]);
+
     const initials = getInitials(name);
 
     return (
         <View
             className={`rounded-full overflow-hidden items-center justify-center bg-gray-300 ${className}`}
-            style={{ width: size, height: size }}
+            style={{ width: sizeValue, height: sizeValue }}
             {...props}
         >
             {source ? (
                 <Image
                     source={{ uri: source }}
-                    style={{ width: size, height: size }}
+                    style={{ width: sizeValue, height: sizeValue }}
                     contentFit="cover"
                     transition={200}
                 />

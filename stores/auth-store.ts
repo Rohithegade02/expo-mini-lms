@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
+import { authApi } from '../lib/api/auth';
 import { storage } from '../lib/storage/mmkv-storage';
 import * as secureStorage from '../lib/storage/secure-storage';
-import type { AuthState, User } from '../types/auth';
+import type { AuthState, LoginCredentials, RegisterData, User } from '../types/auth';
 
 interface AuthActions {
     setUser: (user: User | null) => void;
@@ -10,8 +11,11 @@ interface AuthActions {
     setLoading: (loading: boolean) => void;
     setError: (error: string | null) => void;
     clearError: () => void;
+    login: (credentials: LoginCredentials) => Promise<void>;
+    register: (data: RegisterData) => Promise<void>;
     logout: () => Promise<void>;
     loadUser: () => Promise<void>;
+    refreshProfile: () => Promise<void>;
 }
 
 type AuthStore = AuthState & AuthActions;
@@ -37,7 +41,7 @@ export const useAuthStore = create<AuthStore>()(
             user: null,
             token: null,
             refreshToken: null,
-            isLoading: false,
+            isLoading: true,
             error: null,
             isAuthenticated: false,
 
@@ -57,6 +61,43 @@ export const useAuthStore = create<AuthStore>()(
                 }
             },
 
+            login: async (credentials) => {
+                try {
+                    set({ isLoading: true, error: null });
+                    const response = await authApi.login(credentials);
+                    const { user, accessToken, refreshToken } = response.data;
+
+                    set({
+                        user,
+                        token: accessToken,
+                        refreshToken,
+                        isAuthenticated: true
+                    });
+
+                    await secureStorage.saveTokens(accessToken, refreshToken);
+                } catch (error: unknown) {
+                    const message = error instanceof Error ? error.message : 'Login failed';
+                    set({ error: message });
+                    throw error;
+                } finally {
+                    set({ isLoading: false });
+                }
+            },
+
+            register: async (data) => {
+                try {
+                    set({ isLoading: true, error: null });
+                    await authApi.register(data);
+                    // After registration, user needs to login
+                } catch (error: unknown) {
+                    const message = error instanceof Error ? error.message : 'Registration failed';
+                    set({ error: message });
+                    throw error;
+                } finally {
+                    set({ isLoading: false });
+                }
+            },
+
             setLoading: (loading) => {
                 set({ isLoading: loading });
             },
@@ -70,17 +111,21 @@ export const useAuthStore = create<AuthStore>()(
             },
 
             logout: async () => {
-                // Clear tokens from secure storage
-                await secureStorage.clearTokens();
-
-                // Reset state
-                set({
-                    user: null,
-                    token: null,
-                    refreshToken: null,
-                    isAuthenticated: false,
-                    error: null,
-                });
+                try {
+                    set({ isLoading: true });
+                    // Try to call logout API, but clear local regardless
+                    await authApi.logout().catch(() => { });
+                } finally {
+                    await secureStorage.clearTokens();
+                    set({
+                        user: null,
+                        token: null,
+                        refreshToken: null,
+                        isAuthenticated: false,
+                        error: null,
+                        isLoading: false,
+                    });
+                }
             },
 
             loadUser: async () => {
@@ -97,10 +142,41 @@ export const useAuthStore = create<AuthStore>()(
                             refreshToken,
                             isAuthenticated: true
                         });
+
+                        // Optionally refresh user data
+                        const response = await authApi.getCurrentUser();
+                        set({ user: response.data });
+                    } else {
+                        // No tokens found, user is not authenticated
+                        set({
+                            isAuthenticated: false,
+                            user: null,
+                            token: null,
+                            refreshToken: null
+                        });
                     }
                 } catch (error) {
                     console.error('Error loading user:', error);
-                    set({ error: 'Failed to load user session' });
+                    // Clear auth state on error
+                    set({
+                        isAuthenticated: false,
+                        user: null,
+                        token: null,
+                        refreshToken: null
+                    });
+                } finally {
+                    set({ isLoading: false });
+                }
+            },
+
+            refreshProfile: async () => {
+                try {
+                    set({ isLoading: true });
+                    const response = await authApi.getCurrentUser();
+                    set({ user: response.data });
+                } catch (error: unknown) {
+                    const message = error instanceof Error ? error.message : 'Failed to refresh profile';
+                    set({ error: message });
                 } finally {
                     set({ isLoading: false });
                 }
