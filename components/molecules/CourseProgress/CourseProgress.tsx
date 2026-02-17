@@ -1,10 +1,7 @@
 import { Text } from '@/components/atoms';
 import React, { memo } from 'react';
 import { View } from 'react-native';
-
-export interface CourseProgressProps {
-    progress: number;
-}
+import { CourseProgressProps } from './types';
 
 export const CourseProgress: React.FC<CourseProgressProps> = memo(({ progress }) => {
     return (

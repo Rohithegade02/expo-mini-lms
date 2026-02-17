@@ -2,13 +2,7 @@ import { Icon, Text } from '@/components/atoms';
 import { Image } from 'expo-image';
 import React, { memo } from 'react';
 import { Pressable, View } from 'react-native';
-
-export interface CourseThumbnailProps {
-    thumbnail: string;
-    category: string;
-    isBookmarked: boolean;
-    onToggleBookmark: () => void;
-}
+import { CourseThumbnailProps } from './types';
 
 export const CourseThumbnail: React.FC<CourseThumbnailProps> = memo(
     ({ thumbnail, category, isBookmarked, onToggleBookmark }) => {

@@ -3,6 +3,7 @@ import React from 'react';
 import { FallbackProps, ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ErrorBoundaryProps } from './types';
 
 /**
  * Fallback UI to be displayed when a crash occurs
@@ -38,14 +39,10 @@ const ErrorFallback: React.FC<FallbackProps> = ({ error, resetErrorBoundary }) =
     );
 };
 
-interface Props {
-    children: React.ReactNode;
-}
-
 /**
  * Functional ErrorBoundary component using react-error-boundary
  */
-export const ErrorBoundary: React.FC<Props> = ({ children }) => {
+export const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
     return (
         <ReactErrorBoundary
             FallbackComponent={ErrorFallback}

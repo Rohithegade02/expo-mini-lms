@@ -3,8 +3,9 @@ import * as Network from 'expo-network';
 import React, { memo, useEffect, useState } from 'react';
 import { Animated, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { OfflineBannerProps } from './types';
 
-export const OfflineBanner: React.FC = memo(() => {
+export const OfflineBanner: React.FC<OfflineBannerProps> = memo(() => {
     const [isOffline, setIsOffline] = useState(false);
     const translateY = React.useRef(new Animated.Value(-100)).current;
     const { top } = useSafeAreaInsets();

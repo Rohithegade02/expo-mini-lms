@@ -1,13 +1,7 @@
 import { Avatar, Icon, Text } from '@/components/atoms';
-import { Course } from '@/types/course';
 import React, { memo } from 'react';
 import { View } from 'react-native';
-
-export interface CourseInstructorProps {
-    instructor: Course['instructor'];
-    rating: number;
-    isEnrolled: boolean;
-}
+import { CourseInstructorProps } from './types';
 
 export const CourseInstructor: React.FC<CourseInstructorProps> = memo(
     ({ instructor, rating, isEnrolled }) => {

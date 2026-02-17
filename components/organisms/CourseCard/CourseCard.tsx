@@ -5,15 +5,9 @@ import {
     CourseProgress,
     CourseThumbnail
 } from '@/components/molecules';
-import { Course } from '@/types/course';
 import React, { memo, useCallback } from 'react';
 import { Pressable, View } from 'react-native';
-
-interface CourseCardProps {
-    course: Course;
-    onPress: (id: string) => void;
-    onToggleBookmark: (id: string) => void;
-}
+import { CourseCardProps } from './types';
 
 export const CourseCard: React.FC<CourseCardProps> = memo(
     ({ course, onPress, onToggleBookmark }) => {

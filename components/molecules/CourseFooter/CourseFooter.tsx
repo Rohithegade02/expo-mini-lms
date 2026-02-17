@@ -1,10 +1,7 @@
 import { Text } from '@/components/atoms';
 import React, { memo } from 'react';
 import { View } from 'react-native';
-
-export interface CourseFooterProps {
-    price: number;
-}
+import { CourseFooterProps } from './types';
 
 export const CourseFooter: React.FC<CourseFooterProps> = memo(({ price }) => {
     return (
