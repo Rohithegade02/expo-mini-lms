@@ -1,37 +1,16 @@
-import { Icon } from '@/components/atoms';
-import { Tabs } from 'expo-router';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Icon, NativeTabs, VectorIcon } from 'expo-router/unstable-native-tabs';
 import React from 'react';
 
 export default function TabLayout() {
     return (
-        <Tabs
-            screenOptions={{
-                tabBarActiveTintColor: '#2563eb',
-                tabBarInactiveTintColor: '#9ca3af',
-                tabBarStyle: {
-                    borderTopWidth: 1,
-                    borderTopColor: '#e5e7eb',
-                    // height: 60,
-                    // paddingBottom: 8,
-                    // paddingTop: 8,
-                },
-                headerShown: false,
-            }}
-        >
-            <Tabs.Screen
-                name="courses"
-                options={{
-                    title: 'Courses',
-                    tabBarIcon: ({ color }) => <Icon name="book-outline" color={color} size={24} />,
-                }}
-            />
-            <Tabs.Screen
-                name="profile"
-                options={{
-                    title: 'Profile',
-                    tabBarIcon: ({ color }) => <Icon name="person-outline" color={color} size={24} />,
-                }}
-            />
-        </Tabs>
+        <NativeTabs minimizeBehavior="onScrollDown">
+            <NativeTabs.Trigger name="courses">
+                <Icon src={<VectorIcon family={MaterialCommunityIcons} name="book-outline" />} />
+            </NativeTabs.Trigger>
+            <NativeTabs.Trigger name="profile">
+                <Icon src={<VectorIcon family={MaterialCommunityIcons} name="account" />} />
+            </NativeTabs.Trigger>
+        </NativeTabs>
     );
 }
