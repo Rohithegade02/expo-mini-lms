@@ -15,6 +15,12 @@ interface UseImagePickerResult {
     isLoading: boolean;
 }
 
+/**
+ * A custom hook to pick an image from the media library
+ * @param options 
+ * @returns 
+ */
+
 export const useImagePicker = (options: UseImagePickerOptions = {}): UseImagePickerResult => {
     const [image, setImage] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
