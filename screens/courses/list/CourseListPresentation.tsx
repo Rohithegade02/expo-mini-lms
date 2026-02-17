@@ -96,6 +96,7 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
                 ListHeaderComponent={ListHeader}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ padding: 16 }}
+                ListHeaderComponentStyle={{ marginBottom: 16 }}
                 refreshControl={
                     <RefreshControl refreshing={isLoading} onRefresh={onRefresh} tintColor="#2563eb" />
                 }

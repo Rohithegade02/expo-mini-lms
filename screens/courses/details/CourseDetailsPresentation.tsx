@@ -18,7 +18,6 @@ export const CourseDetailsPresentation: React.FC<CourseDetailsPresentationProps>
     onViewContent,
 }) => {
 
-    console.log(course);
 
     const features = useMemo(() => ([
         { id: '1', icon: 'play-circle-outline', label: '12 Lessons' },
