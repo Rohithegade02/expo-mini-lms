@@ -88,7 +88,7 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
     }
 
     return (
-        <View className={`flex-1 `} style={{ paddingTop: top }}>
+        <View className='flex-1' style={{ paddingTop: top }}>
             <LegendList
                 data={courses}
                 renderItem={renderItem}
