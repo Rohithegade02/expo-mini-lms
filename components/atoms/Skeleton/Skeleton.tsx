@@ -1,13 +1,7 @@
 import clsx from 'clsx';
 import React, { useEffect, useRef } from 'react';
-import { Animated, DimensionValue } from 'react-native';
-
-interface SkeletonProps {
-    width?: DimensionValue;
-    height?: DimensionValue;
-    borderRadius?: number;
-    className?: string;
-}
+import { Animated } from 'react-native';
+import { SkeletonProps } from './types';
 
 export const Skeleton: React.FC<SkeletonProps> = ({
     width = '100%',
