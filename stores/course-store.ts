@@ -1,3 +1,4 @@
+import { notificationService } from '@/lib/notifications/notification-service';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import * as mmkvStorage from '../lib/storage/mmkv-storage';
@@ -105,6 +106,15 @@ export const useCourseStore = create<CourseStore>()(
                 );
 
                 set({ bookmarks: newBookmarks, courses: updatedCourses });
+
+                // Phase 5: Trigger notification for learning goal (5 bookmarks)
+                if (newBookmarks.length === 5 && !isBookmarked) {
+                    notificationService.scheduleNotification(
+                        "Learning Goal Reached! 🚀",
+                        "You've bookmarked 5 courses! Ready to start one of them?",
+                        { type: 'bookmarks' }
+                    );
+                }
             },
 
             toggleEnrollment: (courseId) => {

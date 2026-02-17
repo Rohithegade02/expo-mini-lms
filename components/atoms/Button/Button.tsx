@@ -2,6 +2,7 @@ import * as Haptics from 'expo-haptics';
 import React from 'react';
 import {
     ActivityIndicator,
+    GestureResponderEvent,
     Pressable,
     View
 } from 'react-native';
@@ -42,7 +43,7 @@ export const Button: React.FC<ButtonProps> = ({
     onPress,
     ...props
 }) => {
-    const handlePress = (e: any) => {
+    const handlePress = (e: GestureResponderEvent) => {
         if (isLoading || disabled) return;
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         onPress?.(e);
@@ -56,7 +57,6 @@ export const Button: React.FC<ButtonProps> = ({
             className={containerClass}
             onPress={handlePress}
             disabled={disabled || isLoading}
-            activeOpacity={0.8}
             {...props}
         >
             {isLoading ? (

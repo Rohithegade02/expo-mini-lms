@@ -6,7 +6,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Alert, Pressable, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { WebView } from 'react-native-webview';
+import { WebView, WebViewMessageEvent } from 'react-native-webview';
 
 export default function CourseContentViewer() {
     const { id } = useLocalSearchParams<{ id: string }>();
@@ -27,7 +27,7 @@ export default function CourseContentViewer() {
         loadAsset();
     }, []);
 
-    const onMessage = useCallback((event: any) => {
+    const onMessage = useCallback((event: WebViewMessageEvent) => {
         try {
             const data = JSON.parse(event.nativeEvent.data);
             if (data.type === 'LESSON_CLICK') {
