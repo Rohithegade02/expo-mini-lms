@@ -19,7 +19,6 @@ export const BookmarkButton: React.FC<BookmarkButtonProps> = memo(({
             Animated.timing(scaleValue, {
                 toValue: 0.8,
                 duration: 100,
-                // useNativeDriver: true, // TouchableOpacity animations are not native draggable? wait, Animated.value is fine.
                 useNativeDriver: true,
             }),
             Animated.timing(scaleValue, {
