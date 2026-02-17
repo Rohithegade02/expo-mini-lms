@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { APIError, AuthError, ErrorHandler, NetworkError } from '../errors/error-handler';
-import * as secureStorage from '../storage/secure-storage';
+import * as authStorage from '../storage/auth.storage';
 
 const API_BASE_URL = process.env.API_BASE_URL || 'https://api.freeapi.app/api/v1';
 const REQUEST_TIMEOUT = 30000; // 30 seconds
@@ -35,7 +35,7 @@ class APIClient {
         // Request interceptor - inject auth token
         this.client.interceptors.request.use(
             async (config: InternalAxiosRequestConfig) => {
-                const token = await secureStorage.getAccessToken();
+                const token = await authStorage.getAccessToken();
                 if (token && config.headers) {
                     config.headers.Authorization = `Bearer ${token}`;
                 }
@@ -67,7 +67,8 @@ class APIClient {
     private async handleResponseError(error: AxiosError): Promise<any> {
         const config = error.config;
         if (!config) {
-            return Promise.reject(new NetworkError('Request configuration is missing'));
+            // Cannot retry or analyze request key without config
+            return Promise.reject(error);
         }
 
         const requestKey = this.getRequestKey(config);
@@ -134,7 +135,7 @@ class APIClient {
 
     private async refreshToken(): Promise<boolean> {
         try {
-            const refreshToken = await secureStorage.getRefreshToken();
+            const refreshToken = await authStorage.getRefreshToken();
             if (!refreshToken) {
                 return false;
             }
@@ -144,10 +145,10 @@ class APIClient {
             });
 
             const { accessToken, refreshToken: newRefreshToken } = response.data.data;
-            await secureStorage.saveTokens(accessToken, newRefreshToken);
+            await authStorage.saveTokens(accessToken, newRefreshToken);
             return true;
         } catch (error) {
-            await secureStorage.clearTokens();
+            await authStorage.clearTokens();
             return false;
         }
     }

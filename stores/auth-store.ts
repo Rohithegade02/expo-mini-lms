@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { authApi } from '../lib/api/auth';
-import { storage } from '../lib/storage/mmkv-storage';
-import * as secureStorage from '../lib/storage/secure-storage';
+import * as authStorage from '../lib/storage/auth.storage';
+import { zustandStorage } from '../lib/storage/mmkv';
 import type { AuthState, LoginCredentials, RegisterData, User } from '../types/auth';
 
 interface AuthActions {
@@ -19,20 +19,6 @@ interface AuthActions {
 }
 
 type AuthStore = AuthState & AuthActions;
-
-// MMKV storage adapter for Zustand
-const mmkvStorage = {
-    getItem: (name: string) => {
-        const value = storage.getString(name);
-        return value ?? null;
-    },
-    setItem: (name: string, value: string) => {
-        storage.set(name, value);
-    },
-    removeItem: (name: string) => {
-        storage.remove(name);
-    },
-};
 
 export const useAuthStore = create<AuthStore>()(
     persist(
@@ -55,9 +41,9 @@ export const useAuthStore = create<AuthStore>()(
 
                 // Save tokens to secure storage
                 if (token && refreshToken) {
-                    await secureStorage.saveTokens(token, refreshToken);
+                    await authStorage.saveTokens(token, refreshToken);
                 } else {
-                    await secureStorage.clearTokens();
+                    await authStorage.clearTokens();
                 }
             },
 
@@ -74,7 +60,7 @@ export const useAuthStore = create<AuthStore>()(
                         isAuthenticated: true
                     });
 
-                    await secureStorage.saveTokens(accessToken, refreshToken);
+                    await authStorage.saveTokens(accessToken, refreshToken);
                 } catch (error: unknown) {
                     const message = error instanceof Error ? error.message : 'Login failed';
                     set({ error: message });
@@ -116,7 +102,7 @@ export const useAuthStore = create<AuthStore>()(
                     // Try to call logout API, but clear local regardless
                     await authApi.logout().catch(() => { });
                 } finally {
-                    await secureStorage.clearTokens();
+                    await authStorage.clearTokens();
                     set({
                         user: null,
                         token: null,
@@ -133,8 +119,8 @@ export const useAuthStore = create<AuthStore>()(
                     set({ isLoading: true });
 
                     // Load tokens from secure storage
-                    const token = await secureStorage.getAccessToken();
-                    const refreshToken = await secureStorage.getRefreshToken();
+                    const token = await authStorage.getAccessToken();
+                    const refreshToken = await authStorage.getRefreshToken();
 
                     if (token && refreshToken) {
                         set({
@@ -184,7 +170,7 @@ export const useAuthStore = create<AuthStore>()(
         }),
         {
             name: 'auth-storage',
-            storage: createJSONStorage(() => mmkvStorage),
+            storage: createJSONStorage(() => zustandStorage),
             // Only persist user data, not tokens (tokens are in SecureStore)
             partialize: (state) => ({
                 user: state.user,

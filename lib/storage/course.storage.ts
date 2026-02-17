@@ -1,18 +1,14 @@
-import { createMMKV } from 'react-native-mmkv';
+import { storage } from '@/lib/storage/mmkv';
+
 // Storage keys
-export enum MMKVStorageKeys {
+export enum CourseStorageKeys {
     BOOKMARKS = 'bookmarks',
     ENROLLED_COURSES = 'enrolled_courses',
     COURSE_PROGRESS = 'course_progress',
-    USER_PREFERENCES = 'user_preferences',
-    LAST_APP_OPEN = 'last_app_open',
 }
 
-// Initialize MMKV instance
-export const storage = createMMKV();
-
 // Generic get/set helpers
-export const setItem = <T>(key: MMKVStorageKeys, value: T): void => {
+const setItem = <T>(key: CourseStorageKeys, value: T): void => {
     try {
         const jsonValue = JSON.stringify(value);
         storage.set(key, jsonValue);
@@ -21,7 +17,7 @@ export const setItem = <T>(key: MMKVStorageKeys, value: T): void => {
     }
 };
 
-export const getItem = <T>(key: MMKVStorageKeys): T | null => {
+const getItem = <T>(key: CourseStorageKeys): T | null => {
     try {
         const jsonValue = storage.getString(key);
         return jsonValue ? JSON.parse(jsonValue) : null;
@@ -31,29 +27,13 @@ export const getItem = <T>(key: MMKVStorageKeys): T | null => {
     }
 };
 
-export const deleteItem = (key: MMKVStorageKeys): void => {
-    try {
-        storage.remove(key);
-    } catch (error) {
-        console.error(`Error deleting from MMKV (${key}):`, error);
-    }
-};
-
-export const clearAll = (): void => {
-    try {
-        storage.clearAll();
-    } catch (error) {
-        console.error('Error clearing MMKV storage:', error);
-    }
-};
-
 // Bookmark methods
 export const getBookmarks = (): string[] => {
-    return getItem<string[]>(MMKVStorageKeys.BOOKMARKS) || [];
+    return getItem<string[]>(CourseStorageKeys.BOOKMARKS) || [];
 };
 
 export const setBookmarks = (bookmarks: string[]): void => {
-    setItem(MMKVStorageKeys.BOOKMARKS, bookmarks);
+    setItem(CourseStorageKeys.BOOKMARKS, bookmarks);
 };
 
 export const addBookmark = (courseId: string): void => {
@@ -74,11 +54,11 @@ export const isBookmarked = (courseId: string): boolean => {
 
 // Enrolled courses methods
 export const getEnrolledCourses = (): string[] => {
-    return getItem<string[]>(MMKVStorageKeys.ENROLLED_COURSES) || [];
+    return getItem<string[]>(CourseStorageKeys.ENROLLED_COURSES) || [];
 };
 
 export const setEnrolledCourses = (courses: string[]): void => {
-    setItem(MMKVStorageKeys.ENROLLED_COURSES, courses);
+    setItem(CourseStorageKeys.ENROLLED_COURSES, courses);
 };
 
 export const enrollCourse = (courseId: string): void => {
@@ -99,31 +79,12 @@ export const isEnrolled = (courseId: string): boolean => {
 
 // Course progress methods
 export const getCourseProgress = (courseId: string): number => {
-    const allProgress = getItem<Record<string, number>>(MMKVStorageKeys.COURSE_PROGRESS) || {};
+    const allProgress = getItem<Record<string, number>>(CourseStorageKeys.COURSE_PROGRESS) || {};
     return allProgress[courseId] || 0;
 };
 
 export const setCourseProgress = (courseId: string, progress: number): void => {
-    const allProgress = getItem<Record<string, number>>(MMKVStorageKeys.COURSE_PROGRESS) || {};
+    const allProgress = getItem<Record<string, number>>(CourseStorageKeys.COURSE_PROGRESS) || {};
     allProgress[courseId] = progress;
-    setItem(MMKVStorageKeys.COURSE_PROGRESS, allProgress);
-};
-
-// Last app open timestamp
-export const setLastAppOpen = (timestamp: number): void => {
-    setItem(MMKVStorageKeys.LAST_APP_OPEN, timestamp);
-};
-
-// Zustand storage adapter
-export const zustandStorage = {
-    getItem: (name: string): string | null => {
-        const value = storage.getString(name);
-        return value ?? null;
-    },
-    setItem: (name: string, value: string): void => {
-        storage.set(name, value);
-    },
-    removeItem: (name: string): void => {
-        storage.remove(name);
-    },
+    setItem(CourseStorageKeys.COURSE_PROGRESS, allProgress);
 };

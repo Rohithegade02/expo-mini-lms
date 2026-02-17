@@ -1,8 +1,8 @@
 import { notificationService } from '@/lib/notifications/notification-service';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import * as mmkvStorage from '../lib/storage/mmkv-storage';
-import { zustandStorage } from '../lib/storage/mmkv-storage';
+import * as courseStorage from '../lib/storage/course.storage';
+import { zustandStorage } from '../lib/storage/mmkv';
 import type { Course, CourseState } from '../types/course';
 
 interface CourseActions {
@@ -39,7 +39,7 @@ export const useCourseStore = create<CourseStore>()(
                     ...course,
                     isBookmarked: bookmarks.includes(course.id),
                     isEnrolled: enrolledCourses.includes(course.id),
-                    progress: mmkvStorage.getCourseProgress(course.id),
+                    progress: courseStorage.getCourseProgress(course.id),
                 }));
 
                 set({ courses: updatedCourses });
@@ -78,10 +78,10 @@ export const useCourseStore = create<CourseStore>()(
                 let newBookmarks: string[];
                 if (isBookmarked) {
                     newBookmarks = bookmarks.filter((id) => id !== courseId);
-                    mmkvStorage.removeBookmark(courseId);
+                    courseStorage.removeBookmark(courseId);
                 } else {
                     newBookmarks = [...bookmarks, courseId];
-                    mmkvStorage.addBookmark(courseId);
+                    courseStorage.addBookmark(courseId);
                 }
 
                 // Update courses
@@ -110,10 +110,10 @@ export const useCourseStore = create<CourseStore>()(
                 let newEnrolledCourses: string[];
                 if (isEnrolled) {
                     newEnrolledCourses = enrolledCourses.filter((id) => id !== courseId);
-                    mmkvStorage.unenrollCourse(courseId);
+                    courseStorage.unenrollCourse(courseId);
                 } else {
                     newEnrolledCourses = [...enrolledCourses, courseId];
-                    mmkvStorage.enrollCourse(courseId);
+                    courseStorage.enrollCourse(courseId);
                 }
 
                 // Update courses
@@ -130,7 +130,7 @@ export const useCourseStore = create<CourseStore>()(
                 const { courses } = get();
 
                 // Save to MMKV
-                mmkvStorage.setCourseProgress(courseId, progress);
+                courseStorage.setCourseProgress(courseId, progress);
 
                 // Update courses
                 const updatedCourses = courses.map((course) =>
