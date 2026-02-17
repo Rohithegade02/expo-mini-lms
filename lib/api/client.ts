@@ -121,7 +121,14 @@ class APIClient {
         this.retryCount.delete(requestKey);
 
         // Create API error with message from response
-        const message = data?.message || ErrorHandler.getMessageForStatusCode(status);
+        let message = data?.message || ErrorHandler.getMessageForStatusCode(status);
+
+        if (status === 404 && !data?.message) {
+            message = "The requested resource was not found.";
+        } else if (status >= 500 && !data?.message) {
+            message = "Server is currently unavailable. Please try again later.";
+        }
+
         return Promise.reject(new APIError(message, status, data?.errors));
     }
 
