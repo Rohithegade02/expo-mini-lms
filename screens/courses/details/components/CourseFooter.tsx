@@ -1,0 +1,42 @@
+import { Button, Text } from '@/components/atoms';
+import React, { memo } from 'react';
+import { View } from 'react-native';
+
+interface CourseFooterProps {
+    price: number;
+    isEnrolled: boolean;
+    isLoading: boolean;
+    onEnroll: () => void;
+    onViewContent: () => void;
+}
+
+export const CourseFooter = memo(({
+    price,
+    isEnrolled,
+    isLoading,
+    onEnroll,
+    onViewContent,
+}: CourseFooterProps) => (
+    <View className="px-6 pt-6 pb-10 border-t border-gray-200 mt-6 bg-white">
+
+        <View className="mb-4">
+            <Text className="text-gray-400 text-xs font-semibold uppercase mb-1">
+                Price
+            </Text>
+
+            <Text className="text-3xl font-bold text-blue-600">
+                ${price.toFixed(2)}
+            </Text>
+        </View>
+
+        <Button
+            label={isEnrolled ? 'View Content' : 'Enroll Now'}
+            onPress={isEnrolled ? onViewContent : onEnroll}
+            isLoading={isLoading}
+            className="rounded-xl"
+            variant="primary"
+        />
+    </View>
+));
+
+CourseFooter.displayName = 'CourseFooter';

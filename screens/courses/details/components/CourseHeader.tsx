@@ -1,0 +1,77 @@
+import { Avatar, Icon, Text } from '@/components/atoms';
+import { Course } from '@/types/course';
+import { Image } from 'expo-image';
+import React, { memo } from 'react';
+import { View } from 'react-native';
+
+interface CourseHeaderProps {
+    course: Course;
+}
+
+export const CourseHeader = memo(({ course }: CourseHeaderProps) => {
+    return (
+        <View>
+            <Image
+                source={{ uri: course.thumbnail }}
+                className="w-full h-56"
+                contentFit="cover"
+                transition={200}
+            />
+
+            <View className="px-6 pt-6 pb-4">
+
+                {/* Category + Rating */}
+                <View className="flex-row items-center justify-between mb-3">
+                    <View className="bg-blue-50 px-3 py-1 rounded-full">
+                        <Text className="text-blue-600 text-xs font-semibold uppercase tracking-wide">
+                            {course.category}
+                        </Text>
+                    </View>
+
+                    <View className="flex-row items-center">
+                        <Icon name="star" size={16} color="#f59e0b" />
+                        <Text className="ml-1 text-gray-800 font-semibold">
+                            {course.rating.toFixed(1)}
+                        </Text>
+                    </View>
+                </View>
+
+                {/* Title */}
+                <Text variant="h1" className="text-gray-900 leading-tight mb-4">
+                    {course.title}
+                </Text>
+
+                {/* Instructor */}
+                <View className="bg-gray-100 px-4 py-3 rounded-xl flex-row items-center mb-6">
+                    <Avatar
+                        source={course.instructor.avatar}
+                        size="md"
+                        name={course.instructor.name.first}
+                    />
+                    <View className="ml-3">
+                        <Text className="text-gray-400 text-[10px] font-semibold uppercase">
+                            Instructor
+                        </Text>
+                        <Text className="text-gray-900 font-semibold">
+                            {course.instructor.name.first} {course.instructor.name.last}
+                        </Text>
+                    </View>
+                </View>
+
+                {/* Description */}
+                <Text className="text-gray-900 font-semibold text-lg mb-2">
+                    About this course
+                </Text>
+                <Text className="text-gray-600 text-sm leading-5 mb-6">
+                    {course.description}
+                </Text>
+
+                <Text className="text-gray-900 font-semibold text-lg">
+                    What you'll get
+                </Text>
+            </View>
+        </View>
+    );
+});
+
+CourseHeader.displayName = 'CourseHeader';
