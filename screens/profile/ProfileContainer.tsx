@@ -1,8 +1,8 @@
-import * as ImagePicker from 'expo-image-picker';
+import { useImagePicker } from '@/hooks/use-image-picker';
+import { authApi } from '@/lib/api/auth';
+import { useAuthStore } from '@/stores/auth-store';
 import React, { memo, useCallback } from 'react';
 import { Alert } from 'react-native';
-import { authApi } from '../../lib/api/auth';
-import { useAuthStore } from '../../stores/auth-store';
 import { ProfilePresentation } from './ProfilePresentation';
 
 export const ProfileContainer: React.FC = memo(() => {
@@ -17,21 +17,29 @@ export const ProfileContainer: React.FC = memo(() => {
         }
     }, [logout]);
 
+    const { pickImage } = useImagePicker({
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+    });
+
     const handleUpdateAvatar = useCallback(async () => {
         try {
-            const result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsEditing: true,
-                aspect: [1, 1],
-                quality: 0.5,
-            });
+            const uri = await pickImage();
 
-            if (!result.canceled && result.assets[0]) {
-                const asset = result.assets[0];
+            console.log(uri);
+            if (uri) {
+                const fileName = uri.split('/').pop();
+
+                if (!fileName) {
+                    Alert.alert('Error', 'Failed to get filename');
+                    return;
+                }
+
                 const avatarFile = {
-                    uri: asset.uri,
-                    name: asset.fileName || 'avatar.jpg',
-                    type: asset.mimeType || 'image/jpeg',
+                    uri: uri,
+                    name: fileName,
+                    type: 'image/jpeg',
                 };
 
                 await authApi.updateAvatar(avatarFile);

@@ -1,8 +1,14 @@
+export interface Avatar {
+    url: string;
+    localPath: string;
+    _id: string;
+}
+
 export interface User {
     id: string;
     email: string;
     username: string;
-    avatar?: string;
+    avatar?: Avatar | string;
     name?: {
         first: string;
         last: string;

@@ -1,6 +1,6 @@
-import { PressableProps } from 'react-native';
+import { TouchableOpacityProps } from 'react-native';
 
-export interface BookmarkButtonProps extends PressableProps {
+export interface BookmarkButtonProps extends TouchableOpacityProps {
     isBookmarked: boolean;
     onToggle: () => void;
     size?: number;

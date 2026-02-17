@@ -1,6 +1,6 @@
+import { Icon } from '@/components/atoms/Icon/Icon';
 import React, { memo, useCallback, useRef } from 'react';
-import { Animated, Pressable } from 'react-native';
-import { Icon } from '../../atoms/Icon/Icon';
+import { Animated, TouchableOpacity } from 'react-native';
 import { BookmarkButtonProps } from './types';
 
 export const BookmarkButton: React.FC<BookmarkButtonProps> = memo(({
@@ -18,6 +18,7 @@ export const BookmarkButton: React.FC<BookmarkButtonProps> = memo(({
             Animated.timing(scaleValue, {
                 toValue: 0.8,
                 duration: 100,
+                // useNativeDriver: true, // TouchableOpacity animations are not native draggable? wait, Animated.value is fine.
                 useNativeDriver: true,
             }),
             Animated.timing(scaleValue, {
@@ -31,7 +32,7 @@ export const BookmarkButton: React.FC<BookmarkButtonProps> = memo(({
     }, [scaleValue, onToggle]);
 
     return (
-        <Pressable
+        <TouchableOpacity
             onPress={handlePress}
             className={`p-2 ${className}`}
             activeOpacity={0.7}
@@ -45,6 +46,6 @@ export const BookmarkButton: React.FC<BookmarkButtonProps> = memo(({
                     library="ionicons"
                 />
             </Animated.View>
-        </Pressable>
+        </TouchableOpacity>
     );
 });
