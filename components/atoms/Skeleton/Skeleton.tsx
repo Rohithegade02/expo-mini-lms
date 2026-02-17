@@ -1,9 +1,10 @@
+import clsx from 'clsx';
 import React, { useEffect, useRef } from 'react';
-import { Animated } from 'react-native';
+import { Animated, DimensionValue } from 'react-native';
 
 interface SkeletonProps {
-    width?: number | string;
-    height?: number | string;
+    width?: DimensionValue;
+    height?: DimensionValue;
     borderRadius?: number;
     className?: string;
 }
@@ -37,10 +38,10 @@ export const Skeleton: React.FC<SkeletonProps> = ({
 
     return (
         <Animated.View
-            className={`bg-gray-200 ${className}`}
+            className={clsx('bg-gray-200', className)}
             style={{
-                width: width as any,
-                height: height as any,
+                width,
+                height,
                 borderRadius,
                 opacity,
             }}

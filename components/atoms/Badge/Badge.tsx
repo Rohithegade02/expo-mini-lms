@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React, { memo } from 'react';
 import { View } from 'react-native';
 import { Text } from '../Text/Text';
@@ -18,7 +19,7 @@ export const Badge: React.FC<BadgeProps> = memo(({
 
     return (
         <View
-            className={`px-2 py-1 rounded-full ${variantClass} ${className}`}
+            className={clsx('px-2 py-1 rounded-full', variantClass, className)}
             {...props}
         >
             <Text variant="caption" className="text-white font-semibold">

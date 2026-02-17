@@ -1,9 +1,8 @@
+import { Icon, Text } from '@/components/atoms';
+import clsx from 'clsx';
 import React, { memo, useMemo } from 'react';
 import { View } from 'react-native';
-import { Icon } from '../../atoms/Icon/Icon';
-import { Text } from '../../atoms/Text/Text';
 import { CourseStatsProps } from './types';
-
 export const CourseStats: React.FC<CourseStatsProps> = memo(({
     rating,
     price,
@@ -21,7 +20,7 @@ export const CourseStats: React.FC<CourseStatsProps> = memo(({
     );
 
     return (
-        <View className={`flex-row items-center ${className}`} {...props}>
+        <View className={clsx('flex-row items-center', className)} {...props}>
             {formattedRating && (
                 <View className="flex-row items-center mr-4">
                     <Icon name="star" size={16} color="#f59e0b" library="ionicons" />

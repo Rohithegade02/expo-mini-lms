@@ -1,6 +1,7 @@
 import { Icon } from '@/components/atoms/Icon/Icon';
+import clsx from 'clsx';
 import React, { memo, useCallback, useRef } from 'react';
-import { Animated, TouchableOpacity } from 'react-native';
+import { Animated, Pressable } from 'react-native';
 import { BookmarkButtonProps } from './types';
 
 export const BookmarkButton: React.FC<BookmarkButtonProps> = memo(({
@@ -32,10 +33,9 @@ export const BookmarkButton: React.FC<BookmarkButtonProps> = memo(({
     }, [scaleValue, onToggle]);
 
     return (
-        <TouchableOpacity
+        <Pressable
             onPress={handlePress}
-            className={`p-2 ${className}`}
-            activeOpacity={0.7}
+            className={clsx('p-2', className)}
             {...props}
         >
             <Animated.View style={{ transform: [{ scale: scaleValue }] }}>
@@ -46,6 +46,6 @@ export const BookmarkButton: React.FC<BookmarkButtonProps> = memo(({
                     library="ionicons"
                 />
             </Animated.View>
-        </TouchableOpacity>
+        </Pressable>
     );
 });

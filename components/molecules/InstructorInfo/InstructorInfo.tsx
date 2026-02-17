@@ -1,7 +1,7 @@
+import { Avatar, Text } from '@/components/atoms';
+import clsx from 'clsx';
 import React, { memo, useMemo } from 'react';
 import { View } from 'react-native';
-import { Avatar } from '../../atoms/Avatar/Avatar';
-import { Text } from '../../atoms/Text/Text';
 import { InstructorInfoProps } from './types';
 
 export const InstructorInfo: React.FC<InstructorInfoProps> = memo(({
@@ -14,7 +14,7 @@ export const InstructorInfo: React.FC<InstructorInfoProps> = memo(({
     const fullName = useMemo(() => `${name.first} ${name.last}`, [name.first, name.last]);
 
     return (
-        <View className={`flex-row items-center ${className}`} {...props}>
+        <View className={clsx('flex-row items-center', className)} {...props}>
             <Avatar source={avatar} name={fullName} size={32} />
             <View className="ml-2">
                 <Text variant="label" className="text-gray-900">

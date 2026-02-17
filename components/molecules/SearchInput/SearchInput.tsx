@@ -1,6 +1,7 @@
+import { Icon } from '@/components/atoms';
+import clsx from 'clsx';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
-import { Icon } from '../../atoms/Icon/Icon';
 import { SearchInputProps } from './types';
 
 export const SearchInput: React.FC<SearchInputProps> = memo(({
@@ -31,7 +32,7 @@ export const SearchInput: React.FC<SearchInputProps> = memo(({
     }, []);
 
     return (
-        <View className={`flex-row items-center bg-gray-100 rounded-lg px-4 py-2 ${className}`}>
+        <View className={clsx('flex-row items-center bg-gray-100 rounded-lg px-4 py-2', className)}>
             <Icon name="search" size={20} color="#6b7280" library="ionicons" />
             <TextInput
                 className="flex-1 ml-2 text-base"

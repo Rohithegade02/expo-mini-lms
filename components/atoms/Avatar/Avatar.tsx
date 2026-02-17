@@ -1,8 +1,9 @@
+import { Text } from '@/components/atoms';
+import { AvatarProps } from '@/components/atoms/Avatar/types';
+import clsx from 'clsx';
 import { Image } from 'expo-image';
 import React, { memo, useMemo } from 'react';
 import { View } from 'react-native';
-import { Text } from '../Text/Text';
-import { AvatarProps } from './types';
 
 
 export const Avatar: React.FC<AvatarProps> = memo(({
@@ -37,7 +38,7 @@ export const Avatar: React.FC<AvatarProps> = memo(({
 
     return (
         <View
-            className={`rounded-full overflow-hidden items-center justify-center bg-gray-300 ${className}`}
+            className={clsx('rounded-full overflow-hidden items-center justify-center bg-gray-300', className)}
             style={{ width: sizeValue, height: sizeValue }}
             {...props}
         >

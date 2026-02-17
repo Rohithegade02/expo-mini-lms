@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React, { useState } from 'react';
 import {
     Pressable,
@@ -7,7 +8,6 @@ import {
 import { Icon } from '../Icon/Icon';
 import { Text } from '../Text/Text';
 import { InputProps } from './types';
-
 export const Input: React.FC<InputProps> = ({
     label,
     error,
@@ -24,15 +24,18 @@ export const Input: React.FC<InputProps> = ({
     const isSecure = isPassword && !showPassword;
 
     return (
-        <View className={`mb-4 ${className}`}>
+        <View className={clsx('mb-4', className)}>
             {label && (
                 <Text variant="label" className="mb-1 text-gray-700">
                     {label}
                 </Text>
             )}
             <View
-                className={`flex-row items-center bg-gray-50 border rounded-xl px-3 ${isFocused ? 'border-blue-500 bg-white' : error ? 'border-red-500' : 'border-gray-200'
-                    }`}
+                className={clsx('flex-row items-center bg-gray-50 border rounded-xl px-3', {
+                    'border-blue-500 bg-white': isFocused,
+                    'border-red-500': error,
+                    'border-gray-200': !isFocused && !error,
+                })}
             >
                 {leftIcon && (
                     <Icon name={leftIcon} size={20} color="#9ca3af" className="mr-2" />
