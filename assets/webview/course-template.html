@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Course Content</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .lesson-card { transition: all 0.2s ease; }
+        .lesson-card:active { transform: scale(0.98); opacity: 0.8; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <div id="content" class="pb-10">
+        <!-- Header -->
+        <div class="bg-blue-600 px-6 py-8 text-white shadow-lg">
+            <h1 id="course-title" class="text-2xl font-bold mb-2">Loading Course...</h1>
+            <p id="course-category" class="text-blue-100 text-sm font-semibold uppercase tracking-wider"></p>
+        </div>
+
+        <div class="px-6 -mt-4">
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+                <h2 class="text-lg font-bold mb-4 text-gray-800">Syllabus</h2>
+                <div id="lessons-list" class="space-y-4">
+                    <!-- Lessons will be injected here -->
+                    <div class="animate-pulse flex space-x-4">
+                        <div class="rounded-full bg-gray-200 h-10 w-10"></div>
+                        <div class="flex-1 space-y-4 py-1">
+                            <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+                            <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6">
+            <h3 class="font-bold text-gray-800 mb-3">Course Overview</h3>
+            <p id="course-desc" class="text-gray-600 text-sm leading-relaxed">
+                Loading description...
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Function to receive data from React Native
+        function updateContent(course) {
+            document.getElementById('course-title').innerText = course.title;
+            document.getElementById('course-category').innerText = course.category;
+            document.getElementById('course-desc').innerText = course.description;
+
+            const lessonsList = document.getElementById('lessons-list');
+            lessonsList.innerHTML = '';
+
+            // Generate some dummy lessons since the API doesn't provide them
+            const lessons = [
+                { id: 1, title: 'Introduction to the Course', duration: '12:45' },
+                { id: 2, title: 'Understanding Core Concepts', duration: '24:10' },
+                { id: 3, title: 'Advanced Techniques and Best Practices', duration: '45:00' },
+                { id: 4, title: 'Project: Building a Real-world App', duration: '1:30:00' },
+                { id: 5, title: 'Tips and Tricks for Optimization', duration: '15:20' },
+            ];
+
+            lessons.forEach(lesson => {
+                const div = document.createElement('div');
+                div.className = 'lesson-card p-4 rounded-xl bg-gray-50 border border-gray-100 flex items-center mb-3 cursor-pointer';
+                div.innerHTML = `
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                        <span class="text-blue-600 font-bold">${lesson.id}</span>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-semibold text-gray-800 text-sm">${lesson.title}</h4>
+                        <span class="text-gray-400 text-xs">${lesson.duration}</span>
+                    </div>
+                    <div class="text-blue-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                `;
+                div.onclick = () => {
+                    // Send message back to Native
+                    window.ReactNativeWebView.postMessage(JSON.stringify({ 
+                        type: 'LESSON_CLICK', 
+                        lessonId: lesson.id 
+                    }));
+                };
+                lessonsList.appendChild(div);
+            });
+        }
+
+        // Handle messages from Native
+        window.addEventListener('message', (event) => {
+            const data = JSON.parse(event.data);
+            if (data.type === 'INITIAL_DATA') {
+                updateContent(data.course);
+            }
+        });
+    </script>
+</body>
+</html>

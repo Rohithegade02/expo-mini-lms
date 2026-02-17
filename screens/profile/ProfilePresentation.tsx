@@ -1,7 +1,7 @@
 import { Avatar, Text } from '@/components/atoms';
 import { Ionicons } from '@expo/vector-icons';
 import React, { memo, useMemo } from 'react';
-import { Alert, TouchableOpacity, View } from 'react-native';
+import { Alert, Pressable, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ProfilePresentationProps } from './types';
 
@@ -61,7 +61,7 @@ export const ProfilePresentation: React.FC<ProfilePresentationProps> = memo(({
 
 const ProfileHeader = memo(({ user, onUpdateAvatar }: { user: any, onUpdateAvatar: () => void }) => (
     <View className="bg-white px-6 pt-12 pb-8 items-center border-b border-gray-200">
-        <TouchableOpacity onPress={onUpdateAvatar} className="relative">
+        <Pressable onPress={onUpdateAvatar} className="relative">
             <Avatar
                 source={user.avatar || undefined}
                 size="xl"
@@ -70,7 +70,7 @@ const ProfileHeader = memo(({ user, onUpdateAvatar }: { user: any, onUpdateAvata
             <View className="absolute bottom-0 right-0 bg-blue-600 p-2 rounded-full border-2 border-white items-center justify-center">
                 <Ionicons name="camera-outline" size={16} color="white" />
             </View>
-        </TouchableOpacity>
+        </Pressable>
 
         <Text variant="h2" className="mt-4 text-gray-900">{user.username}</Text>
         <Text variant="body" className="text-gray-500">{user.email}</Text>
@@ -89,7 +89,7 @@ const ProfileMenuItem = memo(({
     };
     isLast: boolean;
 }) => (
-    <TouchableOpacity
+    <Pressable
         className={`flex-row items-center px-4 py-4 ${!isLast ? 'border-b border-gray-100' : ''}`}
         onPress={item.onPress}
     >
@@ -106,7 +106,7 @@ const ProfileMenuItem = memo(({
         {!item.isDestructive && (
             <Ionicons name="chevron-forward" size={18} color="#9ca3af" />
         )}
-    </TouchableOpacity>
+    </Pressable>
 ));
 
 const ProfileFooter = memo(({ version }: { version: string }) => (

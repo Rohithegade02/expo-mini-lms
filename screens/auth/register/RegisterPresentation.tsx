@@ -2,7 +2,7 @@ import { Button, Input, Text } from '@/components/atoms';
 import { LegendList } from '@legendapp/list';
 import React, { memo } from 'react';
 import { Controller } from 'react-hook-form';
-import { KeyboardAvoidingView, Platform, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, Pressable, View } from 'react-native';
 import { FIELD_CONFIG } from './config';
 import { RegisterPresentationProps } from './types';
 
@@ -81,9 +81,9 @@ const ListFooter = memo((
         />
         <View className="flex-row justify-center mt-8">
             <Text className="text-gray-500">Already have an account? </Text>
-            <TouchableOpacity onPress={onLoginPress}>
+            <Pressable onPress={onLoginPress}>
                 <Text className="text-blue-600 font-semibold">Log In</Text>
-            </TouchableOpacity>
+            </Pressable>
         </View>
     </View>
 ));

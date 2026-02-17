@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useRef } from 'react';
-import { Animated, TouchableOpacity } from 'react-native';
+import { Animated, Pressable } from 'react-native';
 import { Icon } from '../../atoms/Icon/Icon';
 import { BookmarkButtonProps } from './types';
 
@@ -31,7 +31,7 @@ export const BookmarkButton: React.FC<BookmarkButtonProps> = memo(({
     }, [scaleValue, onToggle]);
 
     return (
-        <TouchableOpacity
+        <Pressable
             onPress={handlePress}
             className={`p-2 ${className}`}
             activeOpacity={0.7}
@@ -45,6 +45,6 @@ export const BookmarkButton: React.FC<BookmarkButtonProps> = memo(({
                     library="ionicons"
                 />
             </Animated.View>
-        </TouchableOpacity>
+        </Pressable>
     );
 });

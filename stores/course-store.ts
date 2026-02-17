@@ -9,6 +9,7 @@ interface CourseActions {
     setLoading: (loading: boolean) => void;
     setError: (error: string | null) => void;
     setSearchQuery: (query: string) => void;
+    fetchCourses: (count?: number) => Promise<void>;
     toggleBookmark: (courseId: string) => void;
     toggleEnrollment: (courseId: string) => void;
     updateProgress: (courseId: string, progress: number) => void;
@@ -55,6 +56,20 @@ export const useCourseStore = create<CourseStore>()(
                 }));
 
                 set({ courses: updatedCourses });
+            },
+
+            fetchCourses: async (count) => {
+                set({ isLoading: true, error: null });
+                try {
+                    const { courseApi } = await import('../lib/api/courses');
+                    const courses = await courseApi.getMappedCourses(count);
+                    get().setCourses(courses);
+                } catch (error) {
+                    const message = error instanceof Error ? error.message : 'Failed to fetch courses';
+                    set({ error: message });
+                } finally {
+                    set({ isLoading: false });
+                }
             },
 
             setLoading: (loading) => {

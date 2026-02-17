@@ -33,6 +33,7 @@ export default function RootLayout() {
         </Stack.Protected>
         <Stack.Protected guard={isAuthenticated}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(courses)" options={{ headerShown: false }} />
         </Stack.Protected>
       </Stack>
     </React.Fragment>

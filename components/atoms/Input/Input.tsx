@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
+    Pressable,
     TextInput,
-    TouchableOpacity,
     View
 } from 'react-native';
 import { Icon } from '../Icon/Icon';
@@ -46,14 +46,14 @@ export const Input: React.FC<InputProps> = ({
                     {...props}
                 />
                 {isPassword ? (
-                    <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                    <Pressable onPress={() => setShowPassword(!showPassword)}>
                         <Icon
                             name={showPassword ? 'eye-off' : 'eye'}
                             size={20}
                             color="#9ca3af"
                             library="ionicons"
                         />
-                    </TouchableOpacity>
+                    </Pressable>
                 ) : rightIcon ? (
                     <Icon name={rightIcon} size={20} color="#9ca3af" library="ionicons" />
                 ) : null}

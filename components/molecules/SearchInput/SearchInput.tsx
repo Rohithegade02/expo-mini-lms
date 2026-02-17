@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
-import { TextInput, TouchableOpacity, View } from 'react-native';
+import { Pressable, TextInput, View } from 'react-native';
 import { Icon } from '../../atoms/Icon/Icon';
 import { SearchInputProps } from './types';
 
@@ -42,14 +42,14 @@ export const SearchInput: React.FC<SearchInputProps> = memo(({
                 {...props}
             />
             {value.length > 0 && (
-                <TouchableOpacity onPress={handleClear} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+                <Pressable onPress={handleClear} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
                     <Icon
                         name="close-circle"
                         size={20}
                         color="#6b7280"
                         library="ionicons"
                     />
-                </TouchableOpacity>
+                </Pressable>
             )}
         </View>
     );
