@@ -7,6 +7,7 @@ import { CourseDetailsPresentation } from './CourseDetailsPresentation';
 
 export const CourseDetailsContainer: React.FC = () => {
     const { id } = useLocalSearchParams<{ id: string }>();
+    console.log(id, 'id');
     const router = useRouter();
     const {
         courses,

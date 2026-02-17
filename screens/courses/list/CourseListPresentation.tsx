@@ -2,8 +2,9 @@ import { Icon, Skeleton, Text } from '@/components/atoms';
 import { CourseCard } from '@/components/organisms/CourseCard/CourseCard';
 import { LegendList } from '@legendapp/list';
 import React, { memo, useCallback } from 'react';
-import { Pressable, RefreshControl, TextInput, View } from 'react-native';
+import { Pressable, RefreshControl, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { CourseListHeader } from './components/CourseListHeader';
 import { CourseListPresentationProps } from './types';
 
 export const CourseListPresentation: React.FC<CourseListPresentationProps> = memo(({
@@ -25,29 +26,6 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
         />
     ), [onCoursePress, onToggleBookmark]);
 
-    const ListHeader = () => (
-        <View className="pt-6 pb-4">
-            <Text variant="h2" className="text-gray-900 mb-2">Explore Courses</Text>
-            <Text variant="body" className="text-gray-500 mb-2">Master new skills with our expert-led courses</Text>
-
-            <View className="flex-row items-center bg-white px-4 py-2.5 rounded-2xl border border-gray-200">
-                <Icon name="search-outline" size={20} color="#6b7280" className="mr-2" />
-                <TextInput
-                    placeholder="Search courses..."
-                    value={searchQuery}
-                    onChangeText={onSearch}
-                    className="flex-1 text-gray-900 text-base py-1"
-                    placeholderTextColor="#9ca3af"
-                />
-                {searchQuery !== '' && (
-                    <Pressable onPress={() => onSearch('')}>
-                        <Icon name="close-circle" size={20} color="#9ca3af" />
-                    </Pressable>
-                )}
-            </View>
-        </View>
-    );
-
     if (error && courses.length === 0) {
         return (
             <SafeAreaView className="flex-1 bg-white justify-center items-center px-10">
@@ -67,7 +45,7 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
     if (isLoading && courses.length === 0) {
         return (
             <SafeAreaView className="flex-1 bg-white">
-                <ListHeader />
+                <CourseListHeader searchQuery={searchQuery} onSearch={onSearch} />
                 <View className="px-6">
                     {[1, 2, 3].map((i) => (
                         <View key={i} className="mb-4 bg-white rounded-2xl border border-gray-100 overflow-hidden">
@@ -93,7 +71,12 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
                 data={courses}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
-                ListHeaderComponent={ListHeader}
+                ListHeaderComponent={
+                    <CourseListHeader
+                        searchQuery={searchQuery}
+                        onSearch={onSearch}
+                    />
+                }
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ padding: 16 }}
                 ListHeaderComponentStyle={{ marginBottom: 16 }}
