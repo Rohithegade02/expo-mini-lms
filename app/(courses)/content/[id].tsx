@@ -41,7 +41,7 @@ export default function CourseContentViewer() {
     const injectInitialData = useCallback(() => {
         if (course && webViewRef.current) {
             const script = getInitialDataScript(course);
-            webViewRef.current.postMessage(script);
+            webViewRef.current.injectJavaScript(script);
         }
     }, [course]);
 
@@ -75,7 +75,10 @@ export default function CourseContentViewer() {
                     onMessage={onMessage}
                     javaScriptEnabled={true}
                     domStorageEnabled={true}
-                    style={{ flex: 1 }}
+                    originWhitelist={['*']}
+                    allowingReadAccessToURL={htmlUri}
+                    allowFileAccess={true}
+                    className='flex-1'
                 />
                 {!isWebViewReady && (
                     <View className="absolute inset-0 justify-center items-center bg-white">
