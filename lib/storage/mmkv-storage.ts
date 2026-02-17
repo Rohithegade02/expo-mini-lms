@@ -114,6 +114,16 @@ export const setLastAppOpen = (timestamp: number): void => {
     setItem(MMKVStorageKeys.LAST_APP_OPEN, timestamp);
 };
 
-export const getLastAppOpen = (): number | null => {
-    return getItem<number>(MMKVStorageKeys.LAST_APP_OPEN);
+// Zustand storage adapter
+export const zustandStorage = {
+    getItem: (name: string): string | null => {
+        const value = storage.getString(name);
+        return value ?? null;
+    },
+    setItem: (name: string, value: string): void => {
+        storage.set(name, value);
+    },
+    removeItem: (name: string): void => {
+        storage.remove(name);
+    },
 };

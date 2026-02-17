@@ -13,6 +13,7 @@ export interface User {
         first: string;
         last: string;
     };
+    role?: 'ADMIN' | 'USER';
 }
 
 export interface LoginCredentials {

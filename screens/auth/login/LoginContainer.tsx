@@ -5,7 +5,7 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Alert } from 'react-native';
-import { useAuthStore } from '../../../stores/auth-store';
+import { useAuth } from '../../../hooks/use-auth';
 import { LoginCredentials } from '../../../types/auth';
 import { LoginPresentation } from './LoginPresentation';
 
@@ -13,7 +13,7 @@ import { LoginPresentation } from './LoginPresentation';
 
 export const LoginContainer: React.FC = () => {
     const router = useRouter();
-    const { login, isLoading } = useAuthStore();
+    const { login, isLoading } = useAuth();
 
     const {
         control,

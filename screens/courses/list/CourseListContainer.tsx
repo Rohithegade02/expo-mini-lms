@@ -1,24 +1,23 @@
 import { ROUTES } from '@/constants/router';
+import { useCourses } from '@/hooks/use-courses';
 import { useDebounce } from '@/hooks/use-debounce';
-import { selectFilteredCourses, useCourseStore } from '@/stores/course-store';
 import { RelativePathString, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { useShallow } from 'zustand/react/shallow';
 import { CourseListPresentation } from './CourseListPresentation';
 
 export const CourseListContainer: React.FC = () => {
     const router = useRouter();
 
-    // Select state using granular selectors to avoid unnecessary re-renders
-    const isLoading = useCourseStore((state) => state.isLoading);
-    const error = useCourseStore((state) => state.error);
-    const storeSearchQuery = useCourseStore((state) => state.searchQuery);
-    const setSearchQuery = useCourseStore((state) => state.setSearchQuery);
-    const fetchCourses = useCourseStore((state) => state.fetchCourses);
-    const toggleBookmark = useCourseStore((state) => state.toggleBookmark);
-
-    // Use useShallow for the filtered courses array to prevent re-renders when the array content is the same
-    const courses = useCourseStore(useShallow(selectFilteredCourses));
+    // Select state using custom hook
+    const {
+        filteredCourses,
+        isLoading,
+        error,
+        searchQuery: storeSearchQuery,
+        setSearchQuery,
+        fetchCourses,
+        toggleBookmark
+    } = useCourses();
 
     const [localSearch, setLocalSearch] = useState<string>(storeSearchQuery);
     const debouncedSearch = useDebounce(localSearch, 500);
@@ -30,7 +29,7 @@ export const CourseListContainer: React.FC = () => {
 
     // Fetch courses on mount if empty
     useEffect(() => {
-        if (courses.length === 0) {
+        if (filteredCourses.length === 0) {
             fetchCourses();
         }
     }, []);
@@ -61,7 +60,7 @@ export const CourseListContainer: React.FC = () => {
 
     return (
         <CourseListPresentation
-            courses={courses}
+            courses={filteredCourses}
             isLoading={isLoading}
             error={error}
             searchQuery={localSearch}

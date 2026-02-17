@@ -1,12 +1,12 @@
+import { useAuth } from '@/hooks/use-auth';
 import { useImagePicker } from '@/hooks/use-image-picker';
 import { authApi } from '@/lib/api/auth';
-import { useAuthStore } from '@/stores/auth-store';
 import React, { memo, useCallback } from 'react';
 import { Alert } from 'react-native';
 import { ProfilePresentation } from './ProfilePresentation';
 
 export const ProfileContainer: React.FC = memo(() => {
-    const { user, logout, isLoading, refreshProfile } = useAuthStore();
+    const { user, logout, isLoading, refreshProfile } = useAuth();
 
     const handleLogout = useCallback(async () => {
         try {

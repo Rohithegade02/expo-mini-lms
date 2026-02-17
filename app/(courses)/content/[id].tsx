@@ -1,6 +1,6 @@
 import { Icon, Text } from '@/components/atoms';
+import { useCourses } from '@/hooks/use-courses';
 import { getInitialDataScript } from '@/lib/webview/inject-data';
-import { useCourseStore } from '@/stores/course-store';
 import { Asset } from 'expo-asset';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -11,7 +11,7 @@ import { WebView, WebViewMessageEvent } from 'react-native-webview';
 export default function CourseContentViewer() {
     const { id } = useLocalSearchParams<{ id: string }>();
     const router = useRouter();
-    const { courses } = useCourseStore();
+    const { courses, updateProgress } = useCourses();
     const webViewRef = useRef<WebView>(null);
     const [isWebViewReady, setIsWebViewReady] = useState(false);
     const [htmlUri, setHtmlUri] = useState<string | null>(null);

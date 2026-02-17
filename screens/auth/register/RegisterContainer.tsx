@@ -1,6 +1,6 @@
 import { ROUTES } from '@/constants/router';
+import { useAuth } from '@/hooks/use-auth';
 import { registerSchema } from '@/schema';
-import { useAuthStore } from '@/stores/auth-store';
 import { RegisterData } from '@/types/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'expo-router';
@@ -9,11 +9,9 @@ import { useForm } from 'react-hook-form';
 import { Alert } from 'react-native';
 import { RegisterPresentation } from './RegisterPresentation';
 
-
-
 export const RegisterContainer: React.FC = () => {
     const router = useRouter();
-    const { register, isLoading } = useAuthStore();
+    const { register: registerAction, isLoading } = useAuth();
 
     const {
         control,
@@ -32,7 +30,7 @@ export const RegisterContainer: React.FC = () => {
 
     const onSubmit = useCallback(async (data: RegisterData) => {
         try {
-            await register(data);
+            await registerAction(data);
             // empty the form
             reset();
             Alert.alert(
@@ -44,7 +42,7 @@ export const RegisterContainer: React.FC = () => {
             const message = error instanceof Error ? error.message : 'Registration failed';
             Alert.alert('Registration Failed', message);
         }
-    }, [register, router, reset]);
+    }, [registerAction, router, reset]);
 
     const handleLoginPress = useCallback(() => {
         router.push(ROUTES.auth.login);

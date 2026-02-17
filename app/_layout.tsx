@@ -1,9 +1,9 @@
 import { LoadingOverlay } from '@/components/atoms/LoadingOverlay/LoadingOverlay';
 import { OfflineBanner } from '@/components/molecules/OfflineBanner/OfflineBanner';
 import { ErrorBoundary } from '@/components/organisms/ErrorBoundary/ErrorBoundary';
+import { useAuth } from '@/hooks/use-auth';
 import { useNotifications } from '@/hooks/use-notifications';
 import { notificationService } from '@/lib/notifications/notification-service';
-import { useAuthStore } from '@/stores/auth-store';
 import { Stack, usePathname } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { AppState, StatusBar } from 'react-native';
@@ -11,7 +11,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import '../global.css';
 
 export default function RootLayout() {
-  const { isAuthenticated, isLoading, loadUser } = useAuthStore();
+  const { isAuthenticated, isLoading, loadUser } = useAuth();
   const [isReady, setIsReady] = useState(false);
   const pathname = usePathname()
   useNotifications(); // Initialize notifications

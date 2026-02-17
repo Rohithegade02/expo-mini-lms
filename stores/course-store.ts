@@ -2,7 +2,7 @@ import { notificationService } from '@/lib/notifications/notification-service';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import * as mmkvStorage from '../lib/storage/mmkv-storage';
-import { storage } from '../lib/storage/mmkv-storage';
+import { zustandStorage } from '../lib/storage/mmkv-storage';
 import type { Course, CourseState } from '../types/course';
 
 interface CourseActions {
@@ -18,20 +18,6 @@ interface CourseActions {
 }
 
 type CourseStore = CourseState & CourseActions;
-
-// MMKV storage adapter for Zustand
-const mmkvStorageAdapter = {
-    getItem: (name: string) => {
-        const value = storage.getString(name);
-        return value ?? null;
-    },
-    setItem: (name: string, value: string) => {
-        storage.set(name, value);
-    },
-    removeItem: (name: string) => {
-        storage.remove(name);
-    },
-};
 
 export const useCourseStore = create<CourseStore>()(
     persist(
@@ -162,7 +148,7 @@ export const useCourseStore = create<CourseStore>()(
         }),
         {
             name: 'course-storage',
-            storage: createJSONStorage(() => mmkvStorageAdapter),
+            storage: createJSONStorage(() => zustandStorage),
             // Persist bookmarks and enrolled courses
             partialize: (state) => ({
                 bookmarks: state.bookmarks,
