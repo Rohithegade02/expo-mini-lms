@@ -18,8 +18,8 @@ export const Input: React.FC<InputProps> = ({
     secureTextEntry,
     ...props
 }) => {
-    const [isFocused, setIsFocused] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
+    const [isFocused, setIsFocused] = useState<boolean>(false);
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const isSecure = isPassword && !showPassword;
 

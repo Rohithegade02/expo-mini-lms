@@ -1,5 +1,5 @@
 import { Feather, FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View } from 'react-native';
 import { IconProps } from './types';
 
@@ -11,7 +11,7 @@ export const Icon: React.FC<IconProps> = ({
     library = 'ionicons',
     ...props
 }) => {
-    const renderIcon = () => {
+    const renderIcon = useCallback(() => {
         switch (library) {
             case 'material':
                 return <MaterialIcons name={name as any} size={size} color={color} />;
@@ -23,7 +23,7 @@ export const Icon: React.FC<IconProps> = ({
             default:
                 return <Ionicons name={name as any} size={size} color={color} />;
         }
-    };
+    }, [name, size, color, library]);
 
     return <View {...props}>{renderIcon()}</View>;
 };

@@ -1,3 +1,4 @@
+import { ROUTES } from '@/constants/router';
 import { loginSchema } from '@/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'expo-router';
@@ -18,6 +19,7 @@ export const LoginContainer: React.FC = () => {
         control,
         handleSubmit,
         formState: { errors },
+        reset
     } = useForm<LoginCredentials>({
         resolver: zodResolver(loginSchema),
         defaultValues: {
@@ -29,7 +31,9 @@ export const LoginContainer: React.FC = () => {
     const onSubmit = async (data: LoginCredentials) => {
         try {
             await login(data);
-            router.replace('/(tabs)/courses');
+            // empty the form
+            reset();
+            router.replace(ROUTES.tabs.courses);
         } catch (error: unknown) {
             const message = error instanceof Error ? error.message : 'Invalid credentials';
             Alert.alert('Login Failed', message);
@@ -37,7 +41,7 @@ export const LoginContainer: React.FC = () => {
     };
 
     const handleRegisterPress = () => {
-        router.push('/(auth)/register');
+        router.push(ROUTES.auth.register);
     };
 
     return (

@@ -10,7 +10,7 @@ export enum SecureStorageKeys {
 /**
  * Save a value to secure storage
  */
-export const save = async (key: SecureStorageKeys, value: string): Promise<void> => {
+export const setItem = async (key: SecureStorageKeys, value: string): Promise<void> => {
     try {
         await SecureStore.setItemAsync(key, value);
     } catch (error) {
@@ -22,7 +22,7 @@ export const save = async (key: SecureStorageKeys, value: string): Promise<void>
 /**
  * Retrieve a value from secure storage
  */
-export const get = async (key: SecureStorageKeys): Promise<string | null> => {
+export const getItem = async (key: SecureStorageKeys): Promise<string | null> => {
     try {
         return await SecureStore.getItemAsync(key);
     } catch (error) {
@@ -47,8 +47,8 @@ export const deleteItem = async (key: SecureStorageKeys): Promise<void> => {
  */
 export const saveTokens = async (accessToken: string, refreshToken: string): Promise<void> => {
     await Promise.all([
-        save(SecureStorageKeys.ACCESS_TOKEN, accessToken),
-        save(SecureStorageKeys.REFRESH_TOKEN, refreshToken),
+        setItem(SecureStorageKeys.ACCESS_TOKEN, accessToken),
+        setItem(SecureStorageKeys.REFRESH_TOKEN, refreshToken),
     ]);
 };
 
@@ -56,14 +56,14 @@ export const saveTokens = async (accessToken: string, refreshToken: string): Pro
  * Get access token
  */
 export const getAccessToken = async (): Promise<string | null> => {
-    return get(SecureStorageKeys.ACCESS_TOKEN);
+    return getItem(SecureStorageKeys.ACCESS_TOKEN);
 };
 
 /**
  * Get refresh token
  */
 export const getRefreshToken = async (): Promise<string | null> => {
-    return get(SecureStorageKeys.REFRESH_TOKEN);
+    return getItem(SecureStorageKeys.REFRESH_TOKEN);
 };
 
 /**

@@ -1,5 +1,5 @@
-import { RegisterContainer } from '../../screens/auth/register/RegisterContainer';
+import { RegisterScreen } from "@/screens/auth/register";
 
 export default function RegisterRoute() {
-    return <RegisterContainer />;
+    return <RegisterScreen />;
 }

@@ -1,5 +1,5 @@
-import { LoginContainer } from '../../screens/auth/login/LoginContainer';
+import { LoginScreen } from "@/screens/auth/login";
 
 export default function LoginRoute() {
-    return <LoginContainer />;
+    return <LoginScreen />;
 }

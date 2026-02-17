@@ -36,7 +36,7 @@ const mmkvStorage = {
 
 export const useAuthStore = create<AuthStore>()(
     persist(
-        (set, get) => ({
+        (set) => ({
             // Initial state
             user: null,
             token: null,

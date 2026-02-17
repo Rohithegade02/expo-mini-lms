@@ -1,3 +1,4 @@
+import { ROUTES } from '@/constants/router';
 import { registerSchema } from '@/schema';
 import { useAuthStore } from '@/stores/auth-store';
 import { RegisterData } from '@/types/auth';
@@ -18,6 +19,7 @@ export const RegisterContainer: React.FC = () => {
         control,
         handleSubmit,
         formState: { errors },
+        reset,
     } = useForm<RegisterData>({
         resolver: zodResolver(registerSchema),
         defaultValues: {
@@ -29,22 +31,23 @@ export const RegisterContainer: React.FC = () => {
     });
 
     const onSubmit = useCallback(async (data: RegisterData) => {
-        console.log('register data', data);
         try {
             await register(data);
+            // empty the form
+            reset();
             Alert.alert(
                 'Success',
                 'Your account has been created. Please log in.',
-                [{ text: 'OK', onPress: () => router.push('/(auth)/login') }]
+                [{ text: 'OK', onPress: () => router.push(ROUTES.auth.login) }]
             );
         } catch (error: unknown) {
             const message = error instanceof Error ? error.message : 'Registration failed';
             Alert.alert('Registration Failed', message);
         }
-    }, [register, router]);
+    }, [register, router, reset]);
 
     const handleLoginPress = useCallback(() => {
-        router.push('/(auth)/login');
+        router.push(ROUTES.auth.login);
     }, [router]);
 
     return (

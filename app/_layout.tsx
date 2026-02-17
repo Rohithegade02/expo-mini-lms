@@ -45,7 +45,7 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <StatusBar barStyle="dark-content" />
         <OfflineBanner />
-        <LoadingOverlay visible={isLoading} message="Syncing..." />
+        <LoadingOverlay visible={isLoading} message="Loading..." />
         <Stack>
           <Stack.Protected guard={!isAuthenticated}>
             <Stack.Screen name="(auth)" options={{ headerShown: false }} />

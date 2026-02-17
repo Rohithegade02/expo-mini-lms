@@ -1,6 +1,7 @@
+import { ROUTES } from '@/constants/router';
 import { useDebounce } from '@/hooks/use-debounce';
 import { selectFilteredCourses, useCourseStore } from '@/stores/course-store';
-import { useRouter } from 'expo-router';
+import { RelativePathString, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { CourseListPresentation } from './CourseListPresentation';
 
@@ -39,7 +40,7 @@ export const CourseListContainer: React.FC = () => {
     }, [fetchCourses]);
 
     const handleCoursePress = useCallback((courseId: string) => {
-        router.push(`/(courses)/${courseId}` as any);
+        router.push(ROUTES.courses.details(courseId) as RelativePathString);
     }, [router]);
 
     const handleToggleBookmark = useCallback((courseId: string) => {

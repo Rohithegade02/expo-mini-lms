@@ -1,5 +1,6 @@
+import { ROUTES } from '@/constants/router';
 import { useCourseStore } from '@/stores/course-store';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { RelativePathString, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useCallback, useMemo } from 'react';
 import { Alert, Share } from 'react-native';
 import { CourseDetailsPresentation } from './CourseDetailsPresentation';
@@ -49,7 +50,7 @@ export const CourseDetailsContainer: React.FC = () => {
 
     const handleViewContent = useCallback(() => {
         if (!course) return;
-        router.push(`/(courses)/content/${course.id}` as any);
+        router.push(ROUTES.courses.content(course.id) as RelativePathString);
     }, [course, router]);
 
     if (!course) {

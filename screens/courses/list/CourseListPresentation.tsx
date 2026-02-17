@@ -108,6 +108,7 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
                         </Text>
                     </View>
                 }
+                recycleItems
             />
         </View>
     );

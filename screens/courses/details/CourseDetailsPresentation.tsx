@@ -41,10 +41,10 @@ export const CourseDetailsPresentation: React.FC<CourseDetailsPresentationProps>
             <LegendList
                 data={features}
                 keyExtractor={(item) => item.id}
-                estimatedItemSize={60}
                 renderItem={({ item }) => (
                     <FeatureItem icon={item.icon} label={item.label} />
                 )}
+                recycleItems
                 ListHeaderComponent={
                     <CourseHeader
                         course={course}

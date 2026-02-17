@@ -28,7 +28,6 @@ export const LoginPresentation: React.FC<LoginPresentationProps> = memo(({
                     error={errors?.[item.name]?.message}
                     autoCapitalize={item.autoCapitalize}
                     isPassword={item.isPassword}
-                    className="mb-4"
                 />
             )}
         />
@@ -45,10 +44,12 @@ export const LoginPresentation: React.FC<LoginPresentationProps> = memo(({
                 data={FIELD_CONFIG}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.name}
-                contentContainerStyle={{ paddingHorizontal: 24, flex: 1, justifyContent: 'center' }}
+                contentContainerStyle={{ paddingHorizontal: 16, flex: 1, justifyContent: 'center' }}
                 ListHeaderComponent={ListHeader}
+                ListHeaderComponentStyle={{ marginBottom: 16 }}
                 ListFooterComponent={() => <ListFooter onSubmit={onSubmit} isLoading={isLoading} onRegisterPress={onRegisterPress} />}
                 showsVerticalScrollIndicator={false}
+                recycleItems
             />
         </KeyboardAvoidingView>
     );
@@ -56,8 +57,8 @@ export const LoginPresentation: React.FC<LoginPresentationProps> = memo(({
 
 
 const ListHeader = memo(() => (
-    <View className="mb-10 mt-10">
-        <Text variant="h1" className="text-gray-900 mb-2">Welcome Back</Text>
+    <View className="flex gap-2.5">
+        <Text variant="h1" className="text-gray-900">Welcome Back</Text>
         <Text variant="body" className="text-gray-500">Log in to continue your learning journey</Text>
     </View>
 ));
@@ -75,7 +76,7 @@ const ListFooter = memo((
             onPress={onSubmit}
             isLoading={isLoading}
         />
-        <View className="flex-row justify-center mt-8">
+        <View className="flex-row justify-center mt-2">
             <Text className="text-gray-500">Don't have an account? </Text>
             <Pressable onPress={onRegisterPress}>
                 <Text className="text-blue-600 font-semibold">Register</Text>

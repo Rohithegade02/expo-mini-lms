@@ -1,5 +1,6 @@
+import { ROUTES } from '@/constants/router';
 import * as Notifications from 'expo-notifications';
-import { useRouter } from 'expo-router';
+import { RelativePathString, useRouter } from 'expo-router';
 import { useEffect, useRef } from 'react';
 import { notificationService } from '../lib/notifications/notification-service';
 
@@ -24,9 +25,9 @@ export const useNotifications = () => {
 
             // Handle navigation based on notification data
             if (data?.type === 'course' && data?.courseId) {
-                router.push(`/(courses)/${data.courseId}` as any);
+                router.push(ROUTES.courses.details(data.courseId as string) as RelativePathString);
             } else if (data?.type === 'bookmarks') {
-                router.push('/(tabs)/courses' as any);
+                router.push(ROUTES.tabs.courses as RelativePathString);
             }
         });
 

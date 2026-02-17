@@ -42,17 +42,18 @@ export const RegisterPresentation: React.FC<RegisterPresentationProps> = memo(({
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            className="flex-1 bg-white "
+            className="flex-1 bg-white"
         >
             <LegendList
                 data={FIELD_CONFIG}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.name}
-                contentContainerStyle={{ paddingHorizontal: 24, flex: 1, justifyContent: 'center' }}
-                estimatedItemSize={80}
+                contentContainerStyle={{ paddingHorizontal: 16, flex: 1, justifyContent: 'center' }}
                 ListHeaderComponent={ListHeader}
+                ListHeaderComponentStyle={{ marginBottom: 16 }}
                 ListFooterComponent={() => <ListFooter onSubmit={onSubmit} isLoading={isLoading} onLoginPress={onLoginPress} />}
                 showsVerticalScrollIndicator={false}
+                recycleItems
             />
         </KeyboardAvoidingView>
     );
@@ -60,7 +61,7 @@ export const RegisterPresentation: React.FC<RegisterPresentationProps> = memo(({
 
 
 const ListHeader = memo(() => (
-    <View className="mb-10 mt-10">
+    <View className="flex gap-3 mb-3">
         <Text variant="h1" className="text-gray-900 mb-2">Create Account</Text>
         <Text variant="body" className="text-gray-500">Join our community and start learning today</Text>
     </View>
@@ -79,7 +80,7 @@ const ListFooter = memo((
             onPress={onSubmit}
             isLoading={isLoading}
         />
-        <View className="flex-row justify-center mt-8">
+        <View className="flex-row justify-center mt-2">
             <Text className="text-gray-500">Already have an account? </Text>
             <Pressable onPress={onLoginPress}>
                 <Text className="text-blue-600 font-semibold">Log In</Text>
