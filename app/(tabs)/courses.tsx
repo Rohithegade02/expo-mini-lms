@@ -1,6 +1,6 @@
-import { CourseListContainer } from '@/screens/courses/list/CourseListContainer';
+import { CourseListScreen } from '@/screens/courses/list';
 import React from 'react';
 
 export default function CoursesPage() {
-    return <CourseListContainer />;
+    return <CourseListScreen />;
 }

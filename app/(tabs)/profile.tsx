@@ -1,5 +1,5 @@
-import { ProfileContainer } from '@/screens/profile/ProfileContainer';
+import { ProfileScreen } from '@/screens/profile';
 
 export default function ProfileRoute() {
-    return <ProfileContainer />;
+    return <ProfileScreen />;
 }
