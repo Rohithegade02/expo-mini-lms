@@ -39,7 +39,7 @@ export const ProfilePresentation: React.FC<ProfilePresentationProps> = memo(({
     ], [onLogout]);
 
     return (
-        <SafeAreaView className="flex-1 px-4 py-10" testID={testID} accessibilityLabel={accessibilityLabel}>
+        <SafeAreaView className="flex-1 px-4 py-10 bg-white dark:bg-gray-900" testID={testID} accessibilityLabel={accessibilityLabel}>
             <LegendList
                 data={menuItems}
                 renderItem={({ item, index }) => (

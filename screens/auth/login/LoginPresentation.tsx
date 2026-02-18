@@ -1,10 +1,15 @@
-import { Button, Input, Text } from '@/components/atoms';
+import { Input } from '@/components/atoms';
 import { LegendList } from '@legendapp/list';
 import React, { memo } from 'react';
 import { Controller } from 'react-hook-form';
-import { KeyboardAvoidingView, Platform, Pressable, View } from 'react-native';
+import { KeyboardAvoidingView, Platform } from 'react-native';
+import Animated from 'react-native-reanimated';
+import { LoginFooter } from './components/LoginFooter';
+import { LoginHeader } from './components/LoginHeader';
 import { FIELD_CONFIG } from './config';
 import { LoginPresentationProps } from './types';
+
+const AnimatedKeyboardAvoidingView = Animated.createAnimatedComponent(KeyboardAvoidingView);
 
 export const LoginPresentation: React.FC<LoginPresentationProps> = memo(({
     control,
@@ -40,9 +45,9 @@ export const LoginPresentation: React.FC<LoginPresentationProps> = memo(({
 
 
     return (
-        <KeyboardAvoidingView
+        <AnimatedKeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            className="flex-1 bg-white"
+            className="flex-1 bg-gray-100 dark:bg-gray-800"
             testID={testID}
             accessibilityLabel={accessibilityLabel}
         >
@@ -51,44 +56,17 @@ export const LoginPresentation: React.FC<LoginPresentationProps> = memo(({
                 renderItem={renderItem}
                 keyExtractor={(item) => item.name}
                 contentContainerStyle={{ paddingHorizontal: 16, flex: 1, justifyContent: 'center' }}
-                ListHeaderComponent={ListHeader}
+                ListHeaderComponent={LoginHeader}
                 ListHeaderComponentStyle={{ marginBottom: 16 }}
-                ListFooterComponent={() => <ListFooter onSubmit={onSubmit} isLoading={isLoading} onRegisterPress={onRegisterPress} />}
+                ListFooterComponent={() => <LoginFooter onSubmit={onSubmit} isLoading={isLoading} onRegisterPress={onRegisterPress} />}
                 showsVerticalScrollIndicator={false}
                 recycleItems
                 testID={`${testID}-list`}
                 accessibilityLabel={`${testID}-list`}
             />
-        </KeyboardAvoidingView>
+        </AnimatedKeyboardAvoidingView>
     );
 });
 
 
-const ListHeader = memo(() => (
-    <View className="flex gap-2.5">
-        <Text variant="h1" className="text-gray-900">Welcome Back</Text>
-        <Text variant="body" className="text-gray-500">Log in to continue your learning journey</Text>
-    </View>
-));
 
-const ListFooter = memo((
-    {
-        onSubmit,
-        isLoading,
-        onRegisterPress,
-    }: LoginPresentationProps
-) => (
-    <View className="mt-6 pb-10">
-        <Button
-            label="Log In"
-            onPress={onSubmit}
-            isLoading={isLoading}
-        />
-        <View className="flex-row justify-center mt-2">
-            <Text className="text-gray-500">Don't have an account? </Text>
-            <Pressable onPress={onRegisterPress}>
-                <Text className="text-primary-600 font-semibold">Register</Text>
-            </Pressable>
-        </View>
-    </View>
-));

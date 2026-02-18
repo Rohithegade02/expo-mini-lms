@@ -17,19 +17,15 @@ interface ProfileMenuItemProps {
 export const ProfileMenuItem = memo(({ item, isLast, isFirst, testID, accessibilityLabel }: ProfileMenuItemProps) => (
     <Pressable
         onPress={item.onPress}
-        className={clsx('flex-row items-center px-4 py-4 bg-white border-x border-gray-200',
+        className={clsx('flex-row items-center px-4 py-4 bg-white dark:bg-gray-800 border-x border-gray-200 dark:border-gray-700',
             isFirst ? 'rounded-t-3xl border-t mt-6' : '',
-            isLast ? 'rounded-b-3xl border-b' : 'border-b border-gray-100',
-            'active:bg-gray-50 transition-colors shadow-sm')}
-        style={({ pressed }) => ({
-            opacity: pressed ? 0.7 : 1,
-            backgroundColor: pressed ? '#f9fafb' : 'white'
-        })}
+            isLast ? 'rounded-b-3xl border-b' : 'border-b border-gray-100 dark:border-gray-700',
+            'active:bg-gray-50 dark:active:bg-gray-700 transition-colors shadow-sm')}
         testID={testID}
         accessibilityLabel={accessibilityLabel}
     >
         <View
-            className={clsx('p-2 rounded-xl mr-4', item.isDestructive ? 'bg-error-50' : 'bg-primary-50')}
+            className={clsx('p-2 rounded-xl mr-4', item.isDestructive ? 'bg-error-50 dark:bg-error-900/20' : 'bg-primary-50 dark:bg-primary-900/20')}
         >
             <Ionicons
                 name={item.icon}
@@ -39,7 +35,7 @@ export const ProfileMenuItem = memo(({ item, isLast, isFirst, testID, accessibil
         </View>
 
         <Text
-            className={clsx('flex-1 font-medium', item.isDestructive ? 'text-error-600' : 'text-gray-800')}
+            className={clsx('flex-1 font-medium', item.isDestructive ? 'text-error-600 dark:text-error-400' : 'text-gray-800 dark:text-gray-200')}
         >
             {item.label}
         </Text>

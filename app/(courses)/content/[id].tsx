@@ -8,7 +8,7 @@ import { ActivityIndicator, Alert, Pressable, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
 
-export default function CourseContentViewer() {
+export default function CourseContentPage() {
     const { id } = useLocalSearchParams<{ id: string }>();
     const router = useRouter();
     const { courses, updateProgress } = useCourses();

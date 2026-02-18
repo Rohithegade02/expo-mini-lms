@@ -38,7 +38,7 @@ export const Avatar: React.FC<AvatarProps> = memo(({
 
     return (
         <View
-            className={clsx('rounded-full overflow-hidden items-center justify-center bg-gray-300', className)}
+            className={clsx('rounded-full overflow-hidden items-center justify-center bg-gray-300 dark:bg-gray-700', className)}
             style={{ width: sizeValue, height: sizeValue }}
             {...props}
         >
@@ -50,7 +50,7 @@ export const Avatar: React.FC<AvatarProps> = memo(({
                     transition={200}
                 />
             ) : (
-                <Text variant="label" className="text-gray-700">
+                <Text variant="label" className="text-gray-700 dark:text-gray-300">
                     {initials}
                 </Text>
             )}

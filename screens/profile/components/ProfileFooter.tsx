@@ -9,8 +9,8 @@ interface ProfileFooterProps {
 }
 
 export const ProfileFooter = memo(({ version, testID, accessibilityLabel }: ProfileFooterProps) => (
-    <View className="py-8 items-center border-t border-gray-100" testID={testID} accessibilityLabel={accessibilityLabel}>
-        <Text variant="caption" className="text-gray-400 font-medium">
+    <View className="py-8 items-center border-t border-gray-100 dark:border-gray-800" testID={testID} accessibilityLabel={accessibilityLabel}>
+        <Text variant="caption" className="text-gray-400 dark:text-gray-500 font-medium">
             Version {version}
         </Text>
     </View>

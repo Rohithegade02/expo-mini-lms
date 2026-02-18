@@ -1,8 +1,10 @@
-import { Button, Input, Text } from '@/components/atoms';
+import { Input } from '@/components/atoms';
 import { LegendList } from '@legendapp/list';
 import React, { memo } from 'react';
 import { Controller } from 'react-hook-form';
-import { KeyboardAvoidingView, Platform, Pressable, View } from 'react-native';
+import { KeyboardAvoidingView, Platform } from 'react-native';
+import { RegisterFooter } from './components/RegisterFooter';
+import { RegisterHeader } from './components/RegisterHeader';
 import { FIELD_CONFIG } from './config';
 import { RegisterPresentationProps } from './types';
 
@@ -46,7 +48,7 @@ export const RegisterPresentation: React.FC<RegisterPresentationProps> = memo(({
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            className="flex-1 bg-white"
+            className="flex-1 bg-gray-100 dark:bg-gray-800"
             testID={testID}
             accessibilityLabel={accessibilityLabel}
         >
@@ -55,9 +57,9 @@ export const RegisterPresentation: React.FC<RegisterPresentationProps> = memo(({
                 renderItem={renderItem}
                 keyExtractor={(item) => item.name}
                 contentContainerStyle={{ paddingHorizontal: 16, flex: 1, justifyContent: 'center' }}
-                ListHeaderComponent={ListHeader}
+                ListHeaderComponent={RegisterHeader}
                 ListHeaderComponentStyle={{ marginBottom: 16 }}
-                ListFooterComponent={() => <ListFooter onSubmit={onSubmit} isLoading={isLoading} onLoginPress={onLoginPress} />}
+                ListFooterComponent={() => <RegisterFooter onSubmit={onSubmit} isLoading={isLoading} onLoginPress={onLoginPress} />}
                 showsVerticalScrollIndicator={false}
                 recycleItems
                 testID={`${testID}-list`}
@@ -68,31 +70,5 @@ export const RegisterPresentation: React.FC<RegisterPresentationProps> = memo(({
 });
 
 
-const ListHeader = memo(() => (
-    <View className="flex gap-3 mb-3">
-        <Text variant="h1" className="text-gray-900 mb-2">Create Account</Text>
-        <Text variant="body" className="text-gray-500">Join our community and start learning today</Text>
-    </View>
-));
 
-const ListFooter = memo((
-    {
-        onSubmit,
-        isLoading,
-        onLoginPress,
-    }: RegisterPresentationProps
-) => (
-    <View className="mt-6 pb-10">
-        <Button
-            label="Register"
-            onPress={onSubmit}
-            isLoading={isLoading}
-        />
-        <View className="flex-row justify-center mt-2">
-            <Text className="text-gray-500">Already have an account? </Text>
-            <Pressable onPress={onLoginPress}>
-                <Text className="text-primary-600 font-semibold">Log In</Text>
-            </Pressable>
-        </View>
-    </View>
-));
+

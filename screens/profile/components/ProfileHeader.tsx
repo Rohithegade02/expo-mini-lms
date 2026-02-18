@@ -29,19 +29,19 @@ export const ProfileHeader = memo(({ user, onUpdateAvatar, testID, accessibility
 
             <Pressable
                 onPress={onUpdateAvatar}
-                className="mt-3 flex-row items-center bg-primary-50 px-3 py-1.5 rounded-full"
+                className="mt-3 flex-row items-center bg-primary-50 dark:bg-primary-900/30 px-3 py-1.5 rounded-full"
             >
                 <Ionicons name="camera-outline" size={16} color={theme.light.colors.primary[600]} />
-                <Text className="ml-2 text-primary-600 font-medium text-xs">
+                <Text className="ml-2 text-primary-600 dark:text-primary-400 font-medium text-xs">
                     Change Photo
                 </Text>
             </Pressable>
 
-            <Text variant="h2" className="mt-5 text-gray-900 font-bold">
+            <Text variant="h2" className="mt-5 text-gray-900 dark:text-gray-100 font-bold">
                 {user.username}
             </Text>
 
-            <Text variant="body" className="text-gray-500 mt-1">
+            <Text variant="body" className="text-gray-500 dark:text-gray-400 mt-1">
                 {user.email}
             </Text>
         </View>

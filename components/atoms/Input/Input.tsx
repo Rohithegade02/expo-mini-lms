@@ -27,22 +27,22 @@ export const Input: React.FC<InputProps> = ({
     return (
         <View className={clsx('mb-4', className)}>
             {label && (
-                <Text variant="label" className="mb-1 text-gray-700">
+                <Text variant="label" className="mb-1 text-gray-700 dark:text-gray-300">
                     {label}
                 </Text>
             )}
             <View
-                className={clsx('flex-row items-center bg-gray-50 border rounded-xl px-3', {
-                    'border-primary-500 bg-white': isFocused,
+                className={clsx('flex-row items-center bg-gray-50 dark:bg-gray-800 border rounded-xl px-3', {
+                    'border-primary-500 bg-white dark:bg-gray-900': isFocused,
                     'border-error-500': error,
-                    'border-gray-200': !isFocused && !error,
+                    'border-gray-200 dark:border-gray-700': !isFocused && !error,
                 })}
             >
                 {leftIcon && (
-                    <Icon name={leftIcon} size={20} color={theme.light.colors.gray[400]} className="mr-2" />
+                    <Icon name={leftIcon} size={20} color={isFocused ? theme.light.colors.primary[500] : theme.light.colors.gray[400]} className="mr-2" />
                 )}
                 <TextInput
-                    className="flex-1  text-gray-900 py-2.5"
+                    className="flex-1 text-gray-900 dark:text-gray-100 py-2.5"
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                     secureTextEntry={isSecure}

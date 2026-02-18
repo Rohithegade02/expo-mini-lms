@@ -13,8 +13,8 @@ import { ButtonProps, ButtonSize, ButtonVariant } from './types';
 
 const variantStyles = new Map<ButtonVariant, string>([
     ['primary', 'bg-primary-600'],
-    ['secondary', 'bg-gray-800'],
-    ['outline', 'bg-transparent border border-primary-600'],
+    ['secondary', 'bg-gray-800 dark:bg-gray-700'],
+    ['outline', 'bg-transparent border border-primary-600 dark:border-primary-400'],
     ['ghost', 'bg-transparent'],
     ['danger', 'bg-error-600'],
 ]);
@@ -22,8 +22,8 @@ const variantStyles = new Map<ButtonVariant, string>([
 const textStyles = new Map<ButtonVariant, string>([
     ['primary', 'text-white'],
     ['secondary', 'text-white'],
-    ['outline', 'text-primary-600'],
-    ['ghost', 'text-primary-600'],
+    ['outline', 'text-primary-600 dark:text-primary-400'],
+    ['ghost', 'text-primary-600 dark:text-primary-400'],
     ['danger', 'text-white'],
 ]);
 
