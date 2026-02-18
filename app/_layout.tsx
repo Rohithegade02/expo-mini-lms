@@ -3,8 +3,9 @@ import { OfflineBanner } from '@/components/molecules/OfflineBanner/OfflineBanne
 import { ErrorBoundary } from '@/components/organisms/ErrorBoundary/ErrorBoundary';
 import { useAuth } from '@/hooks/use-auth';
 import { useNotifications } from '@/hooks/use-notifications';
+import { useTheme } from '@/hooks/use-theme';
 import { notificationService } from '@/lib/notifications/notification-service';
-import { Stack, usePathname } from 'expo-router';
+import { Stack } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { AppState, StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -13,7 +14,7 @@ import '../global.css';
 export default function RootLayout() {
   const { isAuthenticated, isLoading, loadUser } = useAuth();
   const [isReady, setIsReady] = useState(false);
-  const pathname = usePathname()
+  const { isDark } = useTheme(); // Initialize theme sync
   useNotifications(); // Initialize notifications
 
   useEffect(() => {
@@ -38,12 +39,11 @@ export default function RootLayout() {
   // But we still want to block initial load if not ready
   if (!isReady) return null;
 
-  console.log(isAuthenticated, 'isAuthenticated', isLoading, 'isLoading', pathname);
 
   return (
     <ErrorBoundary>
       <SafeAreaProvider>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
         <OfflineBanner />
         <LoadingOverlay visible={isLoading} message="Loading..." />
         <Stack>

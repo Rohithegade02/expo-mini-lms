@@ -7,6 +7,7 @@ export { CourseThumbnail } from './CourseThumbnail/CourseThumbnail';
 export { InstructorInfo } from './InstructorInfo/InstructorInfo';
 export { OfflineBanner } from './OfflineBanner/OfflineBanner';
 export { SearchInput } from './SearchInput/SearchInput';
+export { ThemeToggle } from './ThemeToggle/ThemeToggle';
 
 export * from './BookmarkButton/types';
 export * from './CourseFooter/types';
@@ -17,4 +18,5 @@ export * from './CourseThumbnail/types';
 export * from './InstructorInfo/types';
 export * from './OfflineBanner/types';
 export * from './SearchInput/types';
+export * from './ThemeToggle/types';
 
