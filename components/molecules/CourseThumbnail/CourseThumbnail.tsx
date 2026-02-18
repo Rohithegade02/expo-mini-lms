@@ -1,4 +1,5 @@
 import { Icon, Text } from '@/components/atoms';
+import { theme } from '@/constants/theme';
 import { Image } from 'expo-image';
 import React, { memo } from 'react';
 import { Pressable, View } from 'react-native';
@@ -15,8 +16,8 @@ export const CourseThumbnail: React.FC<CourseThumbnailProps> = memo(
                     transition={200}
                 />
                 <View className="flex-row items-center justify-between px-4 py-2 bg-gray-50">
-                    <View className="bg-blue-100 px-3 py-1 rounded-full">
-                        <Text variant="caption" className="text-blue-700 font-semibold uppercase">
+                    <View className="bg-primary-100 px-3 py-1 rounded-full">
+                        <Text variant="caption" className="text-primary-700 font-semibold uppercase">
                             {category}
                         </Text>
                     </View>
@@ -24,7 +25,7 @@ export const CourseThumbnail: React.FC<CourseThumbnailProps> = memo(
                         <Icon
                             name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
                             size={20}
-                            color={isBookmarked ? '#2563eb' : '#6b7280'}
+                            color={isBookmarked ? theme.light.colors.primary[600] : theme.light.colors.gray[500]}
                         />
                     </Pressable>
                 </View>

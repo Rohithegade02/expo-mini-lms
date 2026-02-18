@@ -1,3 +1,4 @@
+import { theme } from '@/constants/theme';
 import { Feather, FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import React, { ComponentProps, useCallback } from 'react';
 import { View } from 'react-native';
@@ -12,7 +13,7 @@ type IoniconsIconName = ComponentProps<typeof Ionicons>['name'];
 export const Icon: React.FC<IconProps> = ({
     name,
     size = 24,
-    color = '#000',
+    color = theme.light.colors.text,
     library = 'ionicons',
     ...props
 }) => {

@@ -1,4 +1,5 @@
 import { Text } from '@/components/atoms';
+import { theme } from '@/constants/theme';
 import React, { memo } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { LoadingOverlayProps } from './types';
@@ -11,7 +12,7 @@ export const LoadingOverlay: React.FC<LoadingOverlayProps> = memo(({ visible, me
             className="absolute inset-0 bg-black/40 justify-center items-center z-50"
         >
             <View className="bg-white p-6 rounded-2xl items-center shadow-xl">
-                <ActivityIndicator size="large" color="#2563eb" />
+                <ActivityIndicator size="large" color={theme.light.colors.primary[600]} />
                 {message && (
                     <Text variant="body" className="mt-4 text-gray-900 font-semibold">
                         {message}

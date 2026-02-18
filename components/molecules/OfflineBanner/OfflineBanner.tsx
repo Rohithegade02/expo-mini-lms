@@ -40,11 +40,11 @@ export const OfflineBanner: React.FC<OfflineBannerProps> = memo(() => {
             }}
             className="absolute left-0 right-0 px-4"
         >
-            <View className="bg-red-500 flex-row items-center px-4 py-3 rounded-2xl shadow-lg border border-red-400">
+            <View className="bg-error-500 flex-row items-center px-4 py-3 rounded-2xl shadow-lg border border-error-400">
                 <Icon name="cloud-offline-outline" size={20} color="white" />
                 <View className="ml-3 flex-1">
                     <Text className="text-white font-bold text-sm">Offline Mode</Text>
-                    <Text className="text-red-100 text-xs">Some features may be limited</Text>
+                    <Text className="text-white/90 text-xs">Some features may be limited</Text>
                 </View>
             </View>
         </Animated.View>

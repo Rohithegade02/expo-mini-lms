@@ -1,4 +1,5 @@
 import { Button, Icon, Text } from '@/components/atoms';
+import { theme } from '@/constants/theme';
 import React from 'react';
 import { FallbackProps, ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 import { View } from 'react-native';
@@ -12,8 +13,8 @@ const ErrorFallback: React.FC<FallbackProps> = ({ error, resetErrorBoundary }) =
     return (
         <SafeAreaView className="flex-1 bg-white">
             <View className="flex-1 justify-center items-center px-8">
-                <View className="bg-red-50 p-6 rounded-full mb-6">
-                    <Icon name="alert-circle-outline" size={64} color="#ef4444" />
+                <View className="bg-error-50 p-6 rounded-full mb-6">
+                    <Icon name="alert-circle-outline" size={64} color={theme.light.colors.error[500]} />
                 </View>
                 <Text variant="h1" className="text-gray-900 mb-2 text-center">
                     Oops! Something went wrong
@@ -22,7 +23,7 @@ const ErrorFallback: React.FC<FallbackProps> = ({ error, resetErrorBoundary }) =
                     An unexpected error occurred. We've been notified and are looking into it.
                 </Text>
                 {process.env.NODE_ENV === 'development' && (
-                    <Text className="text-red-600 bg-red-50 p-4 rounded-xl text-xs mb-8 font-mono">
+                    <Text className="text-error-600 bg-error-50 p-4 rounded-xl text-xs mb-8 font-mono">
                         {JSON.stringify(error)}
                     </Text>
                 )}

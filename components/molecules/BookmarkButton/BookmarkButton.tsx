@@ -1,4 +1,5 @@
 import { Icon } from '@/components/atoms/Icon/Icon';
+import { theme } from '@/constants/theme';
 import clsx from 'clsx';
 import React, { memo, useCallback, useRef } from 'react';
 import { Animated, Pressable } from 'react-native';
@@ -41,7 +42,7 @@ export const BookmarkButton: React.FC<BookmarkButtonProps> = memo(({
                 <Icon
                     name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
                     size={size}
-                    color={isBookmarked ? '#3b82f6' : '#6b7280'}
+                    color={isBookmarked ? theme.light.colors.primary[500] : theme.light.colors.gray[500]}
                     library="ionicons"
                 />
             </Animated.View>

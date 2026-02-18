@@ -8,7 +8,7 @@ export const CourseProgress: React.FC<CourseProgressProps> = memo(({ progress })
         <View className="mt-3">
             <View className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <View
-                    className="h-2 bg-blue-600"
+                    className="h-2 bg-primary-600"
                     style={{ width: `${progress}%` }}
                 />
             </View>

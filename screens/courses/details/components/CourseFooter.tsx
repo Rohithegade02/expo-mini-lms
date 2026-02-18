@@ -24,7 +24,7 @@ export const CourseFooter = memo(({
                 Price
             </Text>
 
-            <Text className="text-3xl font-bold text-blue-600">
+            <Text className="text-3xl font-bold text-primary-600">
                 ${price.toFixed(2)}
             </Text>
         </View>

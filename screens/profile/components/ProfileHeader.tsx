@@ -1,4 +1,5 @@
 import { Avatar, Text } from '@/components/atoms';
+import { theme } from '@/constants/theme';
 import { User } from '@/types/auth';
 import { Ionicons } from '@expo/vector-icons';
 import React, { memo } from 'react';
@@ -26,10 +27,10 @@ export const ProfileHeader = memo(({ user, onUpdateAvatar }: ProfileHeaderProps)
 
             <Pressable
                 onPress={onUpdateAvatar}
-                className="mt-3 flex-row items-center bg-blue-50 px-3 py-1.5 rounded-full"
+                className="mt-3 flex-row items-center bg-primary-50 px-3 py-1.5 rounded-full"
             >
-                <Ionicons name="camera-outline" size={16} color="#2563eb" />
-                <Text className="ml-2 text-blue-600 font-medium text-xs">
+                <Ionicons name="camera-outline" size={16} color={theme.light.colors.primary[600]} />
+                <Text className="ml-2 text-primary-600 font-medium text-xs">
                     Change Photo
                 </Text>
             </Pressable>

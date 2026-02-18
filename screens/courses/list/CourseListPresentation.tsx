@@ -1,5 +1,6 @@
 import { Icon, Skeleton, Text } from '@/components/atoms';
 import { CourseCard } from '@/components/organisms/CourseCard/CourseCard';
+import { theme } from '@/constants/theme';
 import { LegendList } from '@legendapp/list';
 import React, { memo, useCallback } from 'react';
 import { Pressable, RefreshControl, View } from 'react-native';
@@ -29,12 +30,12 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
     if (error && courses.length === 0) {
         return (
             <SafeAreaView className="flex-1 bg-white justify-center items-center px-10">
-                <Icon name="alert-circle-outline" size={64} color="#ef4444" className="mb-4" />
+                <Icon name="alert-circle-outline" size={64} color={theme.light.colors.error[500]} className="mb-4" />
                 <Text variant="h2" className="text-gray-900 mb-2 text-center">Something went wrong</Text>
                 <Text variant="body" className="text-gray-500 text-center mb-8">{error}</Text>
                 <Pressable
                     onPress={onRefresh}
-                    className="bg-blue-600 px-8 py-3 rounded-xl"
+                    className="bg-primary-600 px-8 py-3 rounded-xl"
                 >
                     <Text className="text-white font-bold">Try Again</Text>
                 </Pressable>
@@ -81,11 +82,11 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
                 contentContainerStyle={{ padding: 16 }}
                 ListHeaderComponentStyle={{ marginBottom: 16 }}
                 refreshControl={
-                    <RefreshControl refreshing={isLoading} onRefresh={onRefresh} tintColor="#2563eb" />
+                    <RefreshControl refreshing={isLoading} onRefresh={onRefresh} tintColor={theme.light.colors.primary[600]} />
                 }
                 ListEmptyComponent={
                     <View className="flex-1 justify-center items-center px-10 py-20">
-                        <Icon name="search-outline" size={64} color="#d1d5db" className="mb-4" />
+                        <Icon name="search-outline" size={64} color={theme.light.colors.gray[300]} className="mb-4" />
                         <Text variant="h3" className="text-gray-900 mb-2 text-center">No courses found</Text>
                         <Text variant="body" className="text-gray-500 text-center">
                             Try adjusting your search to find what you're looking for.

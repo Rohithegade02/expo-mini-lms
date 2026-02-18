@@ -1,3 +1,4 @@
+import { theme } from '@/constants/theme';
 import clsx from 'clsx';
 import React, { useState } from 'react';
 import {
@@ -32,20 +33,20 @@ export const Input: React.FC<InputProps> = ({
             )}
             <View
                 className={clsx('flex-row items-center bg-gray-50 border rounded-xl px-3', {
-                    'border-blue-500 bg-white': isFocused,
-                    'border-red-500': error,
+                    'border-primary-500 bg-white': isFocused,
+                    'border-error-500': error,
                     'border-gray-200': !isFocused && !error,
                 })}
             >
                 {leftIcon && (
-                    <Icon name={leftIcon} size={20} color="#9ca3af" className="mr-2" />
+                    <Icon name={leftIcon} size={20} color={theme.light.colors.gray[400]} className="mr-2" />
                 )}
                 <TextInput
                     className="flex-1  text-gray-900 py-2.5"
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                     secureTextEntry={isSecure}
-                    placeholderTextColor="#9ca3af"
+                    placeholderTextColor={theme.light.colors.gray[400]}
                     {...props}
                 />
                 {isPassword ? (
@@ -53,16 +54,16 @@ export const Input: React.FC<InputProps> = ({
                         <Icon
                             name={showPassword ? 'eye-off' : 'eye'}
                             size={20}
-                            color="#9ca3af"
+                            color={theme.light.colors.gray[400]}
                             library="ionicons"
                         />
                     </Pressable>
                 ) : rightIcon ? (
-                    <Icon name={rightIcon} size={20} color="#9ca3af" library="ionicons" />
+                    <Icon name={rightIcon} size={20} color={theme.light.colors.gray[400]} library="ionicons" />
                 ) : null}
             </View>
             {error && (
-                <Text variant="caption" className="mt-1 text-red-500">
+                <Text variant="caption" className="mt-1 text-error-500">
                     {error}
                 </Text>
             )}

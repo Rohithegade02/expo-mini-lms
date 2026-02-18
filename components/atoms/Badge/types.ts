@@ -9,9 +9,9 @@ export interface BadgeProps extends ViewProps {
 }
 
 export const variantStyles = new Map<BadgeVariant, string>([
-    ['primary', 'bg-blue-500'],
-    ['secondary', 'bg-gray-500'],
-    ['success', 'bg-green-500'],
-    ['error', 'bg-red-500'],
-    ['warning', 'bg-yellow-500'],
+    ['primary', 'bg-primary-500'],
+    ['secondary', 'bg-secondary-500'],
+    ['success', 'bg-success-500'],
+    ['error', 'bg-error-500'],
+    ['warning', 'bg-warning-500'],
 ]);

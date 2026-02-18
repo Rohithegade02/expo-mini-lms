@@ -1,3 +1,4 @@
+import { theme } from '@/constants/theme';
 import clsx from 'clsx';
 import * as Haptics from 'expo-haptics';
 import React from 'react';
@@ -11,18 +12,18 @@ import { Text } from '../Text/Text';
 import { ButtonProps, ButtonSize, ButtonVariant } from './types';
 
 const variantStyles = new Map<ButtonVariant, string>([
-    ['primary', 'bg-blue-600'],
+    ['primary', 'bg-primary-600'],
     ['secondary', 'bg-gray-800'],
-    ['outline', 'bg-transparent border border-blue-600'],
+    ['outline', 'bg-transparent border border-primary-600'],
     ['ghost', 'bg-transparent'],
-    ['danger', 'bg-red-600'],
+    ['danger', 'bg-error-600'],
 ]);
 
 const textStyles = new Map<ButtonVariant, string>([
     ['primary', 'text-white'],
     ['secondary', 'text-white'],
-    ['outline', 'text-blue-600'],
-    ['ghost', 'text-blue-600'],
+    ['outline', 'text-primary-600'],
+    ['ghost', 'text-primary-600'],
     ['danger', 'text-white'],
 ]);
 
@@ -69,7 +70,7 @@ export const Button: React.FC<ButtonProps> = ({
             {...props}
         >
             {isLoading ? (
-                <ActivityIndicator color={variant === 'outline' || variant === 'ghost' ? '#2563eb' : '#fff'} />
+                <ActivityIndicator color={variant === 'outline' || variant === 'ghost' ? theme.light.colors.primary[600] : theme.light.colors.primary[600]} />
             ) : (
                 <>
                     {leftIcon && <View className="mr-2">{leftIcon}</View>}

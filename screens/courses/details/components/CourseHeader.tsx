@@ -1,4 +1,5 @@
 import { Avatar, Icon, Text } from '@/components/atoms';
+import { theme } from '@/constants/theme';
 import { Course } from '@/types/course';
 import { Image } from 'expo-image';
 import React, { memo } from 'react';
@@ -22,14 +23,14 @@ export const CourseHeader = memo(({ course }: CourseHeaderProps) => {
 
                 {/* Category + Rating */}
                 <View className="flex-row items-center justify-between mb-3">
-                    <View className="bg-blue-50 px-3 py-1 rounded-full">
-                        <Text className="text-blue-600 text-xs font-semibold uppercase tracking-wide">
+                    <View className="bg-primary-50 px-3 py-1 rounded-full">
+                        <Text className="text-primary-600 text-xs font-semibold uppercase tracking-wide">
                             {course.category}
                         </Text>
                     </View>
 
                     <View className="flex-row items-center">
-                        <Icon name="star" size={16} color="#f59e0b" />
+                        <Icon name="star" size={16} color={theme.light.colors.warning[500]} />
                         <Text className="ml-1 text-gray-800 font-semibold">
                             {course.rating.toFixed(1)}
                         </Text>

@@ -1,4 +1,5 @@
 import { Icon } from '@/components/atoms';
+import { theme } from '@/constants/theme';
 import clsx from 'clsx';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
@@ -33,11 +34,11 @@ export const SearchInput: React.FC<SearchInputProps> = memo(({
 
     return (
         <View className={clsx('flex-row items-center bg-gray-100 rounded-lg px-4 py-2', className)}>
-            <Icon name="search" size={20} color="#6b7280" library="ionicons" />
+            <Icon name="search" size={20} color={theme.light.colors.gray[500]} library="ionicons" />
             <TextInput
-                className="flex-1 ml-2 text-base"
+                className="flex-1 ml-2 text-base text-gray-900"
                 placeholder={placeholder}
-                placeholderTextColor="#9ca3af"
+                placeholderTextColor={theme.light.colors.gray[400]}
                 value={value}
                 onChangeText={setValue}
                 {...props}
@@ -47,7 +48,7 @@ export const SearchInput: React.FC<SearchInputProps> = memo(({
                     <Icon
                         name="close-circle"
                         size={20}
-                        color="#6b7280"
+                        color={theme.light.colors.gray[500]}
                         library="ionicons"
                     />
                 </Pressable>

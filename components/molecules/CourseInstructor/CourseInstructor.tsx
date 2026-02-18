@@ -1,4 +1,5 @@
 import { Avatar, Icon, Text } from '@/components/atoms';
+import { theme } from '@/constants/theme';
 import React, { memo } from 'react';
 import { View } from 'react-native';
 import { CourseInstructorProps } from './types';
@@ -18,12 +19,12 @@ export const CourseInstructor: React.FC<CourseInstructorProps> = memo(
                     </Text>
                 </View>
                 {isEnrolled ? (
-                    <Text variant="caption" className="text-gray-100 bg-green-500 px-2 py-1 rounded-full font-semibold">
+                    <Text variant="caption" className="text-gray-100 bg-success-500 px-2 py-1 rounded-full font-semibold">
                         Enrolled
                     </Text>
                 ) : (
                     <View className="flex-row items-center">
-                        <Icon name="star-outline" size={14} color="#f59e0b" />
+                        <Icon name="star-outline" size={14} color={theme.light.colors.warning[500]} />
                         <Text variant="caption" className="ml-1 text-gray-700 font-semibold">
                             {rating.toFixed(1)}
                         </Text>

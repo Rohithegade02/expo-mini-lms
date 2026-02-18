@@ -79,7 +79,7 @@ const ListFooter = memo((
         <View className="flex-row justify-center mt-2">
             <Text className="text-gray-500">Don't have an account? </Text>
             <Pressable onPress={onRegisterPress}>
-                <Text className="text-blue-600 font-semibold">Register</Text>
+                <Text className="text-primary-600 font-semibold">Register</Text>
             </Pressable>
         </View>
     </View>

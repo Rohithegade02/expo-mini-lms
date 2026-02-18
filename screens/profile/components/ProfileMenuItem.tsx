@@ -1,4 +1,5 @@
 import { Text } from '@/components/atoms';
+import { theme } from '@/constants/theme';
 import { Ionicons } from '@expo/vector-icons';
 import clsx from 'clsx';
 import React, { memo } from 'react';
@@ -24,23 +25,23 @@ export const ProfileMenuItem = memo(({ item, isLast, isFirst }: ProfileMenuItemP
         })}
     >
         <View
-            className={clsx('p-2 rounded-xl mr-4', item.isDestructive ? 'bg-red-50' : 'bg-blue-50')}
+            className={clsx('p-2 rounded-xl mr-4', item.isDestructive ? 'bg-error-50' : 'bg-primary-50')}
         >
             <Ionicons
                 name={item.icon}
                 size={20}
-                color={item.isDestructive ? '#dc2626' : '#2563eb'}
+                color={item.isDestructive ? theme.light.colors.error[600] : theme.light.colors.primary[600]}
             />
         </View>
 
         <Text
-            className={clsx('flex-1 font-medium', item.isDestructive ? 'text-red-600' : 'text-gray-800')}
+            className={clsx('flex-1 font-medium', item.isDestructive ? 'text-error-600' : 'text-gray-800')}
         >
             {item.label}
         </Text>
 
         {!item.isDestructive && (
-            <Ionicons name="chevron-forward" size={18} color="#9ca3af" />
+            <Ionicons name="chevron-forward" size={18} color={theme.light.colors.gray[400]} />
         )}
     </Pressable>
 ));
