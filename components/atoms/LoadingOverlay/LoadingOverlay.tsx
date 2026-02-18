@@ -1,7 +1,7 @@
-import { Text } from '@/components/atoms';
 import { theme } from '@/constants/theme';
 import React, { memo } from 'react';
 import { ActivityIndicator, View } from 'react-native';
+import { Text } from '../Text/Text';
 import { LoadingOverlayProps } from './types';
 
 export const LoadingOverlay: React.FC<LoadingOverlayProps> = memo(({ visible, message }) => {

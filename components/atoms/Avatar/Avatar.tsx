@@ -1,5 +1,5 @@
-import { Text } from '@/components/atoms';
 import { AvatarProps } from '@/components/atoms/Avatar/types';
+import { Text } from '@/components/atoms/Text/Text';
 import clsx from 'clsx';
 import { Image } from 'expo-image';
 import React, { memo, useMemo } from 'react';
