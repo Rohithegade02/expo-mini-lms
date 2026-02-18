@@ -49,7 +49,7 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
 
     if (isLoading && courses.length === 0) {
         return (
-            <SafeAreaView className="flex-1 bg-white">
+            <SafeAreaView className="flex-1 bg-white dark:bg-gray-900">
                 <CourseListHeader
                     searchQuery={searchQuery}
                     onSearch={onSearch}
@@ -76,7 +76,7 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
     }
 
     return (
-        <View className='flex-1' style={{ paddingTop: top }} testID={testID} accessibilityLabel={accessibilityLabel}>
+        <View className='flex-1 bg-white dark:bg-gray-900' style={{ paddingTop: top }} testID={testID} accessibilityLabel={accessibilityLabel}>
             <LegendList
                 data={courses}
                 renderItem={renderItem}
