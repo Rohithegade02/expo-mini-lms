@@ -15,6 +15,8 @@ export const RegisterPresentation: React.FC<RegisterPresentationProps> = memo(({
     onSubmit,
     isLoading,
     onLoginPress,
+    testID = "register-screen",
+    accessibilityLabel = "register-screen",
 }) => {
     const renderItem = ({ item }: { item: typeof FIELD_CONFIG[0] }) => (
         <Controller
@@ -32,6 +34,8 @@ export const RegisterPresentation: React.FC<RegisterPresentationProps> = memo(({
                     autoCapitalize={item.autoCapitalize}
                     keyboardType={item.keyboardType}
                     isPassword={item.isPassword}
+                    testID={`${testID}-${item.name}`}
+                    accessibilityLabel={`${testID}-${item.name}`}
                 />
             )}
         />
@@ -43,6 +47,8 @@ export const RegisterPresentation: React.FC<RegisterPresentationProps> = memo(({
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             className="flex-1 bg-white"
+            testID={testID}
+            accessibilityLabel={accessibilityLabel}
         >
             <LegendList
                 data={FIELD_CONFIG}
@@ -54,6 +60,8 @@ export const RegisterPresentation: React.FC<RegisterPresentationProps> = memo(({
                 ListFooterComponent={() => <ListFooter onSubmit={onSubmit} isLoading={isLoading} onLoginPress={onLoginPress} />}
                 showsVerticalScrollIndicator={false}
                 recycleItems
+                testID={`${testID}-list`}
+                accessibilityLabel={`${testID}-list`}
             />
         </KeyboardAvoidingView>
     );

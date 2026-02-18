@@ -6,10 +6,12 @@ import { Pressable, TextInput, View } from 'react-native';
 interface CourseListHeaderProps {
     searchQuery: string;
     onSearch: (query: string) => void;
+    testID?: string;
+    accessibilityLabel?: string;
 }
 
-export const CourseListHeader = memo(({ searchQuery, onSearch }: CourseListHeaderProps) => (
-    <View className="pt-6 pb-4">
+export const CourseListHeader = memo(({ searchQuery, onSearch, testID, accessibilityLabel }: CourseListHeaderProps) => (
+    <View className="pt-6 pb-4" testID={testID} accessibilityLabel={accessibilityLabel}>
         <Text variant="h2" className="text-gray-900 mb-2">Explore Courses</Text>
         <Text variant="body" className="text-gray-500 mb-2">Master new skills with our expert-led courses</Text>
 

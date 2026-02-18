@@ -3,4 +3,6 @@ export interface CourseThumbnailProps {
     category: string;
     isBookmarked: boolean;
     onToggleBookmark: () => void;
+    testID?: string;
+    accessibilityLabel?: string;
 }

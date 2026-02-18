@@ -9,4 +9,6 @@ export interface CourseListPresentationProps {
     onRefresh: () => void;
     onCoursePress: (courseId: string) => void;
     onToggleBookmark: (courseId: string) => void;
+    testID?: string;
+    accessibilityLabel?: string;
 }

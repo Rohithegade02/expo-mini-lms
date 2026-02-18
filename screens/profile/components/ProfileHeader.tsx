@@ -8,16 +8,18 @@ import { Pressable, View } from 'react-native';
 interface ProfileHeaderProps {
     user: User;
     onUpdateAvatar: () => void;
+    testID?: string;
+    accessibilityLabel?: string;
 }
 
-export const ProfileHeader = memo(({ user, onUpdateAvatar }: ProfileHeaderProps) => {
+export const ProfileHeader = memo(({ user, onUpdateAvatar, testID, accessibilityLabel }: ProfileHeaderProps) => {
     const avatarSource =
         typeof user.avatar === 'string'
             ? user.avatar
             : user.avatar?.url;
 
     return (
-        <View className="py-2.5 items-center">
+        <View className="py-2.5 items-center" testID={testID} accessibilityLabel={accessibilityLabel}>
             <Avatar
                 source={avatarSource || undefined}
                 size="xl"

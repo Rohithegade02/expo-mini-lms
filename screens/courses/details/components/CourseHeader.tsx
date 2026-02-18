@@ -7,11 +7,13 @@ import { View } from 'react-native';
 
 interface CourseHeaderProps {
     course: Course;
+    testID?: string;
+    accessibilityLabel?: string;
 }
 
-export const CourseHeader = memo(({ course }: CourseHeaderProps) => {
+export const CourseHeader = memo(({ course, testID, accessibilityLabel }: CourseHeaderProps) => {
     return (
-        <View>
+        <View testID={testID} accessibilityLabel={accessibilityLabel}>
             <Image
                 source={{ uri: course.thumbnail }}
                 className="w-full h-56"

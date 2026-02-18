@@ -4,4 +4,6 @@ export interface CourseCardProps {
     course: Course;
     onPress: (id: string) => void;
     onToggleBookmark: (id: string) => void;
+    testID?: string;
+    accessibilityLabel?: string;
 }

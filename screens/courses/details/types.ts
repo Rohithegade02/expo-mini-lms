@@ -10,4 +10,6 @@ export interface CourseDetailsPresentationProps {
     onBack: () => void;
     onShare: () => void;
     onViewContent: () => void;
+    testID?: string;
+    accessibilityLabel?: string;
 }

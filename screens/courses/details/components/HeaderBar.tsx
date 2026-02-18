@@ -8,6 +8,8 @@ interface HeaderBarProps {
     onBack: () => void;
     onShare: () => void;
     onToggleBookmark: () => void;
+    testID?: string;
+    accessibilityLabel?: string;
 }
 
 export const HeaderBar = memo(({
@@ -15,8 +17,10 @@ export const HeaderBar = memo(({
     onBack,
     onShare,
     onToggleBookmark,
+    testID,
+    accessibilityLabel,
 }: HeaderBarProps) => (
-    <View className="flex-row items-center justify-between px-6 py-4 border-b border-gray-100 bg-white">
+    <View className="flex-row items-center justify-between px-6 py-4 border-b border-gray-100 bg-white" testID={testID} accessibilityLabel={accessibilityLabel}>
         <Pressable onPress={onBack}>
             <Icon name="chevron-back" size={24} color={theme.light.colors.gray[800]} />
         </Pressable>

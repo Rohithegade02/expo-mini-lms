@@ -13,4 +13,6 @@ export interface RegisterPresentationProps {
     isLoading: boolean;
     errors?: FieldErrors<RegisterData>;
     onLoginPress: () => void;
+    testID?: string;
+    accessibilityLabel?: string;
 }

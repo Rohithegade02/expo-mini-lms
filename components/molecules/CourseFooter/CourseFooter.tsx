@@ -3,9 +3,9 @@ import React, { memo } from 'react';
 import { View } from 'react-native';
 import { CourseFooterProps } from './types';
 
-export const CourseFooter: React.FC<CourseFooterProps> = memo(({ price }) => {
+export const CourseFooter: React.FC<CourseFooterProps> = memo(({ price, testID, accessibilityLabel }) => {
     return (
-        <View className="flex-row items-center justify-between mt-4 pt-3 border-t border-gray-100">
+        <View className="flex-row items-center justify-between mt-4 pt-3 border-t border-gray-100" testID={testID} accessibilityLabel={accessibilityLabel}>
             <Text variant="h3" className="text-primary-600 font-bold">
                 ${price.toFixed(2)}
             </Text>

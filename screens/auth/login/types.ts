@@ -7,4 +7,6 @@ export interface LoginPresentationProps {
     isLoading: boolean;
     errors?: FieldErrors<LoginCredentials>;
     onRegisterPress: () => void;
+    testID?: string;
+    accessibilityLabel?: string;
 }

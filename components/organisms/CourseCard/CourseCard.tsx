@@ -11,7 +11,7 @@ import { Pressable, View } from 'react-native';
 import { CourseCardProps } from './types';
 
 export const CourseCard: React.FC<CourseCardProps> = memo(
-    ({ course, onPress, onToggleBookmark }) => {
+    ({ course, onPress, onToggleBookmark, testID, accessibilityLabel }) => {
 
         const handlePress = useCallback(() => {
             onPress(course.id);
@@ -31,6 +31,8 @@ export const CourseCard: React.FC<CourseCardProps> = memo(
                     shadowRadius: 8,
                     elevation: 3,
                 }}
+                testID={testID}
+                accessibilityLabel={accessibilityLabel}
             >
                 <CourseThumbnail
                     thumbnail={course.thumbnail}

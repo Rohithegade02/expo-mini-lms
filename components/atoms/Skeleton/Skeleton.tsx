@@ -8,37 +8,37 @@ export const Skeleton: React.FC<SkeletonProps> = ({
     height = 20,
     borderRadius = 8,
     className = '',
+    style,
+    ...props
 }) => {
     const opacity = useRef(new Animated.Value(0.3)).current;
 
     useEffect(() => {
-        const animate = () => {
+        const loop = Animated.loop(
             Animated.sequence([
                 Animated.timing(opacity, {
-                    toValue: 0.7,
-                    duration: 800,
+                    toValue: 1,
+                    duration: 1000,
                     useNativeDriver: true,
                 }),
                 Animated.timing(opacity, {
                     toValue: 0.3,
-                    duration: 800,
+                    duration: 1000,
                     useNativeDriver: true,
                 }),
-            ]).start(() => animate());
-        };
+            ])
+        );
 
-        animate();
+        loop.start();
+
+        return () => loop.stop();
     }, [opacity]);
 
     return (
         <Animated.View
-            className={clsx('bg-gray-200', className)}
-            style={{
-                width,
-                height,
-                borderRadius,
-                opacity,
-            }}
+            className={clsx('bg-gray-200 overflow-hidden', className)}
+            style={[{ width, height, borderRadius, opacity }, style]}
+            {...props}
         />
     );
 };

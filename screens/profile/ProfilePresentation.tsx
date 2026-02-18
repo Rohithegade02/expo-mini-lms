@@ -11,6 +11,8 @@ export const ProfilePresentation: React.FC<ProfilePresentationProps> = memo(({
     user,
     onLogout,
     onUpdateAvatar,
+    testID = "profile-screen",
+    accessibilityLabel = "profile-screen",
 }) => {
     if (!user) return null;
 
@@ -37,7 +39,7 @@ export const ProfilePresentation: React.FC<ProfilePresentationProps> = memo(({
     ], [onLogout]);
 
     return (
-        <SafeAreaView className="flex-1 px-4 py-10">
+        <SafeAreaView className="flex-1 px-4 py-10" testID={testID} accessibilityLabel={accessibilityLabel}>
             <LegendList
                 data={menuItems}
                 renderItem={({ item, index }) => (
@@ -45,6 +47,8 @@ export const ProfilePresentation: React.FC<ProfilePresentationProps> = memo(({
                         item={item}
                         isFirst={index === 0}
                         isLast={index === menuItems.length - 1}
+                        testID={`${testID}-item-${item.id}`}
+                        accessibilityLabel={`${testID}-item-${item.id}`}
                     />
                 )}
                 keyExtractor={(item) => item.id}
@@ -55,8 +59,14 @@ export const ProfilePresentation: React.FC<ProfilePresentationProps> = memo(({
                     />
                 }
                 contentContainerClassName="flex-1"
+                testID={`${testID}-list`}
+                accessibilityLabel={`${testID}-list`}
             />
-            <ProfileFooter version="1.0.0" />
+            <ProfileFooter
+                version="1.0.0"
+                testID={`${testID}-footer`}
+                accessibilityLabel={`${testID}-footer`}
+            />
         </SafeAreaView>
     );
 });

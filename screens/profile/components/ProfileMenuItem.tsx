@@ -10,9 +10,11 @@ interface ProfileMenuItemProps {
     item: MenuItem;
     isLast: boolean;
     isFirst?: boolean;
+    testID?: string;
+    accessibilityLabel?: string;
 }
 
-export const ProfileMenuItem = memo(({ item, isLast, isFirst }: ProfileMenuItemProps) => (
+export const ProfileMenuItem = memo(({ item, isLast, isFirst, testID, accessibilityLabel }: ProfileMenuItemProps) => (
     <Pressable
         onPress={item.onPress}
         className={clsx('flex-row items-center px-4 py-4 bg-white border-x border-gray-200',
@@ -23,6 +25,8 @@ export const ProfileMenuItem = memo(({ item, isLast, isFirst }: ProfileMenuItemP
             opacity: pressed ? 0.7 : 1,
             backgroundColor: pressed ? '#f9fafb' : 'white'
         })}
+        testID={testID}
+        accessibilityLabel={accessibilityLabel}
     >
         <View
             className={clsx('p-2 rounded-xl mr-4', item.isDestructive ? 'bg-error-50' : 'bg-primary-50')}

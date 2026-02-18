@@ -5,9 +5,9 @@ import { View } from 'react-native';
 import { CourseInstructorProps } from './types';
 
 export const CourseInstructor: React.FC<CourseInstructorProps> = memo(
-    ({ instructor, rating, isEnrolled }) => {
+    ({ instructor, rating, isEnrolled, testID, accessibilityLabel }) => {
         return (
-            <View className="flex-row items-center justify-between">
+            <View className="flex-row items-center justify-between" testID={testID} accessibilityLabel={accessibilityLabel}>
                 <View className="flex-row items-center">
                     <Avatar
                         source={instructor.avatar}

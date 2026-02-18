@@ -11,7 +11,7 @@ import { ErrorBoundaryProps } from './types';
  */
 const ErrorFallback: React.FC<FallbackProps> = ({ error, resetErrorBoundary }) => {
     return (
-        <SafeAreaView className="flex-1 bg-white">
+        <SafeAreaView className="flex-1 bg-white" testID="error-fallback">
             <View className="flex-1 justify-center items-center px-8">
                 <View className="bg-error-50 p-6 rounded-full mb-6">
                     <Icon name="alert-circle-outline" size={64} color={theme.light.colors.error[500]} />

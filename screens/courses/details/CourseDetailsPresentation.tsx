@@ -17,6 +17,8 @@ export const CourseDetailsPresentation: React.FC<CourseDetailsPresentationProps>
     onBack,
     onShare,
     onViewContent,
+    testID = "course-details-screen",
+    accessibilityLabel = "course-details-screen",
 }) => {
 
 
@@ -28,7 +30,7 @@ export const CourseDetailsPresentation: React.FC<CourseDetailsPresentationProps>
     ]), []);
 
     return (
-        <SafeAreaView className="flex-1 bg-white">
+        <SafeAreaView className="flex-1 bg-white" testID={testID} accessibilityLabel={accessibilityLabel}>
 
             {/* Top Navigation */}
             <HeaderBar
@@ -36,6 +38,8 @@ export const CourseDetailsPresentation: React.FC<CourseDetailsPresentationProps>
                 onBack={onBack}
                 onShare={onShare}
                 onToggleBookmark={onToggleBookmark}
+                testID={`${testID}-header-bar`}
+                accessibilityLabel={`${testID}-header-bar`}
             />
 
             <LegendList
@@ -43,15 +47,24 @@ export const CourseDetailsPresentation: React.FC<CourseDetailsPresentationProps>
                 keyExtractor={(item) => item.id}
                 numColumns={2}
                 renderItem={({ item }) => (
-                    <FeatureItem icon={item.icon} label={item.label} />
+                    <FeatureItem
+                        icon={item.icon}
+                        label={item.label}
+                        testID={`${testID}-feature-${item.id}`}
+                        accessibilityLabel={`${testID}-feature-${item.id}`}
+                    />
                 )}
                 recycleItems
                 ListHeaderComponent={
                     <CourseHeader
                         course={course}
+                        testID={`${testID}-course-header`}
+                        accessibilityLabel={`${testID}-course-header`}
                     />
                 }
                 contentContainerClassName="flex-1"
+                testID={`${testID}-features-list`}
+                accessibilityLabel={`${testID}-features-list`}
             />
             <CourseFooter
                 price={course.price}
@@ -59,6 +72,8 @@ export const CourseDetailsPresentation: React.FC<CourseDetailsPresentationProps>
                 isLoading={isLoading}
                 onEnroll={onEnroll}
                 onViewContent={onViewContent}
+                testID={`${testID}-footer`}
+                accessibilityLabel={`${testID}-footer`}
             />
         </SafeAreaView>
     );

@@ -14,4 +14,6 @@ export interface ProfilePresentationProps {
     onLogout: () => void;
     onUpdateAvatar: () => void;
     isLoading: boolean;
+    testID?: string;
+    accessibilityLabel?: string;
 }

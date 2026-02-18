@@ -8,6 +8,8 @@ interface CourseFooterProps {
     isLoading: boolean;
     onEnroll: () => void;
     onViewContent: () => void;
+    testID?: string;
+    accessibilityLabel?: string;
 }
 
 export const CourseFooter = memo(({
@@ -16,8 +18,10 @@ export const CourseFooter = memo(({
     isLoading,
     onEnroll,
     onViewContent,
+    testID,
+    accessibilityLabel,
 }: CourseFooterProps) => (
-    <View className="px-6 pt-6 pb-10 border-t border-gray-200 mt-6 bg-white">
+    <View className="px-6 pt-6 pb-10 border-t border-gray-200 mt-6 bg-white" testID={testID} accessibilityLabel={accessibilityLabel}>
 
         <View className="mb-4">
             <Text className="text-gray-400 text-xs font-semibold uppercase mb-1">

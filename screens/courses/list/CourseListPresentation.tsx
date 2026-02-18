@@ -17,6 +17,8 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
     onRefresh,
     onCoursePress,
     onToggleBookmark,
+    testID = "course-list-screen",
+    accessibilityLabel = "course-list-screen",
 }) => {
     const { top } = useSafeAreaInsets();
     const renderItem = useCallback(({ item }: { item: any }) => (
@@ -24,12 +26,14 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
             course={item}
             onPress={onCoursePress}
             onToggleBookmark={onToggleBookmark}
+            testID={`${testID}-card-${item.id}`}
+            accessibilityLabel={`${testID}-card-${item.id}`}
         />
     ), [onCoursePress, onToggleBookmark]);
 
     if (error && courses.length === 0) {
         return (
-            <SafeAreaView className="flex-1 bg-white justify-center items-center px-10">
+            <SafeAreaView className="flex-1 bg-white justify-center items-center px-10" testID={testID ? `${testID}-error` : undefined}>
                 <Icon name="alert-circle-outline" size={64} color={theme.light.colors.error[500]} className="mb-4" />
                 <Text variant="h2" className="text-gray-900 mb-2 text-center">Something went wrong</Text>
                 <Text variant="body" className="text-gray-500 text-center mb-8">{error}</Text>
@@ -46,7 +50,12 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
     if (isLoading && courses.length === 0) {
         return (
             <SafeAreaView className="flex-1 bg-white">
-                <CourseListHeader searchQuery={searchQuery} onSearch={onSearch} />
+                <CourseListHeader
+                    searchQuery={searchQuery}
+                    onSearch={onSearch}
+                    testID={`${testID}-header`}
+                    accessibilityLabel={`${testID}-header`}
+                />
                 <View className="px-6">
                     {[1, 2, 3].map((i) => (
                         <View key={i} className="mb-4 bg-white rounded-2xl border border-gray-100 overflow-hidden">
@@ -67,7 +76,7 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
     }
 
     return (
-        <View className='flex-1' style={{ paddingTop: top }}>
+        <View className='flex-1' style={{ paddingTop: top }} testID={testID} accessibilityLabel={accessibilityLabel}>
             <LegendList
                 data={courses}
                 renderItem={renderItem}
@@ -76,6 +85,8 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
                     <CourseListHeader
                         searchQuery={searchQuery}
                         onSearch={onSearch}
+                        testID={`${testID}-header`}
+                        accessibilityLabel={`${testID}-header`}
                     />
                 }
                 showsVerticalScrollIndicator={false}
@@ -94,6 +105,8 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
                     </View>
                 }
                 recycleItems
+                testID={`${testID}-list`}
+                accessibilityLabel={`${testID}-list`}
             />
         </View>
     );

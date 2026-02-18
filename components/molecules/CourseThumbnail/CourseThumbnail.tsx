@@ -6,15 +6,17 @@ import { Pressable, View } from 'react-native';
 import { CourseThumbnailProps } from './types';
 
 export const CourseThumbnail: React.FC<CourseThumbnailProps> = memo(
-    ({ thumbnail, category, isBookmarked, onToggleBookmark }) => {
+    ({ thumbnail, category, isBookmarked, onToggleBookmark, testID, accessibilityLabel }) => {
         return (
-            <View>
-                <Image
-                    source={{ uri: thumbnail }}
-                    className="w-full h-48"
-                    contentFit="cover"
-                    transition={200}
-                />
+            <View testID={testID} accessibilityLabel={accessibilityLabel}>
+                <View className="relative w-full h-40">
+                    <Image
+                        source={{ uri: thumbnail }}
+                        className="w-full h-full"
+                        contentFit="cover"
+                        transition={200}
+                    />
+                </View>
                 <View className="flex-row items-center justify-between px-4 py-2 bg-gray-50">
                     <View className="bg-primary-100 px-3 py-1 rounded-full">
                         <Text variant="caption" className="text-primary-700 font-semibold uppercase">

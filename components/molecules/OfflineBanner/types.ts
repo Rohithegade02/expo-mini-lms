@@ -1,1 +1,4 @@
-export interface OfflineBannerProps { }
+export interface OfflineBannerProps {
+    testID?: string;
+    accessibilityLabel?: string;
+}
