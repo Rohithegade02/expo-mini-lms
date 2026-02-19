@@ -2,13 +2,14 @@ import { LoadingOverlay } from '@/components/atoms/LoadingOverlay/LoadingOverlay
 import { OfflineBanner } from '@/components/molecules/OfflineBanner/OfflineBanner';
 import { ErrorBoundary } from '@/components/organisms/ErrorBoundary/ErrorBoundary';
 import { useAuth } from '@/hooks/use-auth';
+import { useBiometrics } from '@/hooks/use-biometrics';
 import { useNotifications } from '@/hooks/use-notifications';
 import { useTheme } from '@/hooks/use-theme';
 import { notificationService } from '@/lib/notifications/notification-service';
 import * as Sentry from '@sentry/react-native';
 import { Stack } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { AppState, StatusBar } from 'react-native';
+import { AppState, Button, StatusBar, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import '../global.css';
 
@@ -34,8 +35,20 @@ Sentry.init({
 export default Sentry.wrap(function RootLayout() {
   const { isAuthenticated, isLoading, loadUser } = useAuth();
   const [isReady, setIsReady] = useState(false);
-  const { isDark } = useTheme(); // Initialize theme sync
-  useNotifications(); // Initialize notifications
+  const { isDark } = useTheme();
+
+  const {
+    isEnrolled,
+    isBiometricAuthenticated,
+    authenticate,
+    isLoading: isBiometricsLoading,
+    isHardwareSupported
+  } = useBiometrics({
+    auto: true,
+    reason: 'Authenticate to access the app'
+  });
+
+  useNotifications();
 
   useEffect(() => {
     loadUser();
@@ -55,10 +68,33 @@ export default Sentry.wrap(function RootLayout() {
     };
   }, []);
 
-  // Loading state handling is now done via LoadingOverlay in return
-  // But we still want to block initial load if not ready
-  if (!isReady) return null;
+  // Wait for initial auth check and biometrics check if potentially relevant
+  const appIsLoading = isLoading || (!isReady) || (isAuthenticated && isBiometricsLoading);
 
+  if (appIsLoading) {
+    return <LoadingOverlay visible={true} message="Starting up..." />;
+  }
+
+  // App Lock Logic:
+  // If user is logged in AND has biometrics enabled/available AND hasn't passed bio-check
+  const shouldLock = isAuthenticated && isHardwareSupported && isEnrolled && !isBiometricAuthenticated;
+
+  if (shouldLock) {
+    return (
+      <SafeAreaProvider>
+        <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
+        <View className="flex-1 items-center justify-center bg-background p-4" style={{ backgroundColor: isDark ? '#000' : '#fff' }}>
+          <Text className="text-xl font-bold mb-4 text-foreground" style={{ color: isDark ? '#fff' : '#000' }}>
+            App Locked
+          </Text>
+          <Button
+            title="Unlock App"
+            onPress={() => authenticate()}
+          />
+        </View>
+      </SafeAreaProvider>
+    );
+  }
 
   return (
     <ErrorBoundary>
