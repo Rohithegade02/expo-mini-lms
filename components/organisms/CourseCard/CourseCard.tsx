@@ -24,7 +24,7 @@ export const CourseCard: React.FC<CourseCardProps> = memo(
         return (
             <Pressable
                 onPress={handlePress}
-                className="bg-white rounded-2xl mb-4 border border-gray-200 overflow-hidden"
+                className="bg-white dark:bg-gray-800 rounded-2xl mb-4 border dark:border-gray-700 border-gray-200 overflow-hidden"
                 style={{
                     shadowColor: theme.shadows.md.shadowColor,
                     shadowOpacity: 0.05,
@@ -51,7 +51,7 @@ export const CourseCard: React.FC<CourseCardProps> = memo(
                     <Text
                         variant="h3"
                         numberOfLines={2}
-                        className="text-gray-900 mt-2"
+                        className="text-gray-900 dark:text-white mt-2"
                     >
                         {course.title}
                     </Text>
