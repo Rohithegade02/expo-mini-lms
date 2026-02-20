@@ -4,10 +4,10 @@ import React, { ComponentProps, useCallback } from 'react';
 import { View } from 'react-native';
 import { IconProps } from './types';
 
-type MaterialIconName = ComponentProps<typeof MaterialIcons>['name'];
-type FontAwesomeIconName = ComponentProps<typeof FontAwesome>['name'];
-type FeatherIconName = ComponentProps<typeof Feather>['name'];
-type IoniconsIconName = ComponentProps<typeof Ionicons>['name'];
+export type MaterialIconName = ComponentProps<typeof MaterialIcons>['name'];
+export type FontAwesomeIconName = ComponentProps<typeof FontAwesome>['name'];
+export type FeatherIconName = ComponentProps<typeof Feather>['name'];
+export type IoniconsIconName = ComponentProps<typeof Ionicons>['name'];
 
 
 export const Icon: React.FC<IconProps> = ({

@@ -10,7 +10,7 @@ const RETRY_DELAY = 1000; // 1 second
 // Type for API error responses
 interface APIErrorResponse {
     message?: string;
-    errors?: any;
+    errors?: Record<string, string[]>;
 }
 
 class APIClient {
@@ -130,7 +130,17 @@ class APIClient {
             message = "Server is currently unavailable. Please try again later.";
         }
 
-        return Promise.reject(new APIError(message, status, data?.errors));
+        let formattedErrors = undefined;
+        if (data?.errors) {
+            formattedErrors = Object.entries(data.errors).map(([field, messages]) => {
+                return {
+                    field,
+                    message: Array.isArray(messages) ? messages[0] : String(messages)
+                };
+            });
+        }
+
+        return Promise.reject(new APIError(message, status, formattedErrors));
     }
 
     private async refreshToken(): Promise<boolean> {

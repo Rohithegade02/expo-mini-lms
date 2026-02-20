@@ -48,18 +48,16 @@ export const authApi = {
      */
     updateAvatar: (avatarFile: { uri: string; name: string; type: string }): Promise<APIResponse<User>> => {
         const formData = new FormData();
-        // In React Native, FormData.append can take an object for files schema
-        // The type needs to be cast to any because standard TypeScript FormData expects string/Blob
         formData.append('avatar', {
             uri: avatarFile.uri,
             name: avatarFile.name,
             type: avatarFile.type,
-        } as any);
+        } as unknown as Blob);
 
         return apiClient.post<APIResponse<User>>('/users/avatar', formData, {
             headers: {
                 'Content-Type': undefined,
-            } as any,
+            } as unknown as Record<string, string>,
             transformRequest: (data) => {
                 return data;
             },

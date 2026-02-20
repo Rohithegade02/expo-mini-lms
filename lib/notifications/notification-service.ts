@@ -49,7 +49,7 @@ const requestPermissions = async (): Promise<boolean> => {
 const scheduleNotification = async (
     title: string,
     body: string,
-    data: Record<string, any> = {},
+    data: Record<string, string> = {},
     trigger: Notifications.NotificationTriggerInput = null
 ): Promise<string> => {
     return await Notifications.scheduleNotificationAsync({
@@ -69,7 +69,7 @@ const scheduleNotification = async (
 const cancelInactivityReminders = async (): Promise<void> => {
     const scheduled = await Notifications.getAllScheduledNotificationsAsync();
     const inactivityNotifications = scheduled.filter(
-        (n) => (n.content.data as any)?.type === 'inactivity'
+        (n) => (n.content.data as Record<string, string>)?.type === 'inactivity'
     );
 
     for (const notification of inactivityNotifications) {

@@ -33,10 +33,10 @@ export enum HTTPMethod {
     DELETE = 'DELETE',
 }
 
-export interface RequestConfig {
+export interface RequestConfig<T> {
     method: HTTPMethod;
     url: string;
-    data?: any;
-    params?: Record<string, any>;
+    data?: T;
+    params?: Record<string, string>;
     headers?: Record<string, string>;
 }

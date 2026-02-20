@@ -8,8 +8,6 @@ import { CourseListPresentation } from './CourseListPresentation';
 
 const CourseListContainer: React.FC = () => {
     const router = useRouter();
-
-    // Select state using custom hook
     const {
         filteredCourses,
         isLoading,
@@ -32,9 +30,7 @@ const CourseListContainer: React.FC = () => {
         }
     }, []);
 
-    // Update store search query when debounced search changes
     useEffect(() => {
-        // Only update if different to avoid loop
         if (debouncedSearch !== storeSearchQuery) {
             setSearchQuery(debouncedSearch);
         }

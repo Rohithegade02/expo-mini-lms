@@ -1,6 +1,7 @@
 import { Icon, Skeleton, Text } from '@/components/atoms';
 import { CourseCard } from '@/components/organisms/CourseCard/CourseCard';
 import { theme } from '@/constants/theme';
+import { Course } from '@/types/course';
 import { LegendList } from '@legendapp/list';
 import clsx from 'clsx';
 import React, { memo, useCallback } from 'react';
@@ -25,7 +26,7 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
     orientation
 }) => {
     const { top } = useSafeAreaInsets();
-    const renderItem = useCallback(({ item }: { item: any }) => (
+    const renderItem = useCallback(({ item }: { item: Course }) => (
         <CourseCard
             course={item}
             onPress={onCoursePress}
