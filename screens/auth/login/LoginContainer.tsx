@@ -9,7 +9,8 @@ import { Alert } from 'react-native';
 import { useAuth } from '../../../hooks/use-auth';
 import { LoginPresentation } from './LoginPresentation';
 
-
+// This is the container component for the login screen.
+// It handles the login logic and presentation.
 
 export const LoginContainer: React.FC = () => {
     const router = useRouter();
@@ -32,7 +33,6 @@ export const LoginContainer: React.FC = () => {
     const onSubmit = async (data: LoginData) => {
         try {
             await login(data);
-            // empty the form
             reset();
             router.replace(ROUTES.tabs.courses);
         } catch (error: unknown) {

@@ -11,7 +11,8 @@ import { FIELD_CONFIG } from './config';
 import { LoginPresentationProps } from './types';
 
 const AnimatedKeyboardAvoidingView = Animated.createAnimatedComponent(KeyboardAvoidingView);
-
+//  This is the presentation component for the login screen.
+//  It handles the login presentation and user interactions.
 export const LoginPresentation: React.FC<LoginPresentationProps> = memo(({
     control,
     onSubmit,
