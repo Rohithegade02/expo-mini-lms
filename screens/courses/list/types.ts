@@ -24,3 +24,21 @@ export interface CourseListHeaderProps {
     testID?: string;
     accessibilityLabel?: string;
 }
+
+
+export interface CourseListLoaderProps {
+    orientation?: string;
+    searchQuery: string;
+    onSearch: (query: string) => void;
+    isSmartSearchLoading: boolean;
+    onSmartSearch: (query: string) => void;
+    testID?: string;
+    accessibilityLabel?: string;
+}
+
+export interface CourseListErrorProps {
+    error: string;
+    onRefresh: () => void;
+    testID?: string;
+    accessibilityLabel?: string;
+}

@@ -1,13 +1,15 @@
-import { Icon, Skeleton, Text } from '@/components/atoms';
+import { Icon, Text } from '@/components/atoms';
 import { CourseCard } from '@/components/organisms/CourseCard/CourseCard';
 import { theme } from '@/constants/theme';
 import { Course } from '@/types/course';
 import { LegendList } from '@legendapp/list';
 import clsx from 'clsx';
 import React, { memo, useCallback } from 'react';
-import { Pressable, RefreshControl, View } from 'react-native';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { RefreshControl, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import CourseListError from './components/CourseListError';
 import { CourseListHeader } from './components/CourseListHeader';
+import CourseListLoader from './components/CourseListLoader';
 import { CourseListPresentationProps } from './types';
 
 export const CourseListPresentation: React.FC<CourseListPresentationProps> = memo(({
@@ -37,67 +39,18 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
         />
     ), [onCoursePress, onToggleBookmark, testID]);
 
-    // Memoized as a component reference — LegendList only remounts its header
-    // when the reference changes, not on every parent render / keystroke.
-    const ListHeader = useCallback(() => (
-        <CourseListHeader
-            searchQuery={searchQuery}
-            onSearch={onSearch}
-            isSmartSearchLoading={isSmartSearchLoading}
-            onSmartSearch={onSmartSearch}
-            testID={`${testID}-header`}
-            accessibilityLabel={`${testID}-header`}
-        />
-    ), [searchQuery, onSearch, isSmartSearchLoading, onSmartSearch, testID]);
+
 
     if (error && courses.length === 0) {
         return (
-            <SafeAreaView className="flex-1 bg-white justify-center items-center px-10" testID={testID ? `${testID}-error` : undefined}>
-                <Icon name="alert-circle-outline" size={64} color={theme.light.colors.error[500]} className="mb-4" />
-                <Text variant="h2" className="text-gray-900 mb-2 text-center">Something went wrong</Text>
-                <Text variant="body" className="text-gray-500 text-center mb-8">{error}</Text>
-                <Pressable
-                    onPress={onRefresh}
-                    className="bg-primary-600 px-8 py-3 rounded-xl"
-                >
-                    <Text className="text-white font-bold">Try Again</Text>
-                </Pressable>
-            </SafeAreaView>
+            <CourseListError error={error} onRefresh={onRefresh} testID={testID} accessibilityLabel={accessibilityLabel} />
         );
     }
-
-    // Only show the skeleton on initial load — when no courses have arrived yet
-    // and there is no active search. Typing must NEVER trigger this branch
-    // because it causes the full-screen blank flash / flicker.
     const isInitialLoading = isLoading && courses.length === 0 && !searchQuery.trim();
 
     if (isInitialLoading) {
         return (
-            <SafeAreaView className="flex-1 bg-white dark:bg-gray-900">
-                <CourseListHeader
-                    searchQuery={searchQuery}
-                    onSearch={onSearch}
-                    isSmartSearchLoading={isSmartSearchLoading}
-                    onSmartSearch={onSmartSearch}
-                    testID={`${testID}-header`}
-                    accessibilityLabel={`${testID}-header`}
-                />
-                <View className="px-6">
-                    {[1, 2, 3].map((i) => (
-                        <View key={i} className="mb-4 bg-white rounded-2xl border border-gray-100 overflow-hidden">
-                            <Skeleton height={192} />
-                            <View className="p-4">
-                                <View className="flex-row items-center mb-2">
-                                    <Skeleton width={24} height={24} borderRadius={12} />
-                                    <Skeleton width={120} height={16} className="ml-2" />
-                                </View>
-                                <Skeleton width="90%" height={24} className="mb-2" />
-                                <Skeleton width="60%" height={16} />
-                            </View>
-                        </View>
-                    ))}
-                </View>
-            </SafeAreaView>
+            <CourseListLoader orientation={orientation} searchQuery={searchQuery} onSearch={onSearch} isSmartSearchLoading={isSmartSearchLoading} onSmartSearch={onSmartSearch} testID={testID} accessibilityLabel={accessibilityLabel} />
         );
     }
 
@@ -108,15 +61,21 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
             testID={testID}
             accessibilityLabel={accessibilityLabel}
         >
+            <CourseListHeader
+                searchQuery={searchQuery}
+                onSearch={onSearch}
+                isSmartSearchLoading={isSmartSearchLoading}
+                onSmartSearch={onSmartSearch}
+                testID={`${testID}-header`}
+                accessibilityLabel={`${testID}-header`}
+            />
             <LegendList
                 data={courses}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
-                ListHeaderComponent={ListHeader}
                 numColumns={orientation === 'landscape' ? 2 : 1}
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ padding: 16, gap: orientation === 'landscape' ? 16 : 0 }}
-                ListHeaderComponentStyle={{ marginBottom: 16 }}
+                contentContainerStyle={{ padding: orientation === 'landscape' ? 16 : 0, paddingTop: 0, gap: orientation === 'landscape' ? 16 : 0 }}
                 refreshControl={
                     <RefreshControl refreshing={isLoading} onRefresh={onRefresh} tintColor={theme.light.colors.primary[600]} />
                 }
