@@ -14,7 +14,6 @@ const AnimatedKeyboardAvoidingView = Animated.createAnimatedComponent(KeyboardAv
 
 export const LoginPresentation: React.FC<LoginPresentationProps> = memo(({
     control,
-    errors,
     onSubmit,
     isLoading,
     onRegisterPress,
@@ -26,7 +25,7 @@ export const LoginPresentation: React.FC<LoginPresentationProps> = memo(({
         <Controller
             control={control}
             name={item.name}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                 <Input
                     label={item.label}
                     placeholder={item.placeholder}
@@ -34,7 +33,7 @@ export const LoginPresentation: React.FC<LoginPresentationProps> = memo(({
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
-                    error={errors?.[item.name]?.message}
+                    error={error?.message}
                     autoCapitalize={item.autoCapitalize}
                     isPassword={item.isPassword}
                     testID={`${testID}-${item.name}`}

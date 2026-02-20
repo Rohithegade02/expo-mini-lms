@@ -17,6 +17,8 @@ export const Input: React.FC<InputProps> = ({
     isPassword,
     className = '',
     secureTextEntry,
+    onFocus,
+    onBlur,
     ...props
 }) => {
     const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -43,8 +45,8 @@ export const Input: React.FC<InputProps> = ({
                 )}
                 <TextInput
                     className="flex-1 text-gray-900 dark:text-gray-100 py-2.5"
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
+                    onFocus={(e) => { setIsFocused(true); onFocus?.(e); }}
+                    onBlur={(e) => { setIsFocused(false); onBlur?.(e); }}
                     secureTextEntry={isSecure}
                     placeholderTextColor={theme.light.colors.gray[400]}
                     {...props}

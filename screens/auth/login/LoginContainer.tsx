@@ -1,13 +1,12 @@
 import { ROUTES } from '@/constants/router';
 import useOrientation from '@/hooks/use-orientation';
-import { loginSchema } from '@/schema';
+import { LoginData, loginSchema } from '@/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'expo-router';
 import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { Alert } from 'react-native';
 import { useAuth } from '../../../hooks/use-auth';
-import { LoginCredentials } from '../../../types/auth';
 import { LoginPresentation } from './LoginPresentation';
 
 
@@ -20,17 +19,17 @@ export const LoginContainer: React.FC = () => {
     const {
         control,
         handleSubmit,
-        formState: { errors },
         reset
-    } = useForm<LoginCredentials>({
+    } = useForm<LoginData>({
         resolver: zodResolver(loginSchema),
+        mode: 'onBlur',
         defaultValues: {
             username: '',
             password: '',
         },
     });
 
-    const onSubmit = async (data: LoginCredentials) => {
+    const onSubmit = async (data: LoginData) => {
         try {
             await login(data);
             // empty the form
@@ -52,7 +51,6 @@ export const LoginContainer: React.FC = () => {
             control={control}
             onSubmit={handleSubmit(onSubmit)}
             isLoading={isLoading}
-            errors={errors}
             onRegisterPress={handleRegisterPress}
         />
     );

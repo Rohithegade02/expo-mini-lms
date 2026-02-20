@@ -1,11 +1,10 @@
-import { LoginCredentials } from "@/types/auth";
-import { Control, FieldErrors } from "react-hook-form";
+import { LoginData } from "@/schema";
+import { Control } from "react-hook-form";
 
 export interface LoginPresentationProps {
-    control?: Control<LoginCredentials>;
+    control?: Control<LoginData>;
     onSubmit: () => void;
     isLoading: boolean;
-    errors?: FieldErrors<LoginCredentials>;
     onRegisterPress: () => void;
     testID?: string;
     accessibilityLabel?: string;
