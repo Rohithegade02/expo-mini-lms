@@ -3,6 +3,7 @@ import { OfflineBanner } from '@/components/molecules/OfflineBanner/OfflineBanne
 import { ErrorBoundary } from '@/components/organisms';
 import { useAuth } from '@/hooks/use-auth';
 import { useBiometrics } from '@/hooks/use-biometrics';
+import useNetwork from '@/hooks/use-network';
 import { useNotifications } from '@/hooks/use-notifications';
 import { useTheme } from '@/hooks/use-theme';
 import { notificationService } from '@/lib/notifications/notification-service';
@@ -36,6 +37,8 @@ export default Sentry.wrap(function RootLayout() {
   const { isAuthenticated, isLoading, loadUser } = useAuth();
   const [isReady, setIsReady] = useState(false);
   const { isDark } = useTheme();
+  const { isOffline } = useNetwork();
+  console.log('isOffline', isOffline);
 
   const {
     isEnrolled,
@@ -75,6 +78,10 @@ export default Sentry.wrap(function RootLayout() {
     return <LoadingOverlay visible={true} message="Loading..." />;
   }
 
+  if (isOffline) {
+    return <OfflineBanner />;
+  }
+
   // App Lock Logic:
   // If user is logged in AND has biometrics enabled/available AND hasn't passed bio-check
   const shouldLock = isAuthenticated && isHardwareSupported && isEnrolled && !isBiometricAuthenticated;
@@ -100,7 +107,6 @@ export default Sentry.wrap(function RootLayout() {
     <ErrorBoundary>
       <SafeAreaProvider>
         <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
-        <OfflineBanner />
         <Stack>
           <Stack.Protected guard={!isAuthenticated}>
             <Stack.Screen name="(auth)" options={{ headerShown: false }} />
