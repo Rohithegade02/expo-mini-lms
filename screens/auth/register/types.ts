@@ -1,17 +1,10 @@
-import { Control, FieldErrors } from "react-hook-form";
-
-export type RegisterData = {
-    username: string;
-    email: string;
-    password: string;
-    role: 'ADMIN' | 'USER';
-};
+import { RegisterData } from "@/schema";
+import { Control } from "react-hook-form";
 
 export interface RegisterPresentationProps {
     control?: Control<RegisterData>;
     onSubmit: () => void;
     isLoading: boolean;
-    errors?: FieldErrors<RegisterData>;
     onLoginPress: () => void;
     testID?: string;
     accessibilityLabel?: string;

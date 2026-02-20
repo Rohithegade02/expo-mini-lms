@@ -14,7 +14,6 @@ import { RegisterPresentationProps } from './types';
 
 export const RegisterPresentation: React.FC<RegisterPresentationProps> = memo(({
     control,
-    errors,
     onSubmit,
     isLoading,
     onLoginPress,
@@ -26,7 +25,7 @@ export const RegisterPresentation: React.FC<RegisterPresentationProps> = memo(({
         <Controller
             control={control}
             name={item.name}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                 <Input
                     label={item.label}
                     placeholder={item.placeholder}
@@ -34,7 +33,7 @@ export const RegisterPresentation: React.FC<RegisterPresentationProps> = memo(({
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
-                    error={errors?.[item.name]?.message}
+                    error={error?.message}
                     autoCapitalize={item.autoCapitalize}
                     keyboardType={item.keyboardType}
                     isPassword={item.isPassword}

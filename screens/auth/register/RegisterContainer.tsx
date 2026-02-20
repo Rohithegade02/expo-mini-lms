@@ -1,8 +1,7 @@
 import { ROUTES } from '@/constants/router';
 import { useAuth } from '@/hooks/use-auth';
 import useOrientation from '@/hooks/use-orientation';
-import { registerSchema } from '@/schema';
-import { RegisterData } from '@/types/auth';
+import { RegisterData, registerSchema } from '@/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'expo-router';
 import React, { useCallback } from 'react';
@@ -18,10 +17,10 @@ export const RegisterContainer: React.FC = () => {
     const {
         control,
         handleSubmit,
-        formState: { errors },
         reset,
     } = useForm<RegisterData>({
         resolver: zodResolver(registerSchema),
+        mode: 'onChange',
         defaultValues: {
             username: '',
             email: '',
@@ -56,7 +55,6 @@ export const RegisterContainer: React.FC = () => {
             control={control}
             onSubmit={handleSubmit(onSubmit)}
             isLoading={isLoading}
-            errors={errors}
             onLoginPress={handleLoginPress}
         />
     );
