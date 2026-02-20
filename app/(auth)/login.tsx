@@ -6,10 +6,10 @@ const LazyLoginScreen = React.lazy(() => import('@/screens/auth/login').then(mod
 
 export default function LoginPage() {
     return (
-        <Suspense fallback={<LoadingOverlay visible={true} message="Loading..." />}>
-            <ThemeToggle>
+        <ThemeToggle>
+            <Suspense fallback={<LoadingOverlay visible={true} message="Loading..." />}>
                 <LazyLoginScreen />
-            </ThemeToggle>
-        </Suspense>
+            </Suspense>
+        </ThemeToggle>
     );
 }

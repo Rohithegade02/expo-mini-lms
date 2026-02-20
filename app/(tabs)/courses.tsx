@@ -6,10 +6,10 @@ const LazyCourseListScreen = React.lazy(() => import('@/screens/courses/list').t
 
 export default function CoursesPage() {
     return (
-        <Suspense fallback={<LoadingOverlay visible={true} message="Loading..." />}>
-            <ThemeToggle>
+        <ThemeToggle>
+            <Suspense fallback={<LoadingOverlay visible={true} message="Loading..." />}>
                 <LazyCourseListScreen />
-            </ThemeToggle>
-        </Suspense>
+            </Suspense>
+        </ThemeToggle>
     );
 }

@@ -6,10 +6,10 @@ const LazyProfileScreen = React.lazy(() => import('@/screens/profile').then(modu
 
 export default function ProfilePage() {
     return (
-        <Suspense fallback={<LoadingOverlay visible={true} message="Loading..." />}>
-            <ThemeToggle>
+        <ThemeToggle>
+            <Suspense fallback={<LoadingOverlay visible={true} message="Loading..." />}>
                 <LazyProfileScreen />
-            </ThemeToggle>
-        </Suspense>
+            </Suspense>
+        </ThemeToggle>
     );
 }
