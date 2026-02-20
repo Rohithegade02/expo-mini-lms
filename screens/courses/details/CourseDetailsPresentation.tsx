@@ -66,19 +66,21 @@ export const CourseDetailsPresentation: React.FC<CourseDetailsPresentationProps>
                         accessibilityLabel={`${testID}-course-header`}
                     />
                 }
-                contentContainerClassName="flex-1"
+                className="flex-1"
                 testID={`${testID}-features-list`}
                 accessibilityLabel={`${testID}-features-list`}
-            />
-            <CourseFooter
-                isDark={isDark}
-                price={course.price}
-                isEnrolled={isEnrolled}
-                isLoading={isLoading}
-                onEnroll={onEnroll}
-                onViewContent={onViewContent}
-                testID={`${testID}-footer`}
-                accessibilityLabel={`${testID}-footer`}
+                ListFooterComponent={
+                    <CourseFooter
+                        isDark={isDark}
+                        price={course.price}
+                        isEnrolled={isEnrolled}
+                        isLoading={isLoading}
+                        onEnroll={onEnroll}
+                        onViewContent={onViewContent}
+                        testID={`${testID}-footer`}
+                        accessibilityLabel={`${testID}-footer`}
+                    />
+                }
             />
         </SafeAreaView>
     );

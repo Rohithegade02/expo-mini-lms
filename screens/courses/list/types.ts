@@ -13,6 +13,7 @@ export interface CourseListPresentationProps {
     onToggleBookmark: (courseId: string) => void;
     testID?: string;
     accessibilityLabel?: string;
+    orientation?: string;
 }
 
 export interface CourseListHeaderProps {

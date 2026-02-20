@@ -2,6 +2,7 @@ import { Icon, Skeleton, Text } from '@/components/atoms';
 import { CourseCard } from '@/components/organisms/CourseCard/CourseCard';
 import { theme } from '@/constants/theme';
 import { LegendList } from '@legendapp/list';
+import clsx from 'clsx';
 import React, { memo, useCallback } from 'react';
 import { Pressable, RefreshControl, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -21,6 +22,7 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
     onToggleBookmark,
     testID = "course-list-screen",
     accessibilityLabel = "course-list-screen",
+    orientation
 }) => {
     const { top } = useSafeAreaInsets();
     const renderItem = useCallback(({ item }: { item: any }) => (
@@ -80,7 +82,7 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
     }
 
     return (
-        <View className='flex-1 bg-white dark:bg-gray-900' style={{ paddingTop: top }} testID={testID} accessibilityLabel={accessibilityLabel}>
+        <View className={clsx('flex-1 bg-white dark:bg-gray-900', orientation === 'landscape' ? 'px-16' : 'px-4')} style={{ paddingTop: top }} testID={testID} accessibilityLabel={accessibilityLabel}>
             <LegendList
                 data={courses}
                 renderItem={renderItem}
@@ -95,8 +97,9 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
                         accessibilityLabel={`${testID}-header`}
                     />
                 }
+                numColumns={orientation === 'landscape' ? 2 : 1}
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ padding: 16 }}
+                contentContainerStyle={{ padding: 16, gap: orientation === 'landscape' ? 16 : 0 }}
                 ListHeaderComponentStyle={{ marginBottom: 16 }}
                 refreshControl={
                     <RefreshControl refreshing={isLoading} onRefresh={onRefresh} tintColor={theme.light.colors.primary[600]} />

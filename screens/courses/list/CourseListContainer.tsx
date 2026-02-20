@@ -1,6 +1,7 @@
 import { ROUTES } from '@/constants/router';
 import { useCourses } from '@/hooks/use-courses';
 import { useDebounce } from '@/hooks/use-debounce';
+import useOrientation from '@/hooks/use-orientation';
 import { RelativePathString, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { CourseListPresentation } from './CourseListPresentation';
@@ -20,16 +21,11 @@ const CourseListContainer: React.FC = () => {
         isSmartSearchLoading,
         performSmartSearch
     } = useCourses();
+    const orientation = useOrientation();
 
     const [localSearch, setLocalSearch] = useState<string>(storeSearchQuery);
     const debouncedSearch = useDebounce(localSearch, 500);
 
-    // // Sync local search with store search query on mount (in case navigating back)
-    // useEffect(() => {
-    //     setLocalSearch(storeSearchQuery);
-    // }, []);
-
-    // Fetch courses on mount if empty
     useEffect(() => {
         if (filteredCourses.length === 0) {
             fetchCourses();
@@ -76,6 +72,7 @@ const CourseListContainer: React.FC = () => {
             onRefresh={handleRefresh}
             onCoursePress={handleCoursePress}
             onToggleBookmark={handleToggleBookmark}
+            orientation={orientation}
         />
     );
 };
