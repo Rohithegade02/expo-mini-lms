@@ -8,9 +8,7 @@ const SSL_PINNING_CONFIG: Parameters<typeof initializeSslPinning>[0] = {
     'api.freeapi.app': {
         includeSubdomains: false,
         publicKeyHashes: [
-            // Leaf certificate (server cert) — primary pin
             'rYrua5iz5cbffh4cq2A1bk8W39HpY7SaIxXe7q4s1Dc=',
-            // Intermediate CA — mandatory backup pin (iOS TrustKit requires ≥ 2)
             'AlSQhgtJirc8ahLyekmtX+Iw+v46yPYRLJt9Cq1GlB0=',
         ],
     },
@@ -19,11 +17,6 @@ const SSL_PINNING_CONFIG: Parameters<typeof initializeSslPinning>[0] = {
 /**
  * Initializes SSL public key pinning as early as possible at app startup.
  *
- * After this resolves, ALL network requests made through the standard RN
- * Networking APIs (fetch, XMLHttpRequest — and therefore axios) are
- * automatically covered by the pinning configuration.
- *
- * Returns `false` on platforms (e.g. Expo Go) where pinning is not available.
  */
 export async function setupSslPinning(): Promise<boolean> {
     if (!isSslPinningAvailable()) {

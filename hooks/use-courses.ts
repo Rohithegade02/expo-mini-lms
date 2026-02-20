@@ -7,7 +7,6 @@ import { useShallow } from 'zustand/react/shallow';
  * Extracts methods from the store to avoid direct store usage in components.
  */
 export const useCourses = () => {
-    // Select data properties using shallow to prevent unnecessary re-renders
     const {
         courses,
         bookmarks,
@@ -63,14 +62,18 @@ export const useCourses = () => {
                     .includes(query)
         );
     }, [courses, searchQuery, smartRecommendations]);
+
+    // Helper to check if a course is bookmarked
     const isBookmarked = useCallback((courseId: string) => {
         return bookmarks.includes(courseId);
     }, [bookmarks]);
 
+    // Helper to check if a course is enrolled
     const isEnrolled = useCallback((courseId: string) => {
         return enrolledCourses.includes(courseId);
     }, [enrolledCourses]);
 
+    // Helper to get course progress
     const getCourseProgress = useCallback((courseId: string) => {
         const course = courses.find(c => c.id === courseId);
         return course?.progress || 0;

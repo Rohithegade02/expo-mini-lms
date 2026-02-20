@@ -10,8 +10,7 @@ import { FIELD_CONFIG } from './config';
 import { RegisterPresentationProps } from './types';
 
 
-
-
+// This is the presentation component for the register screen
 export const RegisterPresentation: React.FC<RegisterPresentationProps> = memo(({
     control,
     onSubmit,

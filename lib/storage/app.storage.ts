@@ -37,5 +37,3 @@ export const getLastAppOpen = (): number | null => {
     return getItem<number>(AppStorageKeys.LAST_APP_OPEN);
 };
 
-// Theme preferences (migrated from AsyncStorage or just consolidated if new)
-// Note: We can expand this with other app-wide settings from async-storage.ts if desired

@@ -26,7 +26,6 @@ export function useBiometrics(options?: UseBiometricsOptions): UseBiometricsRetu
     const [isLoading, setIsLoading] = useState(true);
     const [isBiometricAuthenticated, setIsBiometricAuthenticated] = useState(false);
 
-    // Track if we've attempted auto-authentication to prevent loops
     const hasAttemptedAuto = useRef(false);
 
     useEffect(() => {
@@ -64,7 +63,6 @@ export function useBiometrics(options?: UseBiometricsOptions): UseBiometricsRetu
     const authenticate = async (reason: string = options?.reason || 'Verify your identity') => {
         try {
             if (!isHardwareSupported || !isEnrolled) {
-                // Re-check just in case state is stale, though unexpected in this flow
                 const compatible = await LocalAuthentication.hasHardwareAsync();
                 const enrolled = await LocalAuthentication.isEnrolledAsync();
 

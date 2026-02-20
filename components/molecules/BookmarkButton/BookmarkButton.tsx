@@ -15,7 +15,6 @@ export const BookmarkButton: React.FC<BookmarkButtonProps> = memo(({
     const scaleValue = useRef(new Animated.Value(1)).current;
 
     const handlePress = useCallback(() => {
-        // Animate scale
         Animated.sequence([
             Animated.timing(scaleValue, {
                 toValue: 0.8,

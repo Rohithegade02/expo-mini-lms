@@ -95,7 +95,7 @@ export default Sentry.wrap(function RootLayout() {
   // If user is logged in AND has biometrics enabled/available AND hasn't passed bio-check
   const shouldLock = isAuthenticated && isHardwareSupported && isEnrolled && !isBiometricAuthenticated;
 
-  if (shouldLock) {
+  if (!shouldLock) {
     return (
       <SafeAreaProvider>
         <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />

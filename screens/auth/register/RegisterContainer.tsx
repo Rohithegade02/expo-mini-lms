@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { Alert } from 'react-native';
 import { RegisterPresentation } from './RegisterPresentation';
 
+// This is the container component for the register screen
 export const RegisterContainer: React.FC = () => {
     const router = useRouter();
     const { register: registerAction, isLoading } = useAuth();
@@ -32,7 +33,6 @@ export const RegisterContainer: React.FC = () => {
     const onSubmit = useCallback(async (data: RegisterData) => {
         try {
             await registerAction(data);
-            // empty the form
             reset();
             Alert.alert(
                 'Success',

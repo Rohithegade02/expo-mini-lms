@@ -9,7 +9,6 @@ export const useTheme = () => {
     const { theme, toggleTheme, setTheme } = useThemeStore();
     const { setColorScheme, colorScheme } = useColorScheme();
 
-    // Sync store selection with NativeWind
     useEffect(() => {
         if (theme === 'system') {
             setColorScheme('system');

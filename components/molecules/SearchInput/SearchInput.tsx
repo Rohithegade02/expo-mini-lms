@@ -15,7 +15,6 @@ export const SearchInput: React.FC<SearchInputProps> = memo(({
     const [value, setValue] = useState('');
     const onSearchRef = useRef(onSearch);
 
-    // Update ref when onSearch changes to avoid stale closures
     useEffect(() => {
         onSearchRef.current = onSearch;
     }, [onSearch]);

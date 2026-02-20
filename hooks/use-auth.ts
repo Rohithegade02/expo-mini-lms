@@ -7,7 +7,6 @@ import { useShallow } from 'zustand/react/shallow';
  * Extracts methods from the store to avoid direct store usage in components.
  */
 export const useAuth = () => {
-    // Select data properties using shallow to prevent unnecessary re-renders
     const {
         user,
         token,
