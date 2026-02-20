@@ -1,4 +1,5 @@
 import { ROUTES } from '@/constants/router';
+import useOrientation from '@/hooks/use-orientation';
 import { loginSchema } from '@/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'expo-router';
@@ -14,6 +15,7 @@ import { LoginPresentation } from './LoginPresentation';
 export const LoginContainer: React.FC = () => {
     const router = useRouter();
     const { login, isLoading } = useAuth();
+    const orientation = useOrientation();
 
     const {
         control,
@@ -46,6 +48,7 @@ export const LoginContainer: React.FC = () => {
 
     return (
         <LoginPresentation
+            orientation={orientation}
             control={control}
             onSubmit={handleSubmit(onSubmit)}
             isLoading={isLoading}

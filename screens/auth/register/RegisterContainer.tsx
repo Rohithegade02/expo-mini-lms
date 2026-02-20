@@ -1,5 +1,6 @@
 import { ROUTES } from '@/constants/router';
 import { useAuth } from '@/hooks/use-auth';
+import useOrientation from '@/hooks/use-orientation';
 import { registerSchema } from '@/schema';
 import { RegisterData } from '@/types/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,6 +13,7 @@ import { RegisterPresentation } from './RegisterPresentation';
 export const RegisterContainer: React.FC = () => {
     const router = useRouter();
     const { register: registerAction, isLoading } = useAuth();
+    const orientation = useOrientation();
 
     const {
         control,
@@ -50,6 +52,7 @@ export const RegisterContainer: React.FC = () => {
 
     return (
         <RegisterPresentation
+            orientation={orientation}
             control={control}
             onSubmit={handleSubmit(onSubmit)}
             isLoading={isLoading}

@@ -58,14 +58,16 @@ export const ProfilePresentation: React.FC<ProfilePresentationProps> = memo(({
                         onUpdateAvatar={onUpdateAvatar}
                     />
                 }
-                contentContainerClassName="flex-1"
+                className="flex-1"
                 testID={`${testID}-list`}
                 accessibilityLabel={`${testID}-list`}
-            />
-            <ProfileFooter
-                version="1.0.0"
-                testID={`${testID}-footer`}
-                accessibilityLabel={`${testID}-footer`}
+                ListFooterComponent={
+                    <ProfileFooter
+                        version="1.0.0"
+                        testID={`${testID}-footer`}
+                        accessibilityLabel={`${testID}-footer`}
+                    />
+                }
             />
         </SafeAreaView>
     );

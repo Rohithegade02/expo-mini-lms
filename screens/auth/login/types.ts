@@ -9,4 +9,5 @@ export interface LoginPresentationProps {
     onRegisterPress: () => void;
     testID?: string;
     accessibilityLabel?: string;
+    orientation?: string;
 }

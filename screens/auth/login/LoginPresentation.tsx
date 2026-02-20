@@ -1,5 +1,6 @@
 import { Input } from '@/components/atoms';
 import { LegendList } from '@legendapp/list';
+import clsx from 'clsx';
 import React, { memo } from 'react';
 import { Controller } from 'react-hook-form';
 import { KeyboardAvoidingView, Platform } from 'react-native';
@@ -19,6 +20,7 @@ export const LoginPresentation: React.FC<LoginPresentationProps> = memo(({
     onRegisterPress,
     testID = "login-screen",
     accessibilityLabel = "login-screen",
+    orientation
 }) => {
     const renderItem = ({ item }: { item: typeof FIELD_CONFIG[0] }) => (
         <Controller
@@ -47,7 +49,7 @@ export const LoginPresentation: React.FC<LoginPresentationProps> = memo(({
     return (
         <AnimatedKeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            className="flex-1 bg-gray-100 dark:bg-gray-800"
+            className={clsx("flex-1 bg-gray-100 dark:bg-gray-800", orientation === 'landscape' && "px-16")}
             testID={testID}
             accessibilityLabel={accessibilityLabel}
         >
