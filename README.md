@@ -10,7 +10,13 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+3. Setup environment variables (Optional: Smart course recommendations)
+   Create a `.env` file in the root directory and add:
+   ```bash
+   EXPO_PUBLIC_GEMINI_API_KEY="your-gemini-api-key-here"
+   ```
+
+4. Start the app
 
    ```bash
    npx expo start

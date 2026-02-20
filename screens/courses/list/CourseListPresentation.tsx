@@ -14,6 +14,8 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
     error,
     searchQuery,
     onSearch,
+    isSmartSearchLoading,
+    onSmartSearch,
     onRefresh,
     onCoursePress,
     onToggleBookmark,
@@ -53,6 +55,8 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
                 <CourseListHeader
                     searchQuery={searchQuery}
                     onSearch={onSearch}
+                    isSmartSearchLoading={isSmartSearchLoading}
+                    onSmartSearch={onSmartSearch}
                     testID={`${testID}-header`}
                     accessibilityLabel={`${testID}-header`}
                 />
@@ -85,6 +89,8 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
                     <CourseListHeader
                         searchQuery={searchQuery}
                         onSearch={onSearch}
+                        isSmartSearchLoading={isSmartSearchLoading}
+                        onSmartSearch={onSmartSearch}
                         testID={`${testID}-header`}
                         accessibilityLabel={`${testID}-header`}
                     />

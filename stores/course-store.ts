@@ -1,3 +1,5 @@
+import { courseApi } from '@/lib/api/courses';
+import { getSmartRecommendations } from '@/lib/api/gemini';
 import { notificationService } from '@/lib/notifications/notification-service';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
@@ -15,6 +17,7 @@ interface CourseActions {
     toggleEnrollment: (courseId: string) => void;
     updateProgress: (courseId: string, progress: number) => void;
     clearError: () => void;
+    performSmartSearch: (query: string) => Promise<void>;
 }
 
 type CourseStore = CourseState & CourseActions;
@@ -29,6 +32,8 @@ export const useCourseStore = create<CourseStore>()(
             searchQuery: '',
             isLoading: false,
             error: null,
+            isSmartSearchLoading: false,
+            smartRecommendations: [],
 
             // Actions
             setCourses: (courses) => {
@@ -48,7 +53,6 @@ export const useCourseStore = create<CourseStore>()(
             fetchCourses: async (count) => {
                 set({ isLoading: true, error: null });
                 try {
-                    const { courseApi } = await import('../lib/api/courses');
                     const courses = await courseApi.getMappedCourses(count);
                     get().setCourses(courses);
                 } catch (error) {
@@ -145,6 +149,26 @@ export const useCourseStore = create<CourseStore>()(
             clearError: () => {
                 set({ error: null });
             },
+
+            performSmartSearch: async (query) => {
+                const { courses } = get();
+                if (!query.trim()) {
+                    set({ smartRecommendations: [] });
+                    return;
+                }
+
+                set({ isSmartSearchLoading: true, error: null });
+                try {
+                    const recommendations = await getSmartRecommendations(query, courses);
+                    console.log(recommendations, query, 'recommendations');
+                    set({ smartRecommendations: recommendations });
+                } catch (error) {
+                    const message = error instanceof Error ? error.message : 'Failed to get smart recommendations';
+                    set({ error: message });
+                } finally {
+                    set({ isSmartSearchLoading: false });
+                }
+            },
         }),
         {
             name: 'course-storage',
@@ -159,24 +183,6 @@ export const useCourseStore = create<CourseStore>()(
 );
 
 // Selectors
-export const selectFilteredCourses = (state: CourseStore) => {
-    const { courses, searchQuery } = state;
-
-    if (!searchQuery.trim()) {
-        return courses;
-    }
-
-    const query = searchQuery.toLowerCase();
-    return courses.filter(
-        (course) =>
-            course.title.toLowerCase().includes(query) ||
-            course.description.toLowerCase().includes(query) ||
-            course.category.toLowerCase().includes(query) ||
-            `${course.instructor.name.first} ${course.instructor.name.last}`
-                .toLowerCase()
-                .includes(query)
-    );
-};
 
 export const selectBookmarkedCourses = (state: CourseStore) => {
     return state.courses.filter((course) => course.isBookmarked);

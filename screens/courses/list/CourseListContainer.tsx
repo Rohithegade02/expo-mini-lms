@@ -16,16 +16,18 @@ export const CourseListContainer: React.FC = () => {
         searchQuery: storeSearchQuery,
         setSearchQuery,
         fetchCourses,
-        toggleBookmark
+        toggleBookmark,
+        isSmartSearchLoading,
+        performSmartSearch
     } = useCourses();
 
     const [localSearch, setLocalSearch] = useState<string>(storeSearchQuery);
     const debouncedSearch = useDebounce(localSearch, 500);
 
-    // Sync local search with store search query on mount (in case navigating back)
-    useEffect(() => {
-        setLocalSearch(storeSearchQuery);
-    }, []);
+    // // Sync local search with store search query on mount (in case navigating back)
+    // useEffect(() => {
+    //     setLocalSearch(storeSearchQuery);
+    // }, []);
 
     // Fetch courses on mount if empty
     useEffect(() => {
@@ -58,6 +60,10 @@ export const CourseListContainer: React.FC = () => {
         toggleBookmark(courseId);
     }, [toggleBookmark]);
 
+    const handleSmartSearch = useCallback((query: string) => {
+        performSmartSearch(query);
+    }, [performSmartSearch]);
+
     return (
         <CourseListPresentation
             courses={filteredCourses}
@@ -65,6 +71,8 @@ export const CourseListContainer: React.FC = () => {
             error={error}
             searchQuery={localSearch}
             onSearch={handleSearch}
+            isSmartSearchLoading={isSmartSearchLoading}
+            onSmartSearch={handleSmartSearch}
             onRefresh={handleRefresh}
             onCoursePress={handleCoursePress}
             onToggleBookmark={handleToggleBookmark}

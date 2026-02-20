@@ -30,6 +30,8 @@ export interface CourseState {
     searchQuery: string;
     isLoading: boolean;
     error: string | null;
+    isSmartSearchLoading: boolean;
+    smartRecommendations: string[];
 }
 
 export interface CourseProgress {

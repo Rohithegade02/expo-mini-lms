@@ -72,7 +72,7 @@ export default Sentry.wrap(function RootLayout() {
   const appIsLoading = isLoading || (!isReady) || (isAuthenticated && isBiometricsLoading);
 
   if (appIsLoading) {
-    return <LoadingOverlay visible={true} message="Starting up..." />;
+    return <LoadingOverlay visible={true} message="Loading..." />;
   }
 
   // App Lock Logic:

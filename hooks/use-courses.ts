@@ -1,5 +1,5 @@
-import { selectFilteredCourses, useCourseStore } from '@/stores/course-store';
-import { useCallback } from 'react';
+import { useCourseStore } from '@/stores/course-store';
+import { useCallback, useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
 /**
@@ -15,7 +15,8 @@ export const useCourses = () => {
         searchQuery,
         isLoading,
         error,
-        filteredCourses
+        isSmartSearchLoading,
+        smartRecommendations
     } = useCourseStore(
         useShallow((state) => ({
             courses: state.courses,
@@ -24,7 +25,8 @@ export const useCourses = () => {
             searchQuery: state.searchQuery,
             isLoading: state.isLoading,
             error: state.error,
-            filteredCourses: selectFilteredCourses(state)
+            isSmartSearchLoading: state.isSmartSearchLoading,
+            smartRecommendations: state.smartRecommendations
         }))
     );
 
@@ -38,8 +40,29 @@ export const useCourses = () => {
     const toggleBookmark = useCourseStore((state) => state.toggleBookmark);
     const toggleEnrollment = useCourseStore((state) => state.toggleEnrollment);
     const updateProgress = useCourseStore((state) => state.updateProgress);
+    const performSmartSearch = useCourseStore((state) => state.performSmartSearch);
 
     // Derived state or helper functions can be added here
+    const filteredCourses = useMemo(() => {
+        if (!searchQuery.trim()) {
+            return courses;
+        }
+
+        if (smartRecommendations.length > 0) {
+            return courses.filter(course => smartRecommendations.includes(course.id));
+        }
+
+        const query = searchQuery.toLowerCase();
+        return courses.filter(
+            (course) =>
+                course.title.toLowerCase().includes(query) ||
+                course.description.toLowerCase().includes(query) ||
+                course.category.toLowerCase().includes(query) ||
+                `${course.instructor.name.first} ${course.instructor.name.last}`
+                    .toLowerCase()
+                    .includes(query)
+        );
+    }, [courses, searchQuery, smartRecommendations]);
     const isBookmarked = useCallback((courseId: string) => {
         return bookmarks.includes(courseId);
     }, [bookmarks]);
@@ -61,6 +84,7 @@ export const useCourses = () => {
         enrolledCourses,
         searchQuery,
         isLoading,
+        isSmartSearchLoading,
         error,
 
         // Actions
@@ -73,6 +97,7 @@ export const useCourses = () => {
         toggleBookmark,
         toggleEnrollment,
         updateProgress,
+        performSmartSearch,
 
         // Helpers
         isBookmarked,
