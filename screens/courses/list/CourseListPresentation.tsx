@@ -26,6 +26,7 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
     orientation
 }) => {
     const { top } = useSafeAreaInsets();
+
     const renderItem = useCallback(({ item }: { item: Course }) => (
         <CourseCard
             course={item}
@@ -34,7 +35,20 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
             testID={`${testID}-card-${item.id}`}
             accessibilityLabel={`${testID}-card-${item.id}`}
         />
-    ), [onCoursePress, onToggleBookmark]);
+    ), [onCoursePress, onToggleBookmark, testID]);
+
+    // Memoized as a component reference — LegendList only remounts its header
+    // when the reference changes, not on every parent render / keystroke.
+    const ListHeader = useCallback(() => (
+        <CourseListHeader
+            searchQuery={searchQuery}
+            onSearch={onSearch}
+            isSmartSearchLoading={isSmartSearchLoading}
+            onSmartSearch={onSmartSearch}
+            testID={`${testID}-header`}
+            accessibilityLabel={`${testID}-header`}
+        />
+    ), [searchQuery, onSearch, isSmartSearchLoading, onSmartSearch, testID]);
 
     if (error && courses.length === 0) {
         return (
@@ -52,7 +66,12 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
         );
     }
 
-    if (isLoading && courses.length === 0) {
+    // Only show the skeleton on initial load — when no courses have arrived yet
+    // and there is no active search. Typing must NEVER trigger this branch
+    // because it causes the full-screen blank flash / flicker.
+    const isInitialLoading = isLoading && courses.length === 0 && !searchQuery.trim();
+
+    if (isInitialLoading) {
         return (
             <SafeAreaView className="flex-1 bg-white dark:bg-gray-900">
                 <CourseListHeader
@@ -83,21 +102,17 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
     }
 
     return (
-        <View className={clsx('flex-1 bg-white dark:bg-gray-900', orientation === 'landscape' ? 'px-16' : 'px-4')} style={{ paddingTop: top }} testID={testID} accessibilityLabel={accessibilityLabel}>
+        <View
+            className={clsx('flex-1 bg-white dark:bg-gray-900', orientation === 'landscape' ? 'px-16' : 'px-4')}
+            style={{ paddingTop: top }}
+            testID={testID}
+            accessibilityLabel={accessibilityLabel}
+        >
             <LegendList
                 data={courses}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
-                ListHeaderComponent={
-                    <CourseListHeader
-                        searchQuery={searchQuery}
-                        onSearch={onSearch}
-                        isSmartSearchLoading={isSmartSearchLoading}
-                        onSmartSearch={onSmartSearch}
-                        testID={`${testID}-header`}
-                        accessibilityLabel={`${testID}-header`}
-                    />
-                }
+                ListHeaderComponent={ListHeader}
                 numColumns={orientation === 'landscape' ? 2 : 1}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ padding: 16, gap: orientation === 'landscape' ? 16 : 0 }}
