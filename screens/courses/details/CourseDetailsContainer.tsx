@@ -1,4 +1,5 @@
 import { ROUTES } from '@/constants/router';
+import { useTheme } from '@/hooks/use-theme';
 import { useCourseStore } from '@/stores/course-store';
 import { RelativePathString, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useCallback, useMemo } from 'react';
@@ -8,6 +9,7 @@ import { CourseDetailsPresentation } from './CourseDetailsPresentation';
 export const CourseDetailsContainer: React.FC = () => {
     const { id } = useLocalSearchParams<{ id: string }>();
     const router = useRouter();
+    const { isDark } = useTheme();
     const {
         courses,
         toggleBookmark,
@@ -59,6 +61,7 @@ export const CourseDetailsContainer: React.FC = () => {
 
     return (
         <CourseDetailsPresentation
+            isDark={isDark}
             course={course}
             isEnrolled={course.isEnrolled}
             isBookmarked={course.isBookmarked}

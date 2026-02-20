@@ -3,6 +3,7 @@ import React, { memo } from 'react';
 import { View } from 'react-native';
 
 interface CourseFooterProps {
+    isDark: boolean;
     price: number;
     isEnrolled: boolean;
     isLoading: boolean;
@@ -13,6 +14,7 @@ interface CourseFooterProps {
 }
 
 export const CourseFooter = memo(({
+    isDark,
     price,
     isEnrolled,
     isLoading,
@@ -21,7 +23,7 @@ export const CourseFooter = memo(({
     testID,
     accessibilityLabel,
 }: CourseFooterProps) => (
-    <View className="px-6 pt-6 pb-10 border-t border-gray-200 mt-6 bg-white" testID={testID} accessibilityLabel={accessibilityLabel}>
+    <View className="px-6 pt-6 pb-10 border-t border-gray-200 dark:border-gray-800 mt-6 bg-white dark:bg-gray-900" testID={testID} accessibilityLabel={accessibilityLabel}>
 
         <View className="mb-4">
             <Text className="text-gray-400 text-xs font-semibold uppercase mb-1">

@@ -9,6 +9,7 @@ import { CourseDetailsPresentationProps } from './types';
 
 export const CourseDetailsPresentation: React.FC<CourseDetailsPresentationProps> = memo(({
     course,
+    isDark,
     isEnrolled,
     isBookmarked,
     isLoading,
@@ -30,10 +31,11 @@ export const CourseDetailsPresentation: React.FC<CourseDetailsPresentationProps>
     ]), []);
 
     return (
-        <SafeAreaView className="flex-1 bg-white" testID={testID} accessibilityLabel={accessibilityLabel}>
+        <SafeAreaView className="flex-1 bg-white dark:bg-gray-900" testID={testID} accessibilityLabel={accessibilityLabel}>
 
             {/* Top Navigation */}
             <HeaderBar
+                isDark={isDark}
                 isBookmarked={isBookmarked}
                 onBack={onBack}
                 onShare={onShare}
@@ -48,6 +50,7 @@ export const CourseDetailsPresentation: React.FC<CourseDetailsPresentationProps>
                 numColumns={2}
                 renderItem={({ item }) => (
                     <FeatureItem
+                        isDark={isDark}
                         icon={item.icon}
                         label={item.label}
                         testID={`${testID}-feature-${item.id}`}
@@ -57,6 +60,7 @@ export const CourseDetailsPresentation: React.FC<CourseDetailsPresentationProps>
                 recycleItems
                 ListHeaderComponent={
                     <CourseHeader
+                        isDark={isDark}
                         course={course}
                         testID={`${testID}-course-header`}
                         accessibilityLabel={`${testID}-course-header`}
@@ -67,6 +71,7 @@ export const CourseDetailsPresentation: React.FC<CourseDetailsPresentationProps>
                 accessibilityLabel={`${testID}-features-list`}
             />
             <CourseFooter
+                isDark={isDark}
                 price={course.price}
                 isEnrolled={isEnrolled}
                 isLoading={isLoading}

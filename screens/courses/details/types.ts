@@ -2,6 +2,7 @@ import { Course } from '@/types/course';
 
 export interface CourseDetailsPresentationProps {
     course: Course;
+    isDark: boolean;
     isEnrolled: boolean;
     isBookmarked: boolean;
     isLoading: boolean;
