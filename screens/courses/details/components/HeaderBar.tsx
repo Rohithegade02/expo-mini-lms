@@ -5,7 +5,7 @@ import { Pressable, View } from 'react-native';
 import { HeaderBarProps } from '../types';
 
 
-
+// This component is responsible for rendering the header bar of the course details.
 export const HeaderBar = memo(({
     isDark,
     isBookmarked,

@@ -3,8 +3,7 @@ import React, { memo } from 'react';
 import { View } from 'react-native';
 import { CourseFooterProps } from '../types';
 
-
-
+// This component is responsible for rendering the footer of the course details.
 export const CourseFooter = memo(({
     isDark,
     price,

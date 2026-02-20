@@ -4,7 +4,7 @@ import React, { memo } from 'react';
 import { View } from 'react-native';
 import { FeatureItemProps } from '../types';
 
-
+// This component is responsible for rendering a single feature item.
 export const FeatureItem = memo(({ isDark, icon, label, testID, accessibilityLabel }: FeatureItemProps) => (
     <View className="flex-row items-center px-6 py-3" testID={testID} accessibilityLabel={accessibilityLabel}>
         <View className="bg-primary-50 dark:bg-primary-900/40 p-2 rounded-lg mr-3">

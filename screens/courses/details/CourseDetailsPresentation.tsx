@@ -7,6 +7,7 @@ import { FeatureItem } from './components/FeatureItem';
 import { HeaderBar } from './components/HeaderBar';
 import { CourseDetailsPresentationProps } from './types';
 
+// This component is responsible for rendering the course details.
 export const CourseDetailsPresentation: React.FC<CourseDetailsPresentationProps> = memo(({
     course,
     isDark,

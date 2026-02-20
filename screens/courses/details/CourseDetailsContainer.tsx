@@ -6,6 +6,7 @@ import React, { useCallback, useMemo } from 'react';
 import { Alert, Share } from 'react-native';
 import { CourseDetailsPresentation } from './CourseDetailsPresentation';
 
+// This component is responsible for fetching and managing the course details data.
 export const CourseDetailsContainer: React.FC = () => {
     const { id } = useLocalSearchParams<{ id: string }>();
     const router = useRouter();
