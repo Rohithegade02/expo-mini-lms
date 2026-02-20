@@ -1,5 +1,5 @@
-import { LoadingOverlay } from '@/components/atoms/LoadingOverlay/LoadingOverlay';
-import { OfflineBanner } from '@/components/molecules/OfflineBanner/OfflineBanner';
+import { LoadingOverlay } from '@/components/atoms';
+import { OfflineBanner } from '@/components/molecules';
 import { ErrorBoundary } from '@/components/organisms';
 import { theme } from '@/constants/theme';
 import { useAuth } from '@/hooks/use-auth';
@@ -8,6 +8,7 @@ import useNetwork from '@/hooks/use-network';
 import { useNotifications } from '@/hooks/use-notifications';
 import { useTheme } from '@/hooks/use-theme';
 import { notificationService } from '@/lib/notifications/notification-service';
+import { listenForSslPinningErrors, setupSslPinning } from '@/lib/security/ssl-pinning';
 import * as Sentry from '@sentry/react-native';
 import { Stack } from 'expo-router';
 import React, { useEffect, useState } from 'react';
@@ -55,6 +56,11 @@ export default Sentry.wrap(function RootLayout() {
   useNotifications();
 
   useEffect(() => {
+    // Initialize SSL Public Key Pinning first — before any network requests
+    setupSslPinning().catch((err) =>
+      console.error('[SSL Pinning] Initialization failed:', err)
+    );
+
     loadUser();
     setIsReady(true);
 
@@ -67,8 +73,14 @@ export default Sentry.wrap(function RootLayout() {
       }
     });
 
+    // SSL pinning failure listener — logs & could report to Sentry
+    const sslSubscription = listenForSslPinningErrors((hostname) => {
+      console.error(`[SSL Pinning] Blocked connection to: ${hostname}`);
+    });
+
     return () => {
       subscription.remove();
+      sslSubscription.remove();
     };
   }, []);
 

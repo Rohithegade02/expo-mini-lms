@@ -45,7 +45,10 @@
         "expo-notifications",
         {
           "icon": "./assets/images/icon.png",
-          "color": "#2563eb"
+          "color": "#2563eb",
+          "ios": {
+            "networkInspector": false
+          }
         }
       ],
       [
