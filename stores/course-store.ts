@@ -180,13 +180,3 @@ export const useCourseStore = create<CourseStore>()(
         }
     )
 );
-
-// Selectors
-
-export const selectBookmarkedCourses = (state: CourseStore) => {
-    return state.courses.filter((course) => course.isBookmarked);
-};
-
-export const selectEnrolledCourses = (state: CourseStore) => {
-    return state.courses.filter((course) => course.isEnrolled);
-};
