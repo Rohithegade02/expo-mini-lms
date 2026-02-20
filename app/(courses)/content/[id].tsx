@@ -1,4 +1,5 @@
 import { Icon, Text } from '@/components/atoms';
+import { theme } from '@/constants/theme';
 import { useCourses } from '@/hooks/use-courses';
 import { useTheme } from '@/hooks/use-theme';
 import { getInitialDataScript } from '@/lib/webview/inject-data';
@@ -50,7 +51,7 @@ export default function CourseContentPage() {
     if (!course || !htmlUri) {
         return (
             <View className="flex-1 justify-center items-center bg-white">
-                <ActivityIndicator size="large" color="#2563eb" />
+                <ActivityIndicator size="large" color={theme.light.colors.primary[600]} />
             </View>
         );
     }
@@ -84,7 +85,7 @@ export default function CourseContentPage() {
                 />
                 {!isWebViewReady && (
                     <View className="absolute inset-0 justify-center items-center bg-white dark:bg-gray-900">
-                        <ActivityIndicator size="large" color="#2563eb" />
+                        <ActivityIndicator size="large" color={theme.light.colors.primary[600]} />
                     </View>
                 )}
             </View>

@@ -1,6 +1,7 @@
 import { LoadingOverlay } from '@/components/atoms/LoadingOverlay/LoadingOverlay';
 import { OfflineBanner } from '@/components/molecules/OfflineBanner/OfflineBanner';
 import { ErrorBoundary } from '@/components/organisms';
+import { theme } from '@/constants/theme';
 import { useAuth } from '@/hooks/use-auth';
 import { useBiometrics } from '@/hooks/use-biometrics';
 import useNetwork from '@/hooks/use-network';
@@ -86,8 +87,8 @@ export default Sentry.wrap(function RootLayout() {
     return (
       <SafeAreaProvider>
         <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
-        <View className="flex-1 items-center justify-center bg-background p-4" style={{ backgroundColor: isDark ? '#000' : '#fff' }}>
-          <Text className="text-xl font-bold mb-4 text-foreground" style={{ color: isDark ? '#fff' : '#000' }}>
+        <View className="flex-1 items-center justify-center bg-background p-4" style={{ backgroundColor: isDark ? theme.dark.colors.background : theme.light.colors.background }}>
+          <Text className="text-xl font-bold mb-4 text-foreground" style={{ color: isDark ? theme.dark.colors.white : theme.light.colors.gray[800] }}>
             App Locked
           </Text>
           <Button

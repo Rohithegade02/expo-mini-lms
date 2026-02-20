@@ -155,6 +155,7 @@ export const theme = {
             background: '#0f172a',
             // Text
             text: '#f9fafb',
+            white: '#ffffff',
         }
     },
     spacing: {

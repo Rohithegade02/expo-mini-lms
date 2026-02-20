@@ -17,19 +17,19 @@ export const HeaderBar = memo(({
 }: HeaderBarProps) => (
     <View className="flex-row items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900" testID={testID} accessibilityLabel={accessibilityLabel}>
         <Pressable onPress={onBack}>
-            <Icon name="chevron-back" size={24} color={isDark ? '#ffffff' : theme.light.colors.gray[800]} />
+            <Icon name="chevron-back" size={24} color={isDark ? theme.dark.colors.white : theme.light.colors.gray[800]} />
         </Pressable>
 
         <View className="flex-row items-center">
             <Pressable onPress={onShare} className="mr-5">
-                <Icon name="share-outline" size={22} color={isDark ? '#ffffff' : theme.light.colors.gray[800]} />
+                <Icon name="share-outline" size={22} color={isDark ? theme.dark.colors.white : theme.light.colors.gray[800]} />
             </Pressable>
 
             <Pressable onPress={onToggleBookmark}>
                 <Icon
                     name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
                     size={22}
-                    color={isBookmarked ? theme.light.colors.primary[600] : (isDark ? '#ffffff' : theme.light.colors.gray[800])}
+                    color={isBookmarked ? theme.light.colors.primary[600] : (isDark ? theme.dark.colors.white : theme.light.colors.gray[800])}
                 />
             </Pressable>
         </View>

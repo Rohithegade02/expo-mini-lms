@@ -1,3 +1,4 @@
+import { theme } from '@/constants/theme';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
@@ -35,7 +36,7 @@ const requestPermissions = async (): Promise<boolean> => {
             name: 'default',
             importance: Notifications.AndroidImportance.MAX,
             vibrationPattern: [0, 250, 250, 250],
-            lightColor: '#2563eb',
+            lightColor: theme.light.colors.primary[600],
         });
     }
 

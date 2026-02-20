@@ -1,4 +1,5 @@
 import { Icon } from '@/components/atoms';
+import { theme } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import React, { memo } from 'react';
 import { Pressable, View } from 'react-native';
@@ -27,7 +28,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = memo(({
                     <Icon
                         name={isDark ? "sunny" : "moon"}
                         size={24}
-                        color={isDark ? "#fbbf24" : "#1f2937"}
+                        color={isDark ? theme.light.colors.warning[400] : theme.dark.colors.warning[500]}
                     />
                 </Pressable>
             </View>
