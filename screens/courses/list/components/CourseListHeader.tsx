@@ -10,7 +10,7 @@ export const CourseListHeader = memo(({ searchQuery, onSearch, isSmartSearchLoad
         <Text variant="h2" className="text-gray-900 dark:text-white mb-2">Explore Courses</Text>
         <Text variant="body" className="text-gray-500 dark:text-gray-400 mb-2">Master new skills with our expert-led courses</Text>
 
-        <View className="flex-row items-center bg-white px-4 py-2.5 rounded-2xl border border-gray-200">
+        <View className="flex-row items-center bg-white px-4  rounded-2xl border border-gray-200">
             <Icon name="search-outline" size={20} color={theme.light.colors.gray[500]} className="mr-2" />
             <TextInput
                 placeholder="Search courses..."
