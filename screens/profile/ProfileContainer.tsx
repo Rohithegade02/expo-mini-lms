@@ -27,7 +27,6 @@ export const ProfileContainer: React.FC = memo(() => {
         try {
             const uri = await pickImage();
 
-            console.log(uri);
             if (uri) {
                 const fileName = uri.split('/').pop();
 
