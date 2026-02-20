@@ -56,10 +56,14 @@ export default function CourseContentPage() {
         );
     }
 
+    const handleBackPress = useCallback(() => {
+        router.back();
+    }, [router]);
+
     return (
         <SafeAreaView className="flex-1 bg-white dark:bg-gray-900">
             <View className="flex-row items-center px-6 py-4 border-b border-gray-100 dark:border-gray-800">
-                <Pressable onPress={() => router.back()} className="mr-4">
+                <Pressable onPress={handleBackPress} className="mr-4">
                     <Icon name="chevron-back" size={24} color={isDark ? "white" : "black"} />
                 </Pressable>
                 <Text variant="h3" className="flex-1 text-gray-900 dark:text-white" numberOfLines={1}>
