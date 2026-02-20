@@ -1,6 +1,6 @@
 import { LoadingOverlay } from '@/components/atoms/LoadingOverlay/LoadingOverlay';
 import { OfflineBanner } from '@/components/molecules/OfflineBanner/OfflineBanner';
-import { ErrorBoundary } from '@/components/organisms/ErrorBoundary/ErrorBoundary';
+import { ErrorBoundary } from '@/components/organisms';
 import { useAuth } from '@/hooks/use-auth';
 import { useBiometrics } from '@/hooks/use-biometrics';
 import { useNotifications } from '@/hooks/use-notifications';
@@ -101,7 +101,6 @@ export default Sentry.wrap(function RootLayout() {
       <SafeAreaProvider>
         <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
         <OfflineBanner />
-        <LoadingOverlay visible={isLoading} message="Loading..." />
         <Stack>
           <Stack.Protected guard={!isAuthenticated}>
             <Stack.Screen name="(auth)" options={{ headerShown: false }} />

@@ -5,7 +5,7 @@ import { RelativePathString, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { CourseListPresentation } from './CourseListPresentation';
 
-export const CourseListContainer: React.FC = () => {
+const CourseListContainer: React.FC = () => {
     const router = useRouter();
 
     // Select state using custom hook
@@ -79,3 +79,6 @@ export const CourseListContainer: React.FC = () => {
         />
     );
 };
+
+
+export default CourseListContainer;

@@ -1,10 +1,15 @@
+import { LoadingOverlay } from "@/components/atoms";
 import { ThemeToggle } from "@/components/molecules";
-import { LoginScreen } from "@/screens/auth/login";
+import React, { Suspense } from 'react';
+
+const LazyLoginScreen = React.lazy(() => import('@/screens/auth/login').then(module => ({ default: module.LoginScreen })))
 
 export default function LoginPage() {
     return (
-        <ThemeToggle>
-            <LoginScreen />
-        </ThemeToggle>
+        <Suspense fallback={<LoadingOverlay visible={true} message="Loading..." />}>
+            <ThemeToggle>
+                <LazyLoginScreen />
+            </ThemeToggle>
+        </Suspense>
     );
 }

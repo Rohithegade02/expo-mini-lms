@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -7,29 +8,43 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        .lesson-card { transition: all 0.2s ease; }
-        .lesson-card:active { transform: scale(0.98); opacity: 0.8; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .lesson-card {
+            transition: all 0.2s ease;
+        }
+
+        .lesson-card:active {
+            transform: scale(0.98);
+            opacity: 0.8;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
+
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
     <div id="content" class="pb-10">
         <!-- Header -->
-        <div class="bg-blue-600 px-6 py-8 text-white shadow-lg">
+        <div class="bg-blue-600 px-6 py-8 text-white dark:text-gray-900 shadow-lg">
             <h1 id="course-title" class="text-2xl font-bold mb-2">Loading Course...</h1>
-            <p id="course-category" class="text-blue-100 text-sm font-semibold uppercase tracking-wider"></p>
+            <p id="course-category"
+                class="text-blue-100 dark:text-blue-800 text-sm font-semibold uppercase tracking-wider"></p>
         </div>
 
         <div class="px-6 -mt-4">
-            <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
-                <h2 class="text-lg font-bold mb-4 text-gray-800">Syllabus</h2>
+            <div
+                class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 shadow-md border border-gray-100 dark:border-gray-800">
+                <h2 class="text-lg font-bold mb-4 text-gray-800 dark:text-white">Syllabus</h2>
                 <div id="lessons-list" class="space-y-4">
                     <!-- Lessons will be injected here -->
                     <div class="animate-pulse flex space-x-4">
-                        <div class="rounded-full bg-gray-200 h-10 w-10"></div>
+                        <div class="rounded-full bg-gray-200 dark:bg-gray-800 h-10 w-10"></div>
                         <div class="flex-1 space-y-4 py-1">
-                            <div class="h-4 bg-gray-200 rounded w-3/4"></div>
-                            <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+                            <div class="h-4 bg-gray-200 dark:bg-gray-800 rounded w-3/4"></div>
+                            <div class="h-4 bg-gray-200 dark:bg-gray-800 rounded w-1/2"></div>
                         </div>
                     </div>
                 </div>
@@ -37,8 +52,8 @@
         </div>
 
         <div class="p-6">
-            <h3 class="font-bold text-gray-800 mb-3">Course Overview</h3>
-            <p id="course-desc" class="text-gray-600 text-sm leading-relaxed">
+            <h3 class="font-bold text-gray-800 dark:text-white mb-3">Course Overview</h3>
+            <p id="course-desc" class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                 Loading description...
             </p>
         </div>
@@ -65,13 +80,13 @@
 
             lessons.forEach(lesson => {
                 const div = document.createElement('div');
-                div.className = 'lesson-card p-4 rounded-xl bg-gray-50 border border-gray-100 flex items-center mb-3 cursor-pointer';
+                div.className = 'lesson-card p-4 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-800 flex items-center mb-3 cursor-pointer';
                 div.innerHTML = `
-                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                        <span class="text-blue-600 font-bold">${lesson.id}</span>
+                    <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-800 flex items-center justify-center mr-4">
+                        <span class="text-blue-600 dark:text-blue-100 font-bold">${lesson.id}</span>
                     </div>
                     <div class="flex-1">
-                        <h4 class="font-semibold text-gray-800 text-sm">${lesson.title}</h4>
+                        <h4 class="font-semibold text-gray-800 dark:text-white text-sm">${lesson.title}</h4>
                         <span class="text-gray-400 text-xs">${lesson.duration}</span>
                     </div>
                     <div class="text-blue-500">
@@ -82,9 +97,9 @@
                 `;
                 div.onclick = () => {
                     // Send message back to Native
-                    window.ReactNativeWebView.postMessage(JSON.stringify({ 
-                        type: 'LESSON_CLICK', 
-                        lessonId: lesson.id 
+                    window.ReactNativeWebView.postMessage(JSON.stringify({
+                        type: 'LESSON_CLICK',
+                        lessonId: lesson.id
                     }));
                 };
                 lessonsList.appendChild(div);
@@ -100,4 +115,5 @@
         });
     </script>
 </body>
+
 </html>

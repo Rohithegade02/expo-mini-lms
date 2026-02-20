@@ -1,1 +1,1 @@
-export { CourseListContainer as CourseListScreen } from './CourseListContainer';
+export { default as CourseListScreen } from './CourseListContainer';

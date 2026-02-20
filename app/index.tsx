@@ -6,5 +6,5 @@ import React from 'react';
 export default function IndexPage() {
   const { isAuthenticated } = useAuth();
 
-  return <Redirect href={isAuthenticated ? ROUTES.tabs.courses : ROUTES.auth.login} />;
+  return <Redirect href={isAuthenticated ? ROUTES.tabs.courses : ROUTES.auth.register} />;
 }

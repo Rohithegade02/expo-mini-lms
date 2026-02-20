@@ -1,5 +1,6 @@
 import { Icon, Text } from '@/components/atoms';
 import { useCourses } from '@/hooks/use-courses';
+import { useTheme } from '@/hooks/use-theme';
 import { getInitialDataScript } from '@/lib/webview/inject-data';
 import { Asset } from 'expo-asset';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -15,6 +16,7 @@ export default function CourseContentPage() {
     const webViewRef = useRef<WebView>(null);
     const [isWebViewReady, setIsWebViewReady] = useState(false);
     const [htmlUri, setHtmlUri] = useState<string | null>(null);
+    const { isDark } = useTheme()
 
     const course = courses.find((c) => c.id === id);
 
@@ -54,12 +56,12 @@ export default function CourseContentPage() {
     }
 
     return (
-        <SafeAreaView className="flex-1 bg-white">
-            <View className="flex-row items-center px-6 py-4 border-b border-gray-100">
+        <SafeAreaView className="flex-1 bg-white dark:bg-gray-900">
+            <View className="flex-row items-center px-6 py-4 border-b border-gray-100 dark:border-gray-800">
                 <Pressable onPress={() => router.back()} className="mr-4">
-                    <Icon name="chevron-back" size={24} color="#1f2937" />
+                    <Icon name="chevron-back" size={24} color={isDark ? "white" : "black"} />
                 </Pressable>
-                <Text variant="h3" className="flex-1 text-gray-900" numberOfLines={1}>
+                <Text variant="h3" className="flex-1 text-gray-900 dark:text-white" numberOfLines={1}>
                     {course.title}
                 </Text>
             </View>
@@ -81,7 +83,7 @@ export default function CourseContentPage() {
                     className='flex-1'
                 />
                 {!isWebViewReady && (
-                    <View className="absolute inset-0 justify-center items-center bg-white">
+                    <View className="absolute inset-0 justify-center items-center bg-white dark:bg-gray-900">
                         <ActivityIndicator size="large" color="#2563eb" />
                     </View>
                 )}

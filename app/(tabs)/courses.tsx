@@ -1,11 +1,15 @@
+import { LoadingOverlay } from '@/components/atoms';
 import { ThemeToggle } from '@/components/molecules';
-import { CourseListScreen } from '@/screens/courses/list';
-import React from 'react';
+import React, { Suspense } from 'react';
+
+const LazyCourseListScreen = React.lazy(() => import('@/screens/courses/list').then(module => ({ default: module.CourseListScreen })))
 
 export default function CoursesPage() {
     return (
-        <ThemeToggle>
-            <CourseListScreen />
-        </ThemeToggle>
+        <Suspense fallback={<LoadingOverlay visible={true} message="Loading..." />}>
+            <ThemeToggle>
+                <LazyCourseListScreen />
+            </ThemeToggle>
+        </Suspense>
     );
 }

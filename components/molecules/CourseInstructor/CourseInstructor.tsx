@@ -19,7 +19,7 @@ export const CourseInstructor: React.FC<CourseInstructorProps> = memo(
                     </Text>
                 </View>
                 {isEnrolled ? (
-                    <Text variant="caption" className="text-gray-100 dark:text-gray-400 bg-success-500 px-2 py-1 rounded-full font-semibold">
+                    <Text variant="caption" className="text-gray-100 dark:text-gray-100 bg-success-500 px-2 py-1 rounded-full font-semibold">
                         Enrolled
                     </Text>
                 ) : (
