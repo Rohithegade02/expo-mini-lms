@@ -9,9 +9,14 @@ const RETRY_DELAY = 1000; // 1 second
 
 // Type for API error responses
 interface APIErrorResponse {
-    message?: string;
-    errors?: Record<string, string[]>;
+    statusCode: number;
+    success: boolean;
+    message: string;
+    data: null | Record<string, never>;
+    errors: Array<Record<string, string>>;
 }
+
+export type Payload = object | string | number | boolean | null | undefined | FormData;
 
 class APIClient {
     private client: AxiosInstance;
@@ -34,37 +39,37 @@ class APIClient {
     private setupInterceptors() {
         // Request interceptor - inject auth token
         this.client.interceptors.request.use(
-            async (config: InternalAxiosRequestConfig) => {
+            async <D>(config: InternalAxiosRequestConfig<D>) => {
                 const token = await authStorage.getAccessToken();
                 if (token && config.headers) {
                     config.headers.Authorization = `Bearer ${token}`;
                 }
                 return config;
             },
-            (error: AxiosError) => {
+            <D>(error: AxiosError<APIErrorResponse, D>) => {
                 return Promise.reject(error);
             }
         );
 
         // Response interceptor - handle errors and retry logic
         this.client.interceptors.response.use(
-            (response: AxiosResponse) => {
+            <D>(response: AxiosResponse<Payload, D>) => {
                 // Clear retry count on successful response
                 const requestKey = this.getRequestKey(response.config);
                 this.retryCount.delete(requestKey);
                 return response;
             },
-            async (error: AxiosError) => {
+            async <D>(error: AxiosError<APIErrorResponse, D>) => {
                 return this.handleResponseError(error);
             }
         );
     }
 
-    private getRequestKey(config: AxiosRequestConfig): string {
+    private getRequestKey<D>(config: AxiosRequestConfig<D>): string {
         return `${config.method}-${config.url}`;
     }
 
-    private async handleResponseError(error: AxiosError): Promise<any> {
+    private async handleResponseError<D>(error: AxiosError<APIErrorResponse, D>): Promise<AxiosResponse<Payload, D>> {
         const config = error.config;
         if (!config) {
             // Cannot retry or analyze request key without config
@@ -130,13 +135,15 @@ class APIClient {
             message = "Server is currently unavailable. Please try again later.";
         }
 
-        let formattedErrors = undefined;
-        if (data?.errors) {
-            formattedErrors = Object.entries(data.errors).map(([field, messages]) => {
-                return {
-                    field,
-                    message: Array.isArray(messages) ? messages[0] : String(messages)
-                };
+        let formattedErrors: Array<{ field: string; message: string }> | undefined = undefined;
+        if (Array.isArray(data?.errors)) {
+            formattedErrors = data.errors.flatMap(errorObj => {
+                return Object.entries(errorObj).map(([field, msg]) => {
+                    return {
+                        field,
+                        message: String(msg)
+                    };
+                });
             });
         }
 
@@ -168,28 +175,28 @@ class APIClient {
     }
 
     // Public methods
-    async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-        const response: AxiosResponse<T> = await this.client.get(url, config);
+    async get<T, D = Payload>(url: string, config?: AxiosRequestConfig<D>): Promise<T> {
+        const response: AxiosResponse<T, D> = await this.client.get(url, config);
         return response.data;
     }
 
-    async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-        const response: AxiosResponse<T> = await this.client.post(url, data, config);
+    async post<T, D = Payload>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<T> {
+        const response: AxiosResponse<T, D> = await this.client.post(url, data, config);
         return response.data;
     }
 
-    async put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-        const response: AxiosResponse<T> = await this.client.put(url, data, config);
+    async put<T, D = Payload>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<T> {
+        const response: AxiosResponse<T, D> = await this.client.put(url, data, config);
         return response.data;
     }
 
-    async patch<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-        const response: AxiosResponse<T> = await this.client.patch(url, data, config);
+    async patch<T, D = Payload>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<T> {
+        const response: AxiosResponse<T, D> = await this.client.patch(url, data, config);
         return response.data;
     }
 
-    async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-        const response: AxiosResponse<T> = await this.client.delete(url, config);
+    async delete<T, D = Payload>(url: string, config?: AxiosRequestConfig<D>): Promise<T> {
+        const response: AxiosResponse<T, D> = await this.client.delete(url, config);
         return response.data;
     }
 }
