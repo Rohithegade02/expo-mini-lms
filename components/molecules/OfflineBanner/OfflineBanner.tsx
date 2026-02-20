@@ -33,6 +33,7 @@ export const OfflineBanner: React.FC<OfflineBannerProps> = memo(
         const animatedStyle = useAnimatedStyle(() => ({
             opacity: opacity.value,
             transform: [{ scale: scale.value }],
+            zIndex: 9999,
         }));
 
         if (!isOffline) return null;

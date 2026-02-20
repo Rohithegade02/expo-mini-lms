@@ -78,10 +78,6 @@ export default Sentry.wrap(function RootLayout() {
     return <LoadingOverlay visible={true} message="Loading..." />;
   }
 
-  if (isOffline) {
-    return <OfflineBanner />;
-  }
-
   // App Lock Logic:
   // If user is logged in AND has biometrics enabled/available AND hasn't passed bio-check
   const shouldLock = isAuthenticated && isHardwareSupported && isEnrolled && !isBiometricAuthenticated;
@@ -116,6 +112,7 @@ export default Sentry.wrap(function RootLayout() {
             <Stack.Screen name="(courses)" options={{ headerShown: false }} />
           </Stack.Protected>
         </Stack>
+        <OfflineBanner />
       </SafeAreaProvider>
     </ErrorBoundary>
   );
