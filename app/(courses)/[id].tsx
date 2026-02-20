@@ -4,6 +4,5 @@ import React from 'react';
 
 export default function CourseDetailsPage() {
     const { id } = useLocalSearchParams<{ id: string }>();
-    console.log(id, 'id');
     return <CourseDetailsContainer />;
 }

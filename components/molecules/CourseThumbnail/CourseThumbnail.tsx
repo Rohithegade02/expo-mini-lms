@@ -6,7 +6,6 @@ import { CourseThumbnailProps } from './types';
 
 export const CourseThumbnail: React.FC<CourseThumbnailProps> = memo(
     ({ thumbnail, category, isBookmarked, onToggleBookmark, testID, accessibilityLabel }) => {
-        console.log(thumbnail, 'thumbnail');
         return (
 
 

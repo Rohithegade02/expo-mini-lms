@@ -160,7 +160,6 @@ export const useCourseStore = create<CourseStore>()(
                 set({ isSmartSearchLoading: true, error: null });
                 try {
                     const recommendations = await getSmartRecommendations(query, courses);
-                    console.log(recommendations, query, 'recommendations');
                     set({ smartRecommendations: recommendations });
                 } catch (error) {
                     const message = error instanceof Error ? error.message : 'Failed to get smart recommendations';

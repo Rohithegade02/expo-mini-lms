@@ -15,13 +15,11 @@ export const useNotifications = () => {
 
         // Listener for when a notification is received while the app is foregrounded
         notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-            console.log('Notification received:', notification);
         });
 
         // Listener for when a user interacts with a notification (taps it)
         responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
             const data = response.notification.request.content.data;
-            console.log('Notification response received:', data);
 
             // Handle navigation based on notification data
             if (data?.type === 'course' && data?.courseId) {

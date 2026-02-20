@@ -49,11 +49,10 @@ export const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
             FallbackComponent={ErrorFallback}
             onReset={() => {
                 // Reset any state that would cause the error to re-occur
-                console.log('Error boundary reset');
             }}
             onError={(error, info) => {
                 // Log the error to an analytics service here
-                console.error('ErrorBoundary caught an error:', error, info);
+                console.log('ErrorBoundary caught an error:', error, info);
             }}
         >
             {children}
