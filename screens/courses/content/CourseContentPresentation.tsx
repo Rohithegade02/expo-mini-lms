@@ -7,6 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 import { CourseContentPresentationProps } from './types';
 
+// This component is responsible for rendering the course content in a WebView.
 export const CourseContentPresentation: React.FC<CourseContentPresentationProps> = ({
     course,
     htmlUri,

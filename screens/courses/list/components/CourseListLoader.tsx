@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { CourseListLoaderProps } from '../types'
 import { CourseListHeader } from './CourseListHeader'
 
+// This component is responsible for rendering the loading state of the course list.
 const CourseListLoader = ({ orientation, searchQuery, onSearch, isSmartSearchLoading, onSmartSearch, testID, accessibilityLabel }: CourseListLoaderProps) => {
     return (
         <SafeAreaView className={clsx("flex-1 bg-white dark:bg-gray-900", orientation === 'landscape' ? 'px-16' : 'px-4')}>

@@ -3,10 +3,11 @@ import { useCourses } from '@/hooks/use-courses';
 import { useDebounce } from '@/hooks/use-debounce';
 import useOrientation from '@/hooks/use-orientation';
 import { RelativePathString, useRouter } from 'expo-router';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { CourseListPresentation } from './CourseListPresentation';
 
-const CourseListContainer: React.FC = () => {
+// This component is responsible for fetching and managing the course list data.
+const CourseListContainer: React.FC = memo(() => {
     const router = useRouter();
     const {
         filteredCourses,
@@ -71,7 +72,7 @@ const CourseListContainer: React.FC = () => {
             orientation={orientation}
         />
     );
-};
+});
 
 
 export default CourseListContainer;

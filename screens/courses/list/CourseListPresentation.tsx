@@ -12,6 +12,7 @@ import { CourseListHeader } from './components/CourseListHeader';
 import CourseListLoader from './components/CourseListLoader';
 import { CourseListPresentationProps } from './types';
 
+// This component is responsible for rendering the course list.
 export const CourseListPresentation: React.FC<CourseListPresentationProps> = memo(({
     courses,
     isLoading,

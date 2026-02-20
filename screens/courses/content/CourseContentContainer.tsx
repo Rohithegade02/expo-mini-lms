@@ -40,7 +40,6 @@ const CourseContentContainer: React.FC = () => {
             if (data.type === 'LESSON_CLICK') {
                 Alert.alert('Lesson Started', `You clicked on lesson ${data.lessonId}`);
             }
-            // Will add updateProgress / other handlers here later
         } catch (error) {
             console.error('Error parsing WebView message:', error);
         }

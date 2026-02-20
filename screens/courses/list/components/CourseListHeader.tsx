@@ -4,7 +4,7 @@ import React, { memo } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
 import { CourseListHeaderProps } from '../types';
 
-
+// This component is responsible for rendering the header of the course list.
 export const CourseListHeader = memo(({ searchQuery, onSearch, isSmartSearchLoading, onSmartSearch, testID, accessibilityLabel }: CourseListHeaderProps) => (
     <View className="pt-6 pb-4" testID={testID} accessibilityLabel={accessibilityLabel}>
         <Text variant="h2" className="text-gray-900 dark:text-white mb-2">Explore Courses</Text>

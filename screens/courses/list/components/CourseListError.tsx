@@ -5,6 +5,7 @@ import { Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { CourseListErrorProps } from '../types'
 
+// This component is responsible for rendering the error state of the course list.
 const CourseListError = ({ error, onRefresh, testID }: CourseListErrorProps) => {
     return (
         <SafeAreaView className="flex-1 bg-white justify-center items-center px-10" testID={testID ? `${testID}-error` : undefined}>
