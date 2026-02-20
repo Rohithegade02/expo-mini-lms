@@ -17,3 +17,25 @@ export interface ProfilePresentationProps {
     testID?: string;
     accessibilityLabel?: string;
 }
+
+
+export interface ProfileFooterProps {
+    version: string;
+    testID?: string;
+    accessibilityLabel?: string;
+}
+
+export interface ProfileHeaderProps {
+    user: User;
+    onUpdateAvatar: () => void;
+    testID?: string;
+    accessibilityLabel?: string;
+}
+
+export interface ProfileMenuItemProps {
+    item: MenuItem;
+    isLast: boolean;
+    isFirst?: boolean;
+    testID?: string;
+    accessibilityLabel?: string;
+}

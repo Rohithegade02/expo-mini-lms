@@ -1,17 +1,11 @@
 import { Avatar, Text } from '@/components/atoms';
 import { theme } from '@/constants/theme';
-import { User } from '@/types/auth';
 import { Ionicons } from '@expo/vector-icons';
 import React, { memo } from 'react';
 import { Pressable, View } from 'react-native';
+import { ProfileHeaderProps } from '../types';
 
-interface ProfileHeaderProps {
-    user: User;
-    onUpdateAvatar: () => void;
-    testID?: string;
-    accessibilityLabel?: string;
-}
-
+// This is the header component for the profile screen
 export const ProfileHeader = memo(({ user, onUpdateAvatar, testID, accessibilityLabel }: ProfileHeaderProps) => {
     const avatarSource =
         typeof user.avatar === 'string'

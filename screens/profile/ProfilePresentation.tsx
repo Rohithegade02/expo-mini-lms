@@ -7,6 +7,7 @@ import { ProfileHeader } from './components/ProfileHeader';
 import { ProfileMenuItem } from './components/ProfileMenuItem';
 import { MenuItem, ProfilePresentationProps } from './types';
 
+// This is the presentation component for the profile screen
 export const ProfilePresentation: React.FC<ProfilePresentationProps> = memo(({
     user,
     onLogout,
@@ -58,6 +59,7 @@ export const ProfilePresentation: React.FC<ProfilePresentationProps> = memo(({
                         onUpdateAvatar={onUpdateAvatar}
                     />
                 }
+                showsVerticalScrollIndicator={false}
                 className="flex-1"
                 testID={`${testID}-list`}
                 accessibilityLabel={`${testID}-list`}

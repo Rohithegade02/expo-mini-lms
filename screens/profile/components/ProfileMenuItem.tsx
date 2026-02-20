@@ -4,16 +4,9 @@ import { Ionicons } from '@expo/vector-icons';
 import clsx from 'clsx';
 import React, { memo } from 'react';
 import { Pressable, View } from 'react-native';
-import { MenuItem } from '../types';
+import { ProfileMenuItemProps } from '../types';
 
-interface ProfileMenuItemProps {
-    item: MenuItem;
-    isLast: boolean;
-    isFirst?: boolean;
-    testID?: string;
-    accessibilityLabel?: string;
-}
-
+// This is the menu item component for the profile screen
 export const ProfileMenuItem = memo(({ item, isLast, isFirst, testID, accessibilityLabel }: ProfileMenuItemProps) => (
     <Pressable
         onPress={item.onPress}

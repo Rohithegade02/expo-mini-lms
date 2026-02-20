@@ -5,6 +5,7 @@ import React, { memo, useCallback } from 'react';
 import { Alert } from 'react-native';
 import { ProfilePresentation } from './ProfilePresentation';
 
+// This is the container component for the profile screen
 export const ProfileContainer: React.FC = memo(() => {
     const { user, logout, isLoading, refreshProfile } = useAuth();
 
