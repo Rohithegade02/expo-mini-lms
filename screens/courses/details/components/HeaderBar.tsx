@@ -2,16 +2,9 @@ import { Icon } from '@/components/atoms';
 import { theme } from '@/constants/theme';
 import React, { memo } from 'react';
 import { Pressable, View } from 'react-native';
+import { HeaderBarProps } from '../types';
 
-interface HeaderBarProps {
-    isDark: boolean;
-    isBookmarked: boolean;
-    onBack: () => void;
-    onShare: () => void;
-    onToggleBookmark: () => void;
-    testID?: string;
-    accessibilityLabel?: string;
-}
+
 
 export const HeaderBar = memo(({
     isDark,

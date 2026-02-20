@@ -1,17 +1,9 @@
 import { Button, Text } from '@/components/atoms';
 import React, { memo } from 'react';
 import { View } from 'react-native';
+import { CourseFooterProps } from '../types';
 
-interface CourseFooterProps {
-    isDark: boolean;
-    price: number;
-    isEnrolled: boolean;
-    isLoading: boolean;
-    onEnroll: () => void;
-    onViewContent: () => void;
-    testID?: string;
-    accessibilityLabel?: string;
-}
+
 
 export const CourseFooter = memo(({
     isDark,

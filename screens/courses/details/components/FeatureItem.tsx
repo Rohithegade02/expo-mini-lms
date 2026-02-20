@@ -2,14 +2,8 @@ import { Icon, Text } from '@/components/atoms';
 import { theme } from '@/constants/theme';
 import React, { memo } from 'react';
 import { View } from 'react-native';
+import { FeatureItemProps } from '../types';
 
-interface FeatureItemProps {
-    isDark: boolean;
-    icon: string;
-    label: string;
-    testID?: string;
-    accessibilityLabel?: string;
-}
 
 export const FeatureItem = memo(({ isDark, icon, label, testID, accessibilityLabel }: FeatureItemProps) => (
     <View className="flex-row items-center px-6 py-3" testID={testID} accessibilityLabel={accessibilityLabel}>

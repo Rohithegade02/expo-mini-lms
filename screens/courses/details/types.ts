@@ -14,3 +14,40 @@ export interface CourseDetailsPresentationProps {
     testID?: string;
     accessibilityLabel?: string;
 }
+
+export interface CourseFooterProps {
+    isDark: boolean;
+    price: number;
+    isEnrolled: boolean;
+    isLoading: boolean;
+    onEnroll: () => void;
+    onViewContent: () => void;
+    testID?: string;
+    accessibilityLabel?: string;
+}
+export interface CourseHeaderProps {
+    isDark: boolean;
+    course: Course;
+    testID?: string;
+    accessibilityLabel?: string;
+}
+
+
+export interface FeatureItemProps {
+    isDark: boolean;
+    icon: string;
+    label: string;
+    testID?: string;
+    accessibilityLabel?: string;
+}
+
+
+export interface HeaderBarProps {
+    isDark: boolean;
+    isBookmarked: boolean;
+    onBack: () => void;
+    onShare: () => void;
+    onToggleBookmark: () => void;
+    testID?: string;
+    accessibilityLabel?: string;
+}

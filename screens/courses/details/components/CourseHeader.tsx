@@ -1,16 +1,10 @@
 import { Avatar, Icon, Text } from '@/components/atoms';
 import { theme } from '@/constants/theme';
-import { Course } from '@/types/course';
 import { Image } from 'expo-image';
 import React, { memo } from 'react';
 import { View } from 'react-native';
+import { CourseHeaderProps } from '../types';
 
-interface CourseHeaderProps {
-    isDark: boolean;
-    course: Course;
-    testID?: string;
-    accessibilityLabel?: string;
-}
 
 export const CourseHeader = memo(({ isDark, course, testID, accessibilityLabel }: CourseHeaderProps) => {
     return (
