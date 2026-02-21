@@ -72,7 +72,8 @@
           "project": "expo-mini-lms",
           "organization": "na-cci"
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true,

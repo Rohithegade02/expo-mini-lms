@@ -12,6 +12,7 @@ export const LoginFooter = memo((
 ) => (
     <View className="mt-6 pb-10">
         <Button
+            ph-label="login_button"
             label="Log In"
             onPress={onSubmit}
             isLoading={isLoading}

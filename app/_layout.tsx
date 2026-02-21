@@ -1,3 +1,4 @@
+import { AuthAnalyticsTracker, NavigationTracker } from '@/analytics';
 import { LoadingOverlay } from '@/components/atoms';
 import { OfflineBanner } from '@/components/molecules';
 import { ErrorBoundary } from '@/components/organisms';
@@ -11,6 +12,7 @@ import { notificationService } from '@/lib/notifications/notification-service';
 import { listenForSslPinningErrors, setupSslPinning } from '@/lib/security/ssl-pinning';
 import * as Sentry from '@sentry/react-native';
 import { Stack } from 'expo-router';
+import { PostHogProvider } from 'posthog-react-native';
 import React, { useEffect, useState } from 'react';
 import { AppState, Button, StatusBar, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -113,20 +115,40 @@ export default Sentry.wrap(function RootLayout() {
   }
 
   return (
-    <ErrorBoundary>
-      <SafeAreaProvider>
-        <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
-        <Stack>
-          <Stack.Protected guard={!isAuthenticated}>
-            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          </Stack.Protected>
-          <Stack.Protected guard={isAuthenticated}>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="(courses)" options={{ headerShown: false }} />
-          </Stack.Protected>
-        </Stack>
-        <OfflineBanner />
-      </SafeAreaProvider>
-    </ErrorBoundary>
+    <PostHogProvider apiKey={process.env.EXPO_PUBLIC_POSTHOG_API_KEY}
+      options={{
+        host: 'https://us.i.posthog.com', // or EU host: 'https://eu.i.posthog.com'
+        enableSessionReplay: true, // If using the separate session replay plugin
+        sessionReplayConfig: {
+          maskAllTextInputs: true,
+          maskAllImages: true,
+        },
+      }}
+      autocapture={{
+        captureTouches: true, // Tracks button presses automatically
+        captureScreens: false, // ⚠️ CRITICAL: Must be false for Expo Router / React Nav v7+
+      }}
+    >
+
+      <ErrorBoundary>
+        <SafeAreaProvider>
+          <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
+          <NavigationTracker />
+          <AuthAnalyticsTracker />
+          <Stack>
+            <Stack.Protected guard={!isAuthenticated}>
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+            </Stack.Protected>
+            <Stack.Protected guard={isAuthenticated}>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="(courses)" options={{ headerShown: false }} />
+            </Stack.Protected>
+          </Stack>
+          <OfflineBanner />
+        </SafeAreaProvider>
+      </ErrorBoundary>
+    </PostHogProvider>
   );
 });
+
+

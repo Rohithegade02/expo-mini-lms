@@ -15,7 +15,7 @@ export const CourseThumbnail: React.FC<CourseThumbnailProps> = memo(
                         {category}
                     </Text>
                 </View>
-                <Pressable onPress={onToggleBookmark} className="p-1">
+                <Pressable ph-label="bookmark_button" onPress={onToggleBookmark} className="p-1">
                     <Icon
                         name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
                         size={20}
