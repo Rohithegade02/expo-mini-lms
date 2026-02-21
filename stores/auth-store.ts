@@ -150,7 +150,7 @@ export const useAuthStore = create<AuthStore>()(
                         });
                     }
                 } catch (error) {
-                    console.error('Error loading user:', error);
+                    // console.error('Error loading user:', error);
                     // Clear auth state on error
                     set({
                         isAuthenticated: false,
