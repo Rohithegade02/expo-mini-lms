@@ -55,7 +55,7 @@ export const RegisterContainer: React.FC = () => {
             control={control}
             onSubmit={handleSubmit(onSubmit)}
             isLoading={isLoading}
-            onLoginPress={handleLoginPress}
+            onLoginPress={() => { }}
         />
     );
 };
