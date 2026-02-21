@@ -38,7 +38,7 @@ Sentry.init({
 });
 
 export default Sentry.wrap(function RootLayout() {
-  const { isAuthenticated, isLoading, loadUser } = useAuth();
+  const { isAuthenticated, isLoading, loadUser, authKey, setAuthKey } = useAuth();
   const [isReady, setIsReady] = useState(false);
   const { isDark } = useTheme();
   const { isOffline } = useNetwork();
@@ -51,8 +51,11 @@ export default Sentry.wrap(function RootLayout() {
     isLoading: isBiometricsLoading,
     isHardwareSupported
   } = useBiometrics({
-    auto: true,
-    reason: 'Authenticate to access the app'
+    auto: !authKey, // Only auto-prompt if not currently unlocked globally
+    reason: 'Authenticate to access the app',
+    onSuccess: () => {
+      setAuthKey(true);
+    }
   });
 
   useNotifications();
@@ -87,15 +90,15 @@ export default Sentry.wrap(function RootLayout() {
   }, []);
 
   // Wait for initial auth check and biometrics check if potentially relevant
-  const appIsLoading = isLoading || (!isReady) || (isAuthenticated && isBiometricsLoading);
+  const appIsLoading = isLoading || (!isReady) || (isAuthenticated && !authKey && isBiometricsLoading);
 
   if (appIsLoading) {
     return <LoadingOverlay visible={true} message="Loading..." />;
   }
 
   // App Lock Logic:
-  // If user is logged in AND has biometrics enabled/available AND hasn't passed bio-check
-  const shouldLock = isAuthenticated && isHardwareSupported && isEnrolled && !isBiometricAuthenticated;
+  // If user is logged in AND has biometrics enabled/available AND hasn't passed bio-check AND not already permanently unlocked
+  const shouldLock = isAuthenticated && isHardwareSupported && isEnrolled && !isBiometricAuthenticated && !authKey;
 
   if (shouldLock) {
     return (

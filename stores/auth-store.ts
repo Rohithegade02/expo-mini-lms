@@ -11,6 +11,7 @@ interface AuthActions {
     setLoading: (loading: boolean) => void;
     setError: (error: string | null) => void;
     clearError: () => void;
+    setAuthKey: (value: boolean) => void;
     login: (credentials: LoginCredentials) => Promise<void>;
     register: (data: RegisterData) => Promise<void>;
     logout: () => Promise<void>;
@@ -30,6 +31,7 @@ export const useAuthStore = create<AuthStore>()(
             isLoading: true,
             error: null,
             isAuthenticated: false,
+            authKey: false,
 
             // Actions
             setUser: (user) => {
@@ -96,6 +98,10 @@ export const useAuthStore = create<AuthStore>()(
                 set({ error: null });
             },
 
+            setAuthKey: (value: boolean) => {
+                set({ authKey: value });
+            },
+
             logout: async () => {
                 try {
                     set({ isLoading: true });
@@ -108,6 +114,7 @@ export const useAuthStore = create<AuthStore>()(
                         token: null,
                         refreshToken: null,
                         isAuthenticated: false,
+                        authKey: false,
                         error: null,
                         isLoading: false,
                     });
@@ -136,6 +143,7 @@ export const useAuthStore = create<AuthStore>()(
                         // No tokens found, user is not authenticated
                         set({
                             isAuthenticated: false,
+                            authKey: false,
                             user: null,
                             token: null,
                             refreshToken: null
@@ -146,6 +154,7 @@ export const useAuthStore = create<AuthStore>()(
                     // Clear auth state on error
                     set({
                         isAuthenticated: false,
+                        authKey: false,
                         user: null,
                         token: null,
                         refreshToken: null
@@ -171,9 +180,10 @@ export const useAuthStore = create<AuthStore>()(
         {
             name: 'auth-storage',
             storage: createJSONStorage(() => zustandStorage),
-            // Only persist user data, not tokens (tokens are in SecureStore)
+            // Only persist user data and authKey, not tokens (tokens are in SecureStore)
             partialize: (state) => ({
                 user: state.user,
+                authKey: state.authKey,
             }),
         }
     )

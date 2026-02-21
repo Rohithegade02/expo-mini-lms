@@ -12,7 +12,8 @@ export const useAuth = () => {
         token,
         isAuthenticated,
         isLoading,
-        error
+        error,
+        authKey
     } = useAuthStore(
         useShallow((state) => ({
             user: state.user,
@@ -20,6 +21,7 @@ export const useAuth = () => {
             isAuthenticated: state.isAuthenticated,
             isLoading: state.isLoading,
             error: state.error,
+            authKey: state.authKey,
         }))
     );
 
@@ -29,6 +31,7 @@ export const useAuth = () => {
     const setLoading = useAuthStore((state) => state.setLoading);
     const setError = useAuthStore((state) => state.setError);
     const clearError = useAuthStore((state) => state.clearError);
+    const setAuthKey = useAuthStore((state) => state.setAuthKey);
     const login = useAuthStore((state) => state.login);
     const register = useAuthStore((state) => state.register);
     const logout = useAuthStore((state) => state.logout);
@@ -47,6 +50,7 @@ export const useAuth = () => {
         isAuthenticated,
         isLoading,
         error,
+        authKey,
 
         // Actions
         setUser,
@@ -54,6 +58,7 @@ export const useAuth = () => {
         setLoading,
         setError,
         clearError,
+        setAuthKey,
         login,
         register,
         logout,
