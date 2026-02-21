@@ -1,11 +1,9 @@
 import { AuthAnalyticsTracker, NavigationTracker } from '@/analytics';
 import { LoadingOverlay } from '@/components/atoms';
-import { OfflineBanner } from '@/components/molecules';
+import { AppLockScreen, OfflineBanner } from '@/components/molecules';
 import { ErrorBoundary } from '@/components/organisms';
-import { theme } from '@/constants/theme';
 import { useAuth } from '@/hooks/use-auth';
 import { useBiometrics } from '@/hooks/use-biometrics';
-import useNetwork from '@/hooks/use-network';
 import { useNotifications } from '@/hooks/use-notifications';
 import { useTheme } from '@/hooks/use-theme';
 import { notificationService } from '@/lib/notifications/notification-service';
@@ -14,35 +12,24 @@ import * as Sentry from '@sentry/react-native';
 import { Stack } from 'expo-router';
 import { PostHogProvider } from 'posthog-react-native';
 import React, { useEffect, useState } from 'react';
-import { AppState, Button, StatusBar, Text, View } from 'react-native';
+import { AppState, StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import '../global.css';
 
+// Sentry setup
 Sentry.init({
   dsn: 'https://3797e3a0d067cd3c03216c0bac17c7bc@o4508366860582912.ingest.us.sentry.io/4510911264391168',
-
-  // Adds more context data to events (IP address, cookies, user, etc.)
-  // For more information, visit: https://docs.sentry.io/platforms/react-native/data-management/data-collected/
   sendDefaultPii: true,
-
-  // Enable Logs
   enableLogs: true,
-
-  // Configure Session Replay
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1,
   integrations: [Sentry.mobileReplayIntegration(), Sentry.feedbackIntegration()],
-
-  // uncomment the line below to enable Spotlight (https://spotlightjs.com)
-  // spotlight: __DEV__,
 });
 
 export default Sentry.wrap(function RootLayout() {
   const { isAuthenticated, isLoading, loadUser, authKey, setAuthKey } = useAuth();
   const [isReady, setIsReady] = useState(false);
   const { isDark } = useTheme();
-  const { isOffline } = useNetwork();
-  console.log('isOffline', isOffline);
 
   const {
     isEnrolled,
@@ -51,7 +38,7 @@ export default Sentry.wrap(function RootLayout() {
     isLoading: isBiometricsLoading,
     isHardwareSupported
   } = useBiometrics({
-    auto: !authKey, // Only auto-prompt if not currently unlocked globally
+    auto: !authKey,
     reason: 'Authenticate to access the app',
     onSuccess: () => {
       setAuthKey(true);
@@ -101,35 +88,22 @@ export default Sentry.wrap(function RootLayout() {
   const shouldLock = isAuthenticated && isHardwareSupported && isEnrolled && !isBiometricAuthenticated && !authKey;
 
   if (shouldLock) {
-    return (
-      <SafeAreaProvider>
-        <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
-        <View className="flex-1 items-center justify-center bg-background p-4" style={{ backgroundColor: isDark ? theme.dark.colors.background : theme.light.colors.background }}>
-          <Text className="text-xl font-bold mb-4 text-foreground" style={{ color: isDark ? theme.dark.colors.white : theme.light.colors.gray[800] }}>
-            App Locked
-          </Text>
-          <Button
-            title="Unlock App"
-            onPress={() => authenticate()}
-          />
-        </View>
-      </SafeAreaProvider>
-    );
+    return <AppLockScreen isDark={isDark} onAuthenticate={authenticate} />;
   }
 
   return (
     <PostHogProvider apiKey={process.env.EXPO_PUBLIC_POSTHOG_API_KEY}
       options={{
-        host: 'https://us.i.posthog.com', // or EU host: 'https://eu.i.posthog.com'
-        enableSessionReplay: true, // If using the separate session replay plugin
+        host: 'https://us.i.posthog.com',
+        enableSessionReplay: true,
         sessionReplayConfig: {
           maskAllTextInputs: true,
           maskAllImages: true,
         },
       }}
       autocapture={{
-        captureTouches: true, // Tracks button presses automatically
-        captureScreens: false, // ⚠️ CRITICAL: Must be false for Expo Router / React Nav v7+
+        captureTouches: true,
+        captureScreens: false,
       }}
     >
 
