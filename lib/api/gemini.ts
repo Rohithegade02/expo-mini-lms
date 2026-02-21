@@ -1,6 +1,7 @@
 import { GoogleGenAI } from '@google/genai';
 import { Course } from '../../types/course';
 
+// This function is used to get the Gemini client
 const getGeminiClient = () => {
     const apiKey = process.env.EXPO_PUBLIC_GEMINI_API_KEY;
     if (!apiKey) {

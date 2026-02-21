@@ -5,6 +5,7 @@ import React, { memo } from 'react';
 import { Pressable, View } from 'react-native';
 import { ThemeToggleProps } from './types';
 
+// This component is used to display a theme toggle
 export const ThemeToggle: React.FC<ThemeToggleProps> = memo(({
     children,
     testID = 'theme-toggle-wrapper',

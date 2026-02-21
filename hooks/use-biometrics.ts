@@ -19,6 +19,7 @@ interface UseBiometricsOptions {
     onError?: (error: string) => void;
 }
 
+// This hook is used to handle biometric authentication
 export function useBiometrics(options?: UseBiometricsOptions): UseBiometricsReturn {
     const [isHardwareSupported, setIsHardwareSupported] = useState(false);
     const [isEnrolled, setIsEnrolled] = useState(false);

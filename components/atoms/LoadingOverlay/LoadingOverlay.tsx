@@ -4,6 +4,7 @@ import { ActivityIndicator, View } from 'react-native';
 import { Text } from '../Text/Text';
 import { LoadingOverlayProps } from './types';
 
+// This component is used to display a loading overlay
 export const LoadingOverlay: React.FC<LoadingOverlayProps> = memo(({ visible, message, testID, accessibilityLabel }) => {
     if (!visible) return null;
 

@@ -1,6 +1,7 @@
 import * as Network from 'expo-network';
 import { useEffect, useState } from 'react';
 
+// This hook is used to check the network status
 export const useNetwork = () => {
     const [isOffline, setIsOffline] = useState(false);
 

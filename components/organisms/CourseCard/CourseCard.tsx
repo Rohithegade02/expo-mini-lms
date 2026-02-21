@@ -10,6 +10,7 @@ import React, { memo, useCallback } from 'react';
 import { Pressable, View } from 'react-native';
 import { CourseCardProps } from './types';
 
+// This component is used to display a course card
 export const CourseCard: React.FC<CourseCardProps> = memo(
     ({ course, onPress, onToggleBookmark, testID, accessibilityLabel }) => {
 

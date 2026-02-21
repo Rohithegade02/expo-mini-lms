@@ -3,6 +3,7 @@ import React, { memo } from 'react';
 import { View } from 'react-native';
 import { CourseProgressProps } from './types';
 
+// This component is used to display a course progress
 export const CourseProgress: React.FC<CourseProgressProps> = memo(({ progress, testID, accessibilityLabel }) => {
     return (
         <View className="mt-3" testID={testID} accessibilityLabel={accessibilityLabel}>

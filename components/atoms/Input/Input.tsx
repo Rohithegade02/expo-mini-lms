@@ -1,6 +1,6 @@
 import { theme } from '@/constants/theme';
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import {
     Pressable,
     TextInput,
@@ -9,7 +9,9 @@ import {
 import { Icon } from '../Icon/Icon';
 import { Text } from '../Text/Text';
 import { InputProps } from './types';
-export const Input: React.FC<InputProps> = ({
+
+// This component is used to display an input
+export const Input: React.FC<InputProps> = memo(({
     label,
     error,
     leftIcon,
@@ -71,4 +73,6 @@ export const Input: React.FC<InputProps> = ({
             )}
         </View>
     );
-};
+});
+
+Input.displayName = 'Input';

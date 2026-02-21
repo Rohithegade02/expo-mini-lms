@@ -2,6 +2,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { usePostHog } from "posthog-react-native";
 import { useEffect } from "react";
 
+// This component is used to track authentication events
 export function AuthAnalyticsTracker() {
     const posthog = usePostHog();
     const { user, isAuthenticated } = useAuth();

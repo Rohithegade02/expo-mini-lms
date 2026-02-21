@@ -1,7 +1,7 @@
 import { theme } from '@/constants/theme';
 import clsx from 'clsx';
 import * as Haptics from 'expo-haptics';
-import React from 'react';
+import React, { memo } from 'react';
 import {
     ActivityIndicator,
     GestureResponderEvent,
@@ -33,7 +33,8 @@ const sizeStyles = new Map<ButtonSize, string>([
     ['lg', 'px-6 py-4'],
 ]);
 
-export const Button: React.FC<ButtonProps> = ({
+// This component is used to display a button
+export const Button: React.FC<ButtonProps> = memo(({
     label,
     variant = 'primary',
     size = 'md',
@@ -85,4 +86,7 @@ export const Button: React.FC<ButtonProps> = ({
             )}
         </Pressable>
     );
-};
+});
+
+
+Button.displayName = 'Button';

@@ -4,6 +4,7 @@ import React, { memo } from 'react';
 import { Pressable, View } from 'react-native';
 import { CourseThumbnailProps } from './types';
 
+// This component is used to display a course thumbnail
 export const CourseThumbnail: React.FC<CourseThumbnailProps> = memo(
     ({ thumbnail, category, isBookmarked, onToggleBookmark, testID, accessibilityLabel }) => {
         return (

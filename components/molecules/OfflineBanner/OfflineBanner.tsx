@@ -11,6 +11,7 @@ import Animated, {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { OfflineBannerProps } from './types';
 
+// This component is used to display an offline banner
 export const OfflineBanner: React.FC<OfflineBannerProps> = memo(
     () => {
         const { isOffline } = useNetwork();

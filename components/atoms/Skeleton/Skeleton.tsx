@@ -1,9 +1,10 @@
 import clsx from 'clsx';
-import React, { useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { Animated } from 'react-native';
 import { SkeletonProps } from './types';
 
-export const Skeleton: React.FC<SkeletonProps> = ({
+// This component is used to display a skeleton
+export const Skeleton: React.FC<SkeletonProps> = memo(({
     width = '100%',
     height = 20,
     borderRadius = 8,
@@ -41,4 +42,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
             {...props}
         />
     );
-};
+});
+
+Skeleton.displayName = 'Skeleton';
+

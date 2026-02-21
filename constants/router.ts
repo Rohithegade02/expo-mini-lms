@@ -1,3 +1,4 @@
+// This file contains all the routes for the app
 export const ROUTES = {
     auth: {
         login: '/(auth)/login',

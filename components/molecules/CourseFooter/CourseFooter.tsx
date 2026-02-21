@@ -1,3 +1,4 @@
+// This component is used to display a course footer
 import { Text } from '@/components/atoms';
 import React, { memo } from 'react';
 import { View } from 'react-native';

@@ -4,6 +4,7 @@ import React, { memo } from 'react';
 import { View } from 'react-native';
 import { CourseInstructorProps } from './types';
 
+// This component is used to display a course instructor
 export const CourseInstructor: React.FC<CourseInstructorProps> = memo(
     ({ instructor, rating, isEnrolled, testID, accessibilityLabel }) => {
         return (

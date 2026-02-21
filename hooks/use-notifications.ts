@@ -4,6 +4,7 @@ import { RelativePathString, useRouter } from 'expo-router';
 import { useEffect, useRef } from 'react';
 import { notificationService } from '../lib/notifications/notification-service';
 
+// This hook is used to handle notifications
 export const useNotifications = () => {
     const router = useRouter();
     const notificationListener = useRef<Notifications.EventSubscription>(null);

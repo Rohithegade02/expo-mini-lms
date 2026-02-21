@@ -2,7 +2,7 @@ import React, { memo, useMemo } from 'react';
 import { Text as RNText } from 'react-native';
 import { TextProps, variantStyles } from './types';
 
-
+// This component is used to display text
 export const Text: React.FC<TextProps> = memo(({
     variant = 'body',
     color,
@@ -16,3 +16,5 @@ export const Text: React.FC<TextProps> = memo(({
 
     return <RNText className={combinedClassName} style={style} {...props} />;
 });
+
+Text.displayName = 'Text';

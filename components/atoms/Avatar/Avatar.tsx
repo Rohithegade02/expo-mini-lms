@@ -5,7 +5,7 @@ import { Image } from 'expo-image';
 import React, { memo, useMemo } from 'react';
 import { View } from 'react-native';
 
-
+// This component is used to display an avatar
 export const Avatar: React.FC<AvatarProps> = memo(({
     source,
     name,
@@ -58,3 +58,6 @@ export const Avatar: React.FC<AvatarProps> = memo(({
         </View>
     );
 });
+
+
+Avatar.displayName = 'Avatar';
