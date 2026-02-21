@@ -141,9 +141,10 @@ export const useAuthStore = create<AuthStore>()(
                         set({ user: response.data });
                     } else {
                         // No tokens found, user is not authenticated
+                        // NOTE: Do NOT reset authKey here — it is persisted separately via MMKV
+                        // and should only be reset on logout.
                         set({
                             isAuthenticated: false,
-                            authKey: false,
                             user: null,
                             token: null,
                             refreshToken: null
@@ -152,9 +153,10 @@ export const useAuthStore = create<AuthStore>()(
                 } catch (error) {
                     // console.error('Error loading user:', error);
                     // Clear auth state on error
+                    // NOTE: Do NOT reset authKey here — it is persisted separately via MMKV
+                    // and should only be reset on logout.
                     set({
                         isAuthenticated: false,
-                        authKey: false,
                         user: null,
                         token: null,
                         refreshToken: null
@@ -180,7 +182,6 @@ export const useAuthStore = create<AuthStore>()(
         {
             name: 'auth-storage',
             storage: createJSONStorage(() => zustandStorage),
-            // Only persist user data and authKey, not tokens (tokens are in SecureStore)
             partialize: (state) => ({
                 user: state.user,
                 authKey: state.authKey,

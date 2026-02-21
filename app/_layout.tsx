@@ -1,6 +1,6 @@
 import { AuthAnalyticsTracker, NavigationTracker } from '@/analytics';
 import { LoadingOverlay } from '@/components/atoms';
-import { AppLockScreen, OfflineBanner } from '@/components/molecules';
+import { OfflineBanner } from '@/components/molecules';
 import { ErrorBoundary } from '@/components/organisms';
 import { useAuth } from '@/hooks/use-auth';
 import { useBiometrics } from '@/hooks/use-biometrics';
@@ -30,7 +30,6 @@ export default Sentry.wrap(function RootLayout() {
   const { isAuthenticated, isLoading, loadUser, authKey, setAuthKey } = useAuth();
   const [isReady, setIsReady] = useState(false);
   const { isDark } = useTheme();
-
   const {
     isEnrolled,
     isBiometricAuthenticated,
@@ -83,13 +82,13 @@ export default Sentry.wrap(function RootLayout() {
     return <LoadingOverlay visible={true} message="Loading..." />;
   }
 
-  // App Lock Logic:
-  // If user is logged in AND has biometrics enabled/available AND hasn't passed bio-check AND not already permanently unlocked
-  const shouldLock = isAuthenticated && isHardwareSupported && isEnrolled && !isBiometricAuthenticated && !authKey;
+  // // App Lock Logic:
+  // // If user is logged in AND has biometrics enabled/available AND hasn't passed bio-check AND not already permanently unlocked
+  // const shouldLock = isAuthenticated && isHardwareSupported && isEnrolled && !isBiometricAuthenticated && !authKey;
 
-  if (shouldLock) {
-    return <AppLockScreen isDark={isDark} onAuthenticate={authenticate} />;
-  }
+  // if (shouldLock) {
+  //   return <AppLockScreen isDark={isDark} onAuthenticate={authenticate} />;
+  // }
 
   return (
     <PostHogProvider apiKey={process.env.EXPO_PUBLIC_POSTHOG_API_KEY}
