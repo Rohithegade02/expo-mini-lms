@@ -57,7 +57,7 @@ export const CourseDetailsContainer: React.FC = () => {
     }, [course, router]);
 
     if (!course) {
-        return null; // Or show error state
+        return null;
     }
 
     return (

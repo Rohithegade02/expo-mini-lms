@@ -4,7 +4,7 @@
     "slug": "expo-mini-lms",
     "version": "1.0.0",
     "orientation": "default",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/AppIcon.png",
     "scheme": "expominilms",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
