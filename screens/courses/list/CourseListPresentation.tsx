@@ -58,7 +58,7 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
     return (
         <View
             className={clsx('flex-1 bg-white dark:bg-gray-900', orientation === 'landscape' ? 'px-16' : 'px-4')}
-            style={{ paddingTop: top, paddingBottom: top + 20 }}
+            style={{ paddingTop: top }}
             testID={testID}
             accessibilityLabel={accessibilityLabel}
         >
@@ -89,6 +89,7 @@ export const CourseListPresentation: React.FC<CourseListPresentationProps> = mem
                         </Text>
                     </View>
                 }
+                ListFooterComponent={<View className="h-20 bg-transparent" />}
                 recycleItems
                 testID={`${testID}-list`}
                 accessibilityLabel={`${testID}-list`}
