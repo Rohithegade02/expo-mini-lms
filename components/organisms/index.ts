@@ -1,5 +1,5 @@
-export { CourseCard } from './CourseCard/CourseCard';
-export { ErrorBoundary } from './ErrorBoundary/ErrorBoundary';
+export { CourseCard } from './CourseCard';
+export { ErrorBoundary } from './ErrorBoundary';
 
 export * from './CourseCard/types';
 export * from './ErrorBoundary/types';

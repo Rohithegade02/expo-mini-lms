@@ -1,5 +1,5 @@
 import { Icon, Text } from '@/components/atoms';
-import { CourseCard } from '@/components/organisms/CourseCard/CourseCard';
+import { CourseCard } from '@/components/organisms';
 import { theme } from '@/constants/theme';
 import { Course } from '@/types/course';
 import { LegendList } from '@legendapp/list';
