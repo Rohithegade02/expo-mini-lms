@@ -48,6 +48,7 @@ export const Avatar: React.FC<AvatarProps> = memo(({
                     style={{ width: sizeValue, height: sizeValue }}
                     contentFit="cover"
                     transition={200}
+                    cachePolicy="memory"
                 />
             ) : (
                 <Text variant="label" className="text-gray-700 dark:text-gray-300">

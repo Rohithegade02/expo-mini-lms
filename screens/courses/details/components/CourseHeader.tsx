@@ -11,6 +11,7 @@ const Thumbnail = memo(({ uri }: { uri: string }) => (
         className="w-full h-56"
         contentFit="cover"
         transition={200}
+        cachePolicy="memory"
     />
 ));
 
